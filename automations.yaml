@@ -1,0 +1,95 @@
+- id: '1704106743392'
+  alias: 'Energy: Octopus Flux Tariffs'
+  description: Sets the tariff
+  trigger:
+  - platform: time
+    at: input_datetime.off_peak_energy_start
+    variables:
+      tariff: eco
+  - platform: time
+    at: input_datetime.off_peak_energy_end
+    variables:
+      tariff: day
+  - platform: time
+    at: input_datetime.peak_energy_start
+    variables:
+      tariff: peak
+  - platform: time
+    at: input_datetime.peak_energy_end
+    variables:
+      tariff: day
+  action:
+  - service: select.select_option
+    target:
+      entity_id: select.grid_consumption_house
+    data:
+      option: '{{ tariff }}'
+  - service: select.select_option
+    target:
+      entity_id: select.grid_consumption_workshop
+    data:
+      option: '{{ tariff }}'
+  - service: select.select_option
+    target:
+      entity_id: select.feed_in_house
+    data:
+      option: '{{ tariff }}'
+  - service: select.select_option
+    target:
+      entity_id: select.feed_in_workshop
+    data:
+      option: '{{ tariff }}'
+  mode: single
+- id: '1704185991516'
+  alias: 'Energy: Battery Max SoC setting'
+  description: Sets the Max SoC according to the time of day based on tariffs using
+    the input number values on dashboard
+  trigger:
+  - platform: time
+    at: input_datetime.off_peak_energy_start
+    variables:
+      maxSoC: '{{ states(''input_number.max_soc_eco'') | float(states(''number.workshop_min_soc''))
+        }}'
+  - platform: time
+    at: input_datetime.off_peak_energy_end
+    variables:
+      maxSoC: '{{ states(''input_number.max_soc_day'') | float(states(''number.workshop_min_soc''))
+        }}'
+  - platform: time
+    at: input_datetime.peak_energy_start
+    variables:
+      maxSoC: '{{ states(''input_number.max_soc_peak'') | float(states(''number.workshop_min_soc''))
+        }}'
+  - platform: time
+    at: input_datetime.peak_energy_end
+    variables:
+      maxSoC: '{{ states(''input_number.max_soc_day'') | float(states(''number.workshop_min_soc''))
+        }}'
+  condition: []
+  action:
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_max_soc
+    data:
+      value: '{{ maxSoC }}'
+  mode: single
+- id: '1706128884321'
+  alias: 'Energy: Flux tariff: Work Mode around peak tariff times'
+  description: Sets the inverter's Work Mode around peak tariff times
+  trigger:
+  - platform: time
+    at: input_datetime.peak_energy_start
+    variables:
+      workmode: Feed-in First
+  - platform: time
+    at: input_datetime.peak_energy_end
+    variables:
+      workmode: Self Use
+  condition: []
+  action:
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: '{{ workmode }}'
+  mode: single

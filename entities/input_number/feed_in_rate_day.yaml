@@ -1,0 +1,12 @@
+# These are rates used for the pricing on Energy dashboard Utility Meters
+# see http://farmington:8123/developer-tools/state
+# https://www.home-assistant.io/integrations/input_number/
+
+feed_in_rate_day:
+  name: Feed-in Rate Day
+  min: 0
+  max: 1
+  step: 0.0001
+  mode: box
+  icon: mdi:currency-gbp
+  unit_of_measurement: GBP/kWh

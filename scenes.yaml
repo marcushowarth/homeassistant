@@ -1,0 +1,1429 @@
+- id: '1706129890265'
+  name: Early rise
+  entities:
+    light.extension_lamp:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 76
+      friendly_name: Extension lamp
+      supported_features: 0
+      state: 'on'
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 128
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 120
+      - 86
+      rgb_color:
+      - 35
+      - 255
+      - 35
+      xy_color:
+      - 0.181
+      - 0.724
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'on'
+    light.pool_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 64
+      friendly_name: Pool East
+      supported_features: 0
+      state: 'on'
+    light.pool_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 64
+      friendly_name: Pool West
+      supported_features: 0
+      state: 'on'
+    light.workshop_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 64
+      friendly_name: Workshop East
+      supported_features: 0
+      state: 'on'
+    light.workshop_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 64
+      friendly_name: Workshop West
+      supported_features: 0
+      state: 'on'
+    light.patio_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 64
+      friendly_name: Patio East
+      supported_features: 0
+      state: 'on'
+    light.patio_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 64
+      friendly_name: Patio West
+      supported_features: 0
+      state: 'on'
+    light.controller_rgb_c1f2c0:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 112.47
+      - 96.863
+      rgb_color:
+      - 39
+      - 255
+      - 8
+      xy_color:
+      - 0.183
+      - 0.735
+      effect:
+      ip_address: 192.168.5.47
+      friendly_name: Bar strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f2c0_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.47
+      icon: mdi:speedometer
+      friendly_name: Bar strip light Effect speed
+      state: '100'
+  icon: mdi:coffee-maker-check-outline
+  metadata: {}
+- id: '1707082844684'
+  name: Garden on
+  entities:
+    light.pool_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Pool East
+      supported_features: 0
+      state: 'on'
+    light.pool_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Pool West
+      supported_features: 0
+      state: 'on'
+    light.workshop_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Workshop East
+      supported_features: 0
+      state: 'on'
+    light.workshop_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Workshop West
+      supported_features: 0
+      state: 'on'
+    light.patio_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Patio East
+      supported_features: 0
+      state: 'on'
+    light.patio_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Patio West
+      supported_features: 0
+      state: 'on'
+  metadata: {}
+  icon: mdi:lightbulb-multiple
+- id: '1707082980959'
+  name: Garden off
+  entities:
+    light.pool_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode:
+      brightness:
+      friendly_name: Pool East
+      supported_features: 0
+      state: 'off'
+    light.pool_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode:
+      brightness:
+      friendly_name: Pool West
+      supported_features: 0
+      state: 'off'
+    light.workshop_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode:
+      brightness:
+      friendly_name: Workshop East
+      supported_features: 0
+      state: 'off'
+    light.workshop_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode:
+      brightness:
+      friendly_name: Workshop West
+      supported_features: 0
+      state: 'off'
+    light.patio_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode:
+      brightness:
+      friendly_name: Patio East
+      supported_features: 0
+      state: 'off'
+    light.patio_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode:
+      brightness:
+      friendly_name: Patio West
+      supported_features: 0
+      state: 'off'
+  metadata: {}
+  icon: mdi:lightbulb-multiple-off
+- id: '1707083693289'
+  name: Party mode
+  entities:
+    light.controller_rgb_c1f2c0:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 312.471
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 202
+      xy_color:
+      - 0.459
+      - 0.189
+      effect:
+      ip_address: 192.168.5.47
+      friendly_name: Bar strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f2c0_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.47
+      icon: mdi:speedometer
+      friendly_name: Bar strip light Effect speed
+      state: '100'
+    light.controller_rgb_c1f544:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 300
+      - 72.157
+      rgb_color:
+      - 255
+      - 71
+      - 255
+      xy_color:
+      - 0.38
+      - 0.17
+      effect:
+      ip_address: 192.168.5.137
+      friendly_name: Utility Strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f544_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.137
+      icon: mdi:speedometer
+      friendly_name: Utility Strip light Effect speed
+      state: '50'
+    light.extension_lamp:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 64
+      friendly_name: Extension lamp
+      supported_features: 0
+      state: 'on'
+    light.landing_light:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 10
+      friendly_name: Landing light
+      supported_features: 0
+      state: 'on'
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 194
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 277
+      - 41
+      rgb_color:
+      - 214
+      - 150
+      - 255
+      xy_color:
+      - 0.311
+      - 0.21
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'on'
+    switch.tv:
+      device_class: outlet
+      friendly_name: TV
+      state: 'on'
+    switch.fridge_2:
+      device_class: outlet
+      friendly_name: 'Fridge '
+      state: 'on'
+  icon: mdi:amplifier
+  metadata: {}
+- id: '1707217791586'
+  name: Lighting (Purple)
+  entities:
+    light.controller_rgb_c1f2c0:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 302.264
+      - 83.137
+      rgb_color:
+      - 255
+      - 43
+      - 247
+      xy_color:
+      - 0.393
+      - 0.165
+      effect:
+      ip_address: 192.168.5.47
+      friendly_name: Bar strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f2c0_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.47
+      icon: mdi:speedometer
+      friendly_name: Bar strip light Effect speed
+      state: '100'
+    light.controller_rgb_c1f544:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 295.802
+      - 95.294
+      rgb_color:
+      - 238
+      - 12
+      - 255
+      xy_color:
+      - 0.364
+      - 0.146
+      effect:
+      ip_address: 192.168.5.137
+      friendly_name: Utility Strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f544_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.137
+      icon: mdi:speedometer
+      friendly_name: Utility Strip light Effect speed
+      state: '50'
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 181
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 300
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 255
+      xy_color:
+      - 0.385
+      - 0.155
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'on'
+    light.controller_rgb_c1f45a:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 301.21
+      - 97.255
+      rgb_color:
+      - 255
+      - 7
+      - 250
+      xy_color:
+      - 0.392
+      - 0.158
+      effect:
+      ip_address: 192.168.5.87
+      friendly_name: Hallway Strip Light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f45a_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.87
+      icon: mdi:speedometer
+      friendly_name: Hallway Strip Light Effect speed
+      state: '50'
+  icon: mdi:led-strip-variant
+  metadata: {}
+- id: '1707217867570'
+  name: Lighting (Blue)
+  entities:
+    light.controller_rgb_c1f2c0:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 181
+      hs_color:
+      - 220.781
+      - 50.196
+      rgb_color:
+      - 127
+      - 168
+      - 255
+      xy_color:
+      - 0.208
+      - 0.212
+      effect:
+      ip_address: 192.168.5.47
+      friendly_name: Bar strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f2c0_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.47
+      icon: mdi:speedometer
+      friendly_name: Bar strip light Effect speed
+      state: '100'
+    light.controller_rgb_c1f544:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 133
+      hs_color:
+      - 199.898
+      - 76.863
+      rgb_color:
+      - 59
+      - 190
+      - 255
+      xy_color:
+      - 0.159
+      - 0.238
+      effect:
+      ip_address: 192.168.5.137
+      friendly_name: Utility Strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f544_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.137
+      icon: mdi:speedometer
+      friendly_name: Utility Strip light Effect speed
+      state: '50'
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 127
+      - 174
+      - 255
+      xy_color:
+      - 0.207
+      - 0.22
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'on'
+    light.controller_rgb_c1f45a:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 217.778
+      - 84.706
+      rgb_color:
+      - 39
+      - 119
+      - 255
+      xy_color:
+      - 0.148
+      - 0.128
+      effect:
+      ip_address: 192.168.5.87
+      friendly_name: Hallway Strip Light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f45a_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.87
+      icon: mdi:speedometer
+      friendly_name: Hallway Strip Light Effect speed
+      state: '50'
+  icon: mdi:led-strip-variant
+  metadata: {}
+- id: '1707229963331'
+  name: Lighting (Green)
+  entities:
+    light.controller_rgb_c1f2c0:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 130
+      hs_color:
+      - 127.102
+      - 96.078
+      rgb_color:
+      - 10
+      - 255
+      - 39
+      xy_color:
+      - 0.173
+      - 0.727
+      effect:
+      ip_address: 192.168.5.47
+      friendly_name: Bar strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f2c0_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.47
+      icon: mdi:speedometer
+      friendly_name: Bar strip light Effect speed
+      state: '100'
+    light.controller_rgb_c1f544:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 133
+      hs_color:
+      - 121.7
+      - 96.863
+      rgb_color:
+      - 8
+      - 255
+      - 15
+      xy_color:
+      - 0.174
+      - 0.741
+      effect:
+      ip_address: 192.168.5.137
+      friendly_name: Utility Strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f544_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.137
+      icon: mdi:speedometer
+      friendly_name: Utility Strip light Effect speed
+      state: '50'
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 196
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 122
+      - 95
+      rgb_color:
+      - 12
+      - 255
+      - 20
+      xy_color:
+      - 0.174
+      - 0.739
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'on'
+    light.controller_rgb_c1f45a:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 123.103
+      - 90.98
+      rgb_color:
+      - 23
+      - 255
+      - 35
+      xy_color:
+      - 0.176
+      - 0.727
+      effect:
+      ip_address: 192.168.5.87
+      friendly_name: Hallway Strip Light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f45a_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.87
+      icon: mdi:speedometer
+      friendly_name: Hallway Strip Light Effect speed
+      state: '50'
+  icon: mdi:led-strip-variant
+  metadata: {}
+- id: '1707233428389'
+  name: Lighting (Off)
+  entities:
+    light.controller_rgb_c1f2c0:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.47
+      friendly_name: Bar strip light
+      supported_features: 36
+      state: 'off'
+    number.controller_rgb_c1f2c0_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.47
+      icon: mdi:speedometer
+      friendly_name: Bar strip light Effect speed
+      state: '100'
+    light.controller_rgb_c1f544:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.137
+      friendly_name: Utility Strip light
+      supported_features: 36
+      state: 'off'
+    number.controller_rgb_c1f544_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.137
+      icon: mdi:speedometer
+      friendly_name: Utility Strip light Effect speed
+      state: '50'
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'off'
+    light.controller_rgb_c1f45a:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.87
+      friendly_name: Hallway Strip Light
+      supported_features: 36
+      state: 'off'
+    number.controller_rgb_c1f45a_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.87
+      icon: mdi:speedometer
+      friendly_name: Hallway Strip Light Effect speed
+      state: '50'
+  icon: mdi:led-strip-variant
+  metadata: {}
+- id: '1707322902788'
+  name: Overnight dim
+  entities:
+    light.landing_light:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 3
+      friendly_name: Landing light
+      supported_features: 0
+      state: 'on'
+    light.controller_rgb_c1f45a:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 8
+      hs_color:
+      - 240
+      - 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      xy_color:
+      - 0.136
+      - 0.04
+      effect:
+      ip_address: 192.168.5.87
+      friendly_name: Hallway Strip Light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f45a_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.87
+      icon: mdi:speedometer
+      friendly_name: Hallway Strip Light Effect speed
+      state: '50'
+    light.controller_rgb_c1f544:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 3
+      hs_color:
+      - 240
+      - 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      xy_color:
+      - 0.136
+      - 0.04
+      effect:
+      ip_address: 192.168.5.137
+      friendly_name: Utility Strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_c1f544_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.137
+      icon: mdi:speedometer
+      friendly_name: Utility Strip light Effect speed
+      state: '50'
+    light.controller_rgb_c1f2c0:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.47
+      friendly_name: Bar strip light
+      supported_features: 36
+      state: 'off'
+    number.controller_rgb_c1f2c0_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.47
+      icon: mdi:speedometer
+      friendly_name: Bar strip light Effect speed
+      state: '100'
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'off'
+  icon: mdi:shield-moon-outline
+  metadata: {}
+- id: '1707495233920'
+  name: Garden 50%
+  entities:
+    light.pool_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Pool East
+      supported_features: 0
+      state: 'on'
+    light.pool_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Pool West
+      supported_features: 0
+      state: 'on'
+    light.workshop_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Workshop East
+      supported_features: 0
+      state: 'on'
+    light.workshop_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Workshop West
+      supported_features: 0
+      state: 'on'
+    light.patio_east:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Patio East
+      supported_features: 0
+      state: 'on'
+    light.patio_west:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Patio West
+      supported_features: 0
+      state: 'on'
+  metadata: {}
+  icon: mdi:lightbulb-multiple
