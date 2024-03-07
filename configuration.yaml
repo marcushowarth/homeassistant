@@ -2,8 +2,8 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
-# Loads my set of custom entities.
-input_number: !include_dir_merge_named entities/input_number
+# Example: How to load custom entities.
+#input_number: !include_dir_merge_named entities/input_number
 
 # Load frontend themes from the themes folder
 frontend:

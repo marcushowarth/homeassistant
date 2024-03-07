@@ -1,6 +1,7 @@
 # These are rates used for the pricing on Energy dashboard Utility Meters
-# see http://farmington:8123/developer-tools/state
 # https://www.home-assistant.io/integrations/input_number/
+# Can now be configured through UI (scroll down on dialogue!)
+# When configured like this they appear read-only through the UI
 
 feed_in_rate_day:
   name: Feed-in Rate Day
