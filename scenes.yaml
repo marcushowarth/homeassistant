@@ -517,19 +517,19 @@
       supported_color_modes:
       - rgb
       color_mode: rgb
-      brightness: 255
+      brightness: 64
       hs_color:
-      - 295.802
+      - 307.901
       - 95.294
       rgb_color:
-      - 238
-      - 12
       - 255
+      - 12
+      - 223
       xy_color:
-      - 0.364
-      - 0.146
+      - 0.428
+      - 0.175
       effect:
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -538,7 +538,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -553,19 +553,19 @@
       - hs
       - onoff
       color_mode: hs
-      brightness: 181
+      brightness: 128
       color_temp_kelvin:
       color_temp:
       hs_color:
-      - 300
-      - 100
+      - 288
+      - 52
       rgb_color:
-      - 255
-      - 0
+      - 228
+      - 122
       - 255
       xy_color:
-      - 0.385
-      - 0.155
+      - 0.336
+      - 0.189
       friendly_name: Pool room lamp
       supported_features: 0
       state: 'on'
@@ -598,7 +598,7 @@
       supported_color_modes:
       - rgb
       color_mode: rgb
-      brightness: 191
+      brightness: 153
       hs_color:
       - 301.21
       - 97.255
@@ -610,7 +610,7 @@
       - 0.392
       - 0.158
       effect:
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -619,7 +619,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -657,7 +657,7 @@
       supported_color_modes:
       - rgb
       color_mode: rgb
-      brightness: 181
+      brightness: 255
       hs_color:
       - 220.781
       - 50.196
@@ -713,17 +713,17 @@
       color_mode: rgb
       brightness: 133
       hs_color:
-      - 199.898
-      - 76.863
+      - 199.797
+      - 77.255
       rgb_color:
-      - 59
+      - 58
       - 190
       - 255
       xy_color:
       - 0.159
       - 0.238
       effect:
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -732,7 +732,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -804,7 +804,7 @@
       - 0.148
       - 0.128
       effect:
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -813,7 +813,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -1232,7 +1232,7 @@
       - 0.136
       - 0.04
       effect:
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -1241,7 +1241,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -1286,7 +1286,7 @@
       - 0.136
       - 0.04
       effect:
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -1295,7 +1295,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -1366,6 +1366,15 @@
       friendly_name: Pool room lamp
       supported_features: 0
       state: 'off'
+    light.extension_lamp:
+      supported_color_modes:
+      - brightness
+      - onoff
+      color_mode:
+      brightness:
+      friendly_name: Extension lamp
+      supported_features: 0
+      state: 'off'
   icon: mdi:shield-moon-outline
   metadata: {}
 - id: '1707495233920'
@@ -1427,3 +1436,259 @@
       state: 'on'
   metadata: {}
   icon: mdi:lightbulb-multiple
+- id: '1709652107354'
+  name: Bedroom Light Red 100%
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 9
+      - 67
+      rgb_color:
+      - 255
+      - 109
+      - 84
+      xy_color:
+      - 0.59
+      - 0.328
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1709652170338'
+  name: Bedroom Light Purple 1%
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 3
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 277
+      - 41
+      rgb_color:
+      - 214
+      - 150
+      - 255
+      xy_color:
+      - 0.311
+      - 0.21
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1709652203002'
+  name: Bedroom Light Blue 1%
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 3
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 127
+      - 174
+      - 255
+      xy_color:
+      - 0.207
+      - 0.22
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1709652269138'
+  name: Bedroom Light Green 3%
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: hs
+      brightness: 8
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 154
+      - 77
+      rgb_color:
+      - 58
+      - 255
+      - 169
+      xy_color:
+      - 0.175
+      - 0.496
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1709652399970'
+  name: 'Bedroom Light 3200K 25% '
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: color_temp
+      brightness: 64
+      color_temp_kelvin: 3205
+      color_temp: 312
+      hs_color:
+      - 27.518
+      - 51.595
+      rgb_color:
+      - 255
+      - 183
+      - 123
+      xy_color:
+      - 0.478
+      - 0.379
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1709652467218'
+  name: Bedroom Light 2700K 25%
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: color_temp
+      brightness: 64
+      color_temp_kelvin: 2702
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      xy_color:
+      - 0.526
+      - 0.387
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1709652515866'
+  name: Bedroom Light 4000K 50%
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: color_temp
+      brightness: 128
+      color_temp_kelvin: 4000
+      color_temp: 250
+      hs_color:
+      - 26.812
+      - 34.87
+      rgb_color:
+      - 255
+      - 205
+      - 166
+      xy_color:
+      - 0.421
+      - 0.364
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1709652565602'
+  name: Bedroom Light 5000K 65%
+  entities:
+    light.bedroom_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: color_temp
+      brightness: 166
+      color_temp_kelvin: 5000
+      color_temp: 200
+      hs_color:
+      - 27.001
+      - 19.243
+      rgb_color:
+      - 255
+      - 228
+      - 205
+      xy_color:
+      - 0.372
+      - 0.35
+      friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
