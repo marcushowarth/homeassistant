@@ -2,6 +2,20 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+notify:
+  - name: "MARCUS_EMAIL"
+    platform: smtp
+    server: "mail.howarth.eu"
+    port: 465
+    timeout: 15
+    sender: "servers@howarth.eu"
+    encryption: tls
+    username: "servers@howarth.eu"
+    password: !secret email_password
+    recipient:
+      - "marcus@howarth.eu"
+    sender_name: "HA"
+
 # Example: How to load custom entities.
 #input_number: !include_dir_merge_named entities/input_number
 
@@ -14,4 +28,5 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 ifttt:
-  key: d2On0P-eqPnRrKxyFSjZBQ
+  key: !secret ifttt_key
+
