@@ -1,0 +1,152 @@
+bedtime:
+  alias: Bedtime
+  sequence:
+  - type: turn_on
+    device_id: 61dd366fd275ffb11aa5f8603580f75c
+    entity_id: 1e020847e9336c733fcdbcb2119a437d
+    domain: switch
+  - service: scene.turn_on
+    target:
+      entity_id: scene.garden_off
+    metadata: {}
+  - type: turn_off
+    device_id: 994179d72feccd3796a4e876a78cdefe
+    entity_id: 2cd01e5cc1d83176ba5ab4c5ce41d5fc
+    domain: light
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Bedtime script run
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: scene.turn_on
+    target:
+      entity_id: scene.overnight_dim
+    metadata: {}
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Bedtime script log
+      value2: Zzzzzz ;-)
+  mode: single
+  icon: mdi:bed
+set_min_soc_to_10:
+  alias: Set Min SoC to 10%
+  sequence:
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_min_soc
+    data:
+      value: 10
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_min_soc_on_grid
+    data:
+      value: 10
+  mode: single
+  icon: mdi:battery-10
+free_electricity_day:
+  alias: Free Electricity Day
+  sequence:
+  - wait_for_trigger:
+    - platform: time
+      at: 09:30:00
+    continue_on_timeout: false
+    timeout:
+      hours: 24
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: Feed-in First
+  - service: foxess_modbus.update_charge_period
+    data:
+      enable_force_charge: true
+      enable_charge_from_grid: true
+      start: '13:00:00'
+      end: '14:00:00'
+      charge_period: '2'
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_max_soc
+    data:
+      value: '100'
+  - wait_for_trigger:
+    - platform: time
+      at: '13:00:00'
+    continue_on_timeout: false
+    timeout:
+      hours: 6
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Free Electricity Log
+      value2: Starting SoC
+      value3: '{{ states(''sensor.workshop_battery_soc'') }}'
+  - wait_for_trigger:
+    - platform: time
+      at: '13:55:00'
+    continue_on_timeout: false
+    timeout:
+      hours: 2
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: Self Use
+  - service: foxess_modbus.update_charge_period
+    data:
+      enable_force_charge: true
+      enable_charge_from_grid: true
+      start: '15:00:00'
+      end: '15:55:00'
+      charge_period: '2'
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: foxess_modbus.update_charge_period
+    data:
+      enable_force_charge: false
+      enable_charge_from_grid: true
+      start: '15:00:00'
+      end: '15:55:00'
+      charge_period: '2'
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+  - wait_for_trigger:
+    - platform: time
+      at: '14:00:00'
+    continue_on_timeout: false
+    timeout:
+      hours: 0
+      minutes: 30
+      seconds: 0
+      milliseconds: 0
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_max_soc
+    data:
+      value: '{{ states(''input_number.max_soc_day'') | float() }}'
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Free Electricity Log
+      value2: Ending SoC
+      value3: '{{ states(''sensor.workshop_battery_soc'') }}'
+  mode: single
+  icon: mdi:lightning-bolt-outline

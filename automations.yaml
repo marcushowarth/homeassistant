@@ -75,21 +75,337 @@
   mode: single
 - id: '1706128884321'
   alias: 'Energy: Flux tariff: Work Mode around peak tariff times'
-  description: Sets the inverter's Work Mode around peak tariff times
+  description: Sets the inverter's Work Mode at start and end of peak tariff times
   trigger:
   - platform: time
     at: input_datetime.peak_energy_start
     variables:
-      workmode: Feed-in First
+      workmode: Force Discharge
   - platform: time
     at: input_datetime.peak_energy_end
     variables:
       workmode: Self Use
-  condition: []
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''input_boolean.peak_tariff_export_enabled'') ==
+        ''on'' }}'
   action:
   - service: select.select_option
     target:
       entity_id: select.workshop_work_mode
     data:
       option: '{{ workmode }}'
+  mode: single
+- id: '1712635069259'
+  alias: Trigger from IFTTT Webhook to call service
+  description: ''
+  trigger:
+  - platform: event
+    event_type: ifttt_webhook_received
+    event_data:
+      action: call_service
+  condition: []
+  action:
+  - service: logbook.log
+    data:
+      message: 'IFTTT webhook to service: "Trigger from IFTTT Webhook: {{ trigger.event.data.service
+        }} entity_id {{trigger.event.data.entity_id }}"'
+  - service: '{{ trigger.event.data.service }}'
+    target:
+      entity_id: '{{ trigger.event.data.entity_id }}'
+  mode: single
+- id: '1718360862145'
+  alias: 'Energy: Battery Min SoC setting'
+  description: Sets the Min SoC according to the time of day based on tariffs using
+    the input number values on dashboard
+  trigger:
+  - platform: time
+    at: input_datetime.off_peak_energy_start
+    variables:
+      minSoC: '{{ float(states(''input_number.min_soc_eco'')) }}'
+  - platform: time
+    at: input_datetime.off_peak_energy_end
+    variables:
+      minSoC: '{{ float(states(''input_number.min_soc_day'')) }}'
+  - platform: time
+    at: input_datetime.peak_energy_start
+    variables:
+      minSoC: '{{ float(states(''input_number.min_soc_peak'')) }}'
+  - platform: time
+    at: input_datetime.peak_energy_end
+    variables:
+      minSoC: '{{ float(states(''input_number.min_soc_day'')) }}'
+  condition: []
+  action:
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_min_soc
+    data:
+      value: '{{ minSoC }}'
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_min_soc_on_grid
+    data:
+      value: '{{ minSoC }}'
+  mode: single
+- id: '1718709626558'
+  alias: 'Energy: Battery Work mode: Feed-in First - target Force Discharge SoC level
+    achieved'
+  description: Sets the work mode back to Feed-in First (from Force Discharge) once
+    the target SoC acheived. - it 'polls' every 5 minutes during the 16th, 17th &
+    18th hours to check condition
+  trigger:
+  - platform: time_pattern
+    hours: 16
+    minutes: /5
+  - platform: time_pattern
+    hours: 17
+    minutes: /5
+  - platform: time_pattern
+    hours: 18
+    minutes: /5
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''select.workshop_work_mode'') == ''Force Discharge''
+        }}'
+    - condition: template
+      value_template: '{{ states(''sensor.workshop_battery_soc'')|float(0) <= states(''input_number.target_soc_force_export'')|float(0)
+        }}'
+  action:
+  - variables:
+      workmode: Feed-in First
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: '{{ workmode }}'
+  mode: single
+- id: '1719987517277'
+  alias: 'Energy: Battery: Enable 2nd charge period before Peak Tariff period'
+  description: Sets the 2nd charge period to enable in the hour before the peak tariff
+    if SoC below Max SoC minus Daytime Charge Offset %
+  trigger:
+  - platform: time_pattern
+    hours: 15
+    minutes: /5
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''binary_sensor.workshop_time_period_2_enable_force_charge'')
+        == ''off'' }}'
+    - condition: template
+      value_template: "{{ states('sensor.workshop_battery_soc')|float(0) <=\n   states('number.workshop_max_soc')|float(0)
+        -\n   states('input_number.daytime_charge_offset')|float(0) }}"
+  action:
+  - service: foxess_modbus.update_charge_period
+    data:
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '2'
+      enable_charge_from_grid: true
+      enable_force_charge: true
+      start: '15:00:00'
+      end: '15:55:00'
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Daytime pre-PEAK charge log
+      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value3: Enabled at {{ states('sensor.workshop_battery_soc') }}%
+  mode: single
+- id: '1719987790324'
+  alias: 'Energy: Battery: Disable 2nd charge period before the Peak Tarriff'
+  description: Disables the 2nd charge period if SoC >= the batteries current Max
+    SoC % in hour before peak tarriff
+  trigger:
+  - platform: time_pattern
+    hours: 15
+    minutes: /5
+  - platform: time
+    at: '16:00:00'
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''binary_sensor.workshop_time_period_2_enable_force_charge'')
+        == ''on'' }}'
+    - condition: template
+      value_template: "{{ states('sensor.workshop_battery_soc')|float(0) >=\n   states('number.workshop_max_soc')|float(0)
+        }}"
+  action:
+  - service: foxess_modbus.update_charge_period
+    data:
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '2'
+      enable_charge_from_grid: true
+      enable_force_charge: false
+      start: '15:00:00'
+      end: '15:55:00'
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Daytime pre-PEAK charge log
+      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value3: Disabled at {{ states('sensor.workshop_battery_soc') }}%
+  mode: single
+- id: '1720625260635'
+  alias: 'Energy: Battery: Enable 1st charge period during Eco Tariff period'
+  description: Enables the 1st charge period if SoC below Max SoC minus ECO Charge
+    Offset %
+  trigger:
+  - platform: time_pattern
+    hours: 2
+    minutes: /5
+  - platform: time_pattern
+    hours: 3
+    minutes: /5
+  - platform: time_pattern
+    hours: 4
+    minutes: /5
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''binary_sensor.workshop_time_period_1_enable_force_charge'')
+        == ''off'' }}'
+    - condition: template
+      value_template: "{{ states('sensor.workshop_battery_soc')|float(0) <=\n   states('number.workshop_max_soc')|float(0)
+        -\n   states('input_number.eco_charge_offset')|float(0) }}"
+  action:
+  - service: foxess_modbus.update_charge_period
+    data:
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '1'
+      enable_charge_from_grid: true
+      enable_force_charge: true
+      start: 02:00:00
+      end: 04:55:00
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Overnight ECO charge log
+      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value3: Enabled at {{ states('sensor.workshop_battery_soc') }}%
+  mode: single
+- id: '1720626084395'
+  alias: 'Energy: Battery: Disable 1st charge period during Eco Tariff period'
+  description: Disables the 1st charge period if SoC >= the batteries current Max
+    SoC %
+  trigger:
+  - platform: time_pattern
+    hours: 2
+    minutes: /5
+  - platform: time_pattern
+    hours: 3
+    minutes: /5
+  - platform: time_pattern
+    hours: 4
+    minutes: /5
+  - platform: time
+    at: 05:00:00
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''binary_sensor.workshop_time_period_1_enable_force_charge'')
+        == ''on'' }}'
+    - condition: template
+      value_template: "{{ states('sensor.workshop_battery_soc')|float(0) >=\n   states('number.workshop_max_soc')|float(0)
+        }}"
+  action:
+  - service: foxess_modbus.update_charge_period
+    data:
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '1'
+      enable_charge_from_grid: true
+      enable_force_charge: false
+      start: 02:00:00
+      end: 04:55:00
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Overnight ECO charge log
+      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value3: Disabled at {{ states('sensor.workshop_battery_soc') }}%
+  mode: single
+- id: '1722951908479'
+  alias: 'Energy: Battery Work mode: Self Use - below target Force Discharge SoC level'
+  description: Sets the work mode back to Self Use if workmode is Feed-in First and
+    the SoC is below the target SoC - it 'polls' every 5 minutes during the 16th,
+    17th & 18th hours to check condition
+  trigger:
+  - platform: time_pattern
+    hours: 16
+    minutes: /5
+  - platform: time_pattern
+    hours: 17
+    minutes: /5
+  - platform: time_pattern
+    hours: 18
+    minutes: /5
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''select.workshop_work_mode'') == ''Feed-in First''
+        }}'
+    - condition: template
+      value_template: '{{ states(''sensor.workshop_battery_soc'')|float(0) < states(''input_number.target_soc_force_export'')|float(0)
+        }}'
+  action:
+  - variables:
+      workmode: Self Use
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: '{{ workmode }}'
+  mode: single
+- id: '1723828018073'
+  alias: IFTTT adds row to spreadsheet and calender when batteries fully charged
+  description: using IFTTT
+  trigger:
+  - platform: time_pattern
+    minutes: /5
+  condition:
+  - and:
+    - condition: template
+      value_template: '{{ states(''input_boolean.battery_full_today'') == ''off''
+        }}'
+    - condition: template
+      value_template: '{{ states(''sensor.workshop_battery_soc'')|float(0) == 100
+        }}'
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Battery Log - fully charged
+      value2: '{% for state in states.weather -%} {%- if loop.first %}The {% elif
+        loop.last %} and the {% else %}, the {% endif -%} {{ state.name | lower }}
+        is {{state.state_with_unit}} {%- endfor %}.'
+      value3: '{% if is_state("sun.sun", "above_horizon") -%}  The sun rose {{ relative_time(states.sun.sun.last_changed)
+        }} ago. {%- else -%} The sun will rise at {{ as_timestamp(state_attr("sun.sun",
+        "next_rising")) | timestamp_local }}. {%- endif %} '
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Batteries 100%
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.battery_full_today
+    data: {}
+  - service: notify.marcus_email
+    data:
+      title: Batteries charged
+      message: Batteries reached 100%
+  mode: single
+- id: '1723995992121'
+  alias: IFTTT Reset Battery Full Flag
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 0
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.battery_full_today
   mode: single

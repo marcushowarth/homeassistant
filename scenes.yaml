@@ -297,17 +297,17 @@
       supported_color_modes:
       - rgb
       color_mode: rgb
-      brightness: 191
+      brightness: 255
       hs_color:
-      - 312.471
-      - 100
+      - 9.364
+      - 67.843
       rgb_color:
       - 255
-      - 0
-      - 202
+      - 109
+      - 82
       xy_color:
-      - 0.459
-      - 0.189
+      - 0.592
+      - 0.329
       effect:
       ip_address: 192.168.5.47
       friendly_name: Bar strip light
@@ -363,7 +363,7 @@
       - 0.38
       - 0.17
       effect:
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -372,7 +372,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -381,7 +381,7 @@
       - brightness
       - onoff
       color_mode: brightness
-      brightness: 64
+      brightness: 51
       friendly_name: Extension lamp
       supported_features: 0
       state: 'on'
@@ -405,7 +405,7 @@
       - hs
       - onoff
       color_mode: hs
-      brightness: 194
+      brightness: 255
       color_temp_kelvin:
       color_temp:
       hs_color:
@@ -425,10 +425,276 @@
       device_class: outlet
       friendly_name: TV
       state: 'on'
-    switch.fridge_2:
-      device_class: outlet
-      friendly_name: 'Fridge '
+    light.controller_rgb_c1f45a:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 76
+      hs_color:
+      - 300
+      - 89.412
+      rgb_color:
+      - 255
+      - 27
+      - 255
+      xy_color:
+      - 0.385
+      - 0.157
+      effect:
+      ip_address: 192.168.5.86
+      friendly_name: Hallway Strip Light
+      supported_features: 36
       state: 'on'
+    number.controller_rgb_c1f45a_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.86
+      icon: mdi:speedometer
+      friendly_name: Hallway Strip Light Effect speed
+      state: '50'
+    light.fish_tank_striplight:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 189
+      hs_color:
+      - 357.339
+      - 97.255
+      rgb_color:
+      - 255
+      - 7
+      - 18
+      xy_color:
+      - 0.695
+      - 0.298
+      effect:
+      ip_address: 192.168.5.108
+      friendly_name: Fish Tank Striplight
+      supported_features: 36
+      state: 'on'
+    number.fish_tank_striplight_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.108
+      icon: mdi:speedometer
+      friendly_name: Fish Tank Striplight Effect speed
+      state: '100'
+    light.worktop_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 312.097
+      - 97.255
+      rgb_color:
+      - 255
+      - 7
+      - 205
+      xy_color:
+      - 0.455
+      - 0.187
+      effect:
+      ip_address: 192.168.5.178
+      friendly_name: Worktop Light Strip
+      supported_features: 36
+      state: 'on'
+    number.worktop_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.178
+      icon: mdi:speedometer
+      friendly_name: Worktop Light Strip Effect speed
+      state: '100'
+    light.sofa_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 8.772
+      - 67.059
+      rgb_color:
+      - 255
+      - 109
+      - 84
+      xy_color:
+      - 0.59
+      - 0.328
+      effect:
+      ip_address: 192.168.5.109
+      friendly_name: Sofa strip Light
+      supported_features: 36
+      state: 'on'
+    number.sofa_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.109
+      icon: mdi:speedometer
+      friendly_name: Sofa strip Light Effect speed
+      state: '100'
+    light.kitchen_fridge_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 9.123
+      - 67.059
+      rgb_color:
+      - 255
+      - 110
+      - 84
+      xy_color:
+      - 0.589
+      - 0.329
+      effect:
+      ip_address: 192.168.5.103
+      friendly_name: Kitchen Fridge light strip
+      supported_features: 36
+      state: 'on'
+    number.kitchen_fridge_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.103
+      icon: mdi:speedometer
+      friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
   icon: mdi:amplifier
   metadata: {}
 - id: '1707217791586'
@@ -517,17 +783,17 @@
       supported_color_modes:
       - rgb
       color_mode: rgb
-      brightness: 64
+      brightness: 59
       hs_color:
-      - 307.901
-      - 95.294
+      - 295.785
+      - 94.902
       rgb_color:
+      - 238
+      - 13
       - 255
-      - 12
-      - 223
       xy_color:
-      - 0.428
-      - 0.175
+      - 0.364
+      - 0.146
       effect:
       ip_address: 192.168.5.136
       friendly_name: Utility Strip light
@@ -623,6 +889,222 @@
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
+    light.fish_tank_striplight:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 156
+      hs_color:
+      - 320
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 170
+      xy_color:
+      - 0.511
+      - 0.212
+      effect:
+      ip_address: 192.168.5.108
+      friendly_name: Fish Tank Striplight
+      supported_features: 36
+      state: 'on'
+    number.fish_tank_striplight_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.108
+      icon: mdi:speedometer
+      friendly_name: Fish Tank Striplight Effect speed
+      state: '100'
+    light.worktop_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 194
+      hs_color:
+      - 301.351
+      - 87.059
+      rgb_color:
+      - 255
+      - 33
+      - 250
+      xy_color:
+      - 0.39
+      - 0.161
+      effect:
+      ip_address: 192.168.5.178
+      friendly_name: Worktop Light Strip
+      supported_features: 36
+      state: 'on'
+    number.worktop_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.178
+      icon: mdi:speedometer
+      friendly_name: Worktop Light Strip Effect speed
+      state: '100'
+    light.sofa_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 105
+      hs_color:
+      - 301.803
+      - 91.373
+      rgb_color:
+      - 255
+      - 22
+      - 248
+      xy_color:
+      - 0.394
+      - 0.161
+      effect:
+      ip_address: 192.168.5.109
+      friendly_name: Sofa strip Light
+      supported_features: 36
+      state: 'on'
+    number.sofa_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.109
+      icon: mdi:speedometer
+      friendly_name: Sofa strip Light Effect speed
+      state: '100'
+    light.kitchen_fridge_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 130
+      hs_color:
+      - 297.176
+      - 100
+      rgb_color:
+      - 243
+      - 0
+      - 255
+      xy_color:
+      - 0.37
+      - 0.148
+      effect:
+      ip_address: 192.168.5.103
+      friendly_name: Kitchen Fridge light strip
+      supported_features: 36
+      state: 'on'
+    number.kitchen_fridge_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.103
+      icon: mdi:speedometer
+      friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707217867570'
@@ -711,17 +1193,17 @@
       supported_color_modes:
       - rgb
       color_mode: rgb
-      brightness: 133
+      brightness: 87
       hs_color:
-      - 199.797
-      - 77.255
+      - 248.018
+      - 85.098
       rgb_color:
-      - 58
-      - 190
+      - 67
+      - 38
       - 255
       xy_color:
-      - 0.159
-      - 0.238
+      - 0.16
+      - 0.06
       effect:
       ip_address: 192.168.5.136
       friendly_name: Utility Strip light
@@ -817,6 +1299,222 @@
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
+    light.fish_tank_striplight:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 219.643
+      - 87.843
+      rgb_color:
+      - 31
+      - 107
+      - 255
+      xy_color:
+      - 0.145
+      - 0.112
+      effect:
+      ip_address: 192.168.5.108
+      friendly_name: Fish Tank Striplight
+      supported_features: 36
+      state: 'on'
+    number.fish_tank_striplight_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.108
+      icon: mdi:speedometer
+      friendly_name: Fish Tank Striplight Effect speed
+      state: '100'
+    light.worktop_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 250
+      hs_color:
+      - 217.762
+      - 56.078
+      rgb_color:
+      - 112
+      - 165
+      - 255
+      xy_color:
+      - 0.194
+      - 0.205
+      effect:
+      ip_address: 192.168.5.178
+      friendly_name: Worktop Light Strip
+      supported_features: 36
+      state: 'on'
+    number.worktop_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.178
+      icon: mdi:speedometer
+      friendly_name: Worktop Light Strip Effect speed
+      state: '100'
+    light.sofa_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 201
+      hs_color:
+      - 219.844
+      - 50.196
+      rgb_color:
+      - 127
+      - 170
+      - 255
+      xy_color:
+      - 0.208
+      - 0.214
+      effect:
+      ip_address: 192.168.5.109
+      friendly_name: Sofa strip Light
+      supported_features: 36
+      state: 'on'
+    number.sofa_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.109
+      icon: mdi:speedometer
+      friendly_name: Sofa strip Light Effect speed
+      state: '100'
+    light.kitchen_fridge_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 218.906
+      - 50.196
+      rgb_color:
+      - 127
+      - 172
+      - 255
+      xy_color:
+      - 0.208
+      - 0.217
+      effect:
+      ip_address: 192.168.5.103
+      friendly_name: Kitchen Fridge light strip
+      supported_features: 36
+      state: 'on'
+    number.kitchen_fridge_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.103
+      icon: mdi:speedometer
+      friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707229963331'
@@ -853,15 +1551,15 @@
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 127.102
+      - 125.143
       - 96.078
       rgb_color:
       - 10
       - 255
-      - 39
+      - 31
       xy_color:
       - 0.173
-      - 0.727
+      - 0.733
       effect:
       ip_address: 192.168.5.47
       friendly_name: Bar strip light
@@ -905,19 +1603,19 @@
       supported_color_modes:
       - rgb
       color_mode: rgb
-      brightness: 133
+      brightness: 204
       hs_color:
-      - 121.7
-      - 96.863
+      - 120.964
+      - 97.647
       rgb_color:
-      - 8
+      - 6
       - 255
-      - 15
+      - 10
       xy_color:
-      - 0.174
-      - 0.741
+      - 0.173
+      - 0.743
       effect:
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -926,7 +1624,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -998,7 +1696,7 @@
       - 0.176
       - 0.727
       effect:
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -1007,10 +1705,226 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
+    light.fish_tank_striplight:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 189
+      hs_color:
+      - 100.424
+      - 92.549
+      rgb_color:
+      - 96
+      - 255
+      - 19
+      xy_color:
+      - 0.23
+      - 0.692
+      effect:
+      ip_address: 192.168.5.108
+      friendly_name: Fish Tank Striplight
+      supported_features: 36
+      state: 'on'
+    number.fish_tank_striplight_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.108
+      icon: mdi:speedometer
+      friendly_name: Fish Tank Striplight Effect speed
+      state: '100'
+    light.worktop_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 158
+      hs_color:
+      - 114.569
+      - 90.98
+      rgb_color:
+      - 44
+      - 255
+      - 23
+      xy_color:
+      - 0.186
+      - 0.727
+      effect:
+      ip_address: 192.168.5.178
+      friendly_name: Worktop Light Strip
+      supported_features: 36
+      state: 'on'
+    number.worktop_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.178
+      icon: mdi:speedometer
+      friendly_name: Worktop Light Strip Effect speed
+      state: '100'
+    light.sofa_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 184
+      hs_color:
+      - 120
+      - 100
+      rgb_color:
+      - 0
+      - 255
+      - 0
+      xy_color:
+      - 0.172
+      - 0.747
+      effect:
+      ip_address: 192.168.5.109
+      friendly_name: Sofa strip Light
+      supported_features: 36
+      state: 'on'
+    number.sofa_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.109
+      icon: mdi:speedometer
+      friendly_name: Sofa strip Light Effect speed
+      state: '100'
+    light.kitchen_fridge_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 120
+      - 100
+      rgb_color:
+      - 0
+      - 255
+      - 0
+      xy_color:
+      - 0.172
+      - 0.747
+      effect:
+      ip_address: 192.168.5.103
+      friendly_name: Kitchen Fridge light strip
+      supported_features: 36
+      state: 'on'
+    number.kitchen_fridge_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.103
+      icon: mdi:speedometer
+      friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707233428389'
@@ -1097,7 +2011,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'off'
@@ -1106,7 +2020,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.137
+      ip_address: 192.168.5.136
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -1164,7 +2078,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'off'
@@ -1173,10 +2087,198 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.87
+      ip_address: 192.168.5.86
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
+    light.fish_tank_striplight:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.108
+      friendly_name: Fish Tank Striplight
+      supported_features: 36
+      state: 'off'
+    number.fish_tank_striplight_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.108
+      icon: mdi:speedometer
+      friendly_name: Fish Tank Striplight Effect speed
+      state: '100'
+    light.worktop_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.178
+      friendly_name: Worktop Light Strip
+      supported_features: 36
+      state: 'off'
+    number.worktop_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.178
+      icon: mdi:speedometer
+      friendly_name: Worktop Light Strip Effect speed
+      state: '100'
+    light.sofa_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.109
+      friendly_name: Sofa strip Light
+      supported_features: 36
+      state: 'off'
+    number.sofa_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.109
+      icon: mdi:speedometer
+      friendly_name: Sofa strip Light Effect speed
+      state: '100'
+    light.kitchen_fridge_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 192.168.5.103
+      friendly_name: Kitchen Fridge light strip
+      supported_features: 36
+      state: 'off'
+    number.kitchen_fridge_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.103
+      icon: mdi:speedometer
+      friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707322902788'
@@ -1186,11 +2288,11 @@
       supported_color_modes:
       - brightness
       - onoff
-      color_mode: brightness
-      brightness: 3
+      color_mode:
+      brightness:
       friendly_name: Landing light
       supported_features: 0
-      state: 'on'
+      state: 'off'
     light.controller_rgb_c1f45a:
       effect_list:
       - blue_fade
@@ -1327,16 +2429,23 @@
       - random
       supported_color_modes:
       - rgb
-      color_mode:
-      brightness:
+      color_mode: rgb
+      brightness: 3
       hs_color:
+      - 240
+      - 66.667
       rgb_color:
+      - 85
+      - 85
+      - 255
       xy_color:
+      - 0.173
+      - 0.098
       effect:
       ip_address: 192.168.5.47
       friendly_name: Bar strip light
       supported_features: 36
-      state: 'off'
+      state: 'on'
     number.controller_rgb_c1f2c0_effect_speed:
       min: 1
       max: 100
@@ -1375,6 +2484,222 @@
       friendly_name: Extension lamp
       supported_features: 0
       state: 'off'
+    light.fish_tank_striplight:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 10
+      hs_color:
+      - 228
+      - 100
+      rgb_color:
+      - 0
+      - 51
+      - 255
+      xy_color:
+      - 0.136
+      - 0.057
+      effect:
+      ip_address: 192.168.5.108
+      friendly_name: Fish Tank Striplight
+      supported_features: 36
+      state: 'on'
+    number.fish_tank_striplight_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.108
+      icon: mdi:speedometer
+      friendly_name: Fish Tank Striplight Effect speed
+      state: '100'
+    light.worktop_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 13
+      hs_color:
+      - 210
+      - 76.863
+      rgb_color:
+      - 59
+      - 157
+      - 255
+      xy_color:
+      - 0.158
+      - 0.185
+      effect:
+      ip_address: 192.168.5.178
+      friendly_name: Worktop Light Strip
+      supported_features: 36
+      state: 'on'
+    number.worktop_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.178
+      icon: mdi:speedometer
+      friendly_name: Worktop Light Strip Effect speed
+      state: '100'
+    light.kitchen_fridge_light_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 13
+      hs_color:
+      - 220.085
+      - 92.157
+      rgb_color:
+      - 20
+      - 98
+      - 255
+      xy_color:
+      - 0.141
+      - 0.1
+      effect:
+      ip_address: 192.168.5.103
+      friendly_name: Kitchen Fridge light strip
+      supported_features: 36
+      state: 'on'
+    number.kitchen_fridge_light_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.103
+      icon: mdi:speedometer
+      friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
+    light.sofa_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 13
+      hs_color:
+      - 220.085
+      - 92.157
+      rgb_color:
+      - 20
+      - 98
+      - 255
+      xy_color:
+      - 0.141
+      - 0.1
+      effect:
+      ip_address: 192.168.5.109
+      friendly_name: Sofa strip Light
+      supported_features: 36
+      state: 'on'
+    number.sofa_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 192.168.5.109
+      icon: mdi:speedometer
+      friendly_name: Sofa strip Light Effect speed
+      state: '100'
   icon: mdi:shield-moon-outline
   metadata: {}
 - id: '1707495233920'
