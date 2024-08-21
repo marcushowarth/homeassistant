@@ -409,3 +409,173 @@
     target:
       entity_id: input_boolean.battery_full_today
   mode: single
+- id: '1724261003343'
+  alias: Calendar IFTTT Marcus enter work
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.battersea_studios
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Entered Work (Battersea Studios)
+  mode: single
+- id: '1724261138857'
+  alias: Calendar IFTTT Marcus enter RRRC
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.recycle_centre
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Entered Recycle Centre Kimpton RRRC
+  mode: single
+- id: '1724261205032'
+  alias: Calendar IFTTT Marcus enter Screwfix
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.screwfix
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Entered Screwfix
+  mode: single
+- id: '1724261234584'
+  alias: Calendar IFTTT Marcus enter Tesco
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.tesco
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Entered Tesco
+  mode: single
+- id: '1724261277522'
+  alias: Calendar IFTTT Marcus enter The Hope
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.the_hope
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Entered The Hope
+  mode: single
+- id: '1724261342636'
+  alias: Calendar IFTTT Marcus leaves The Hope
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: leaves
+    zone: zone.the_hope
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Left The Hope
+  mode: single
+- id: '1724261395717'
+  alias: Calendar IFTTT Marcus leaves work
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: leaves
+    zone: zone.battersea_studios
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Left Work (Battersea Studios)
+  mode: single
+- id: '1724261461321'
+  alias: Calendar IFTTT Marcus leaves Tesco
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: leaves
+    zone: zone.tesco
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Left Tesco
+  mode: single
+- id: '1724261571070'
+  alias: Calendar IFTTT Marcus returns Home
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.home
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Returned Home
+  mode: single
+- id: '1724261610598'
+  alias: Calendar IFTTT Marcus leaves Home
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: leaves
+    zone: zone.home
+  condition: []
+  action:
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_calendar
+      value1: Leaves Home
+  mode: single

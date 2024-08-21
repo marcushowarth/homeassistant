@@ -14,7 +14,7 @@ notify:
     password: !secret email_password
     recipient:
       - "marcus@howarth.eu"
-    sender_name: "HA"
+    sender_name: "FARMINGTON HOME ASSISTANT"
 
 # Example: How to load custom entities.
 #input_number: !include_dir_merge_named entities/input_number
@@ -28,5 +28,5 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 ifttt:
-  key: !secret ifttt_key
+  key: d2On0P-eqPnRrKxyFSjZBQ
 

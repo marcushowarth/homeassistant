@@ -48,12 +48,12 @@ set_min_soc_to_10:
       value: 10
   mode: single
   icon: mdi:battery-10
-free_electricity_day:
-  alias: Free Electricity Day
+'1724255914837':
+  alias: Free Electricity Day Tomorrow
   sequence:
   - wait_for_trigger:
     - platform: time
-      at: 09:30:00
+      at: 08:30:00
     continue_on_timeout: false
     timeout:
       hours: 24
@@ -71,8 +71,8 @@ free_electricity_day:
       enable_charge_from_grid: true
       start: '13:00:00'
       end: '14:00:00'
-      charge_period: '2'
       inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '2'
   - service: number.set_value
     target:
       entity_id: number.workshop_max_soc
@@ -81,40 +81,41 @@ free_electricity_day:
   - wait_for_trigger:
     - platform: time
       at: '13:00:00'
-    continue_on_timeout: false
     timeout:
       hours: 6
       minutes: 0
       seconds: 0
       milliseconds: 0
+    continue_on_timeout: false
   - service: ifttt.trigger
     data:
       event: HA_trigger_sheet
       value1: Free Electricity Log
       value2: Starting SoC
       value3: '{{ states(''sensor.workshop_battery_soc'') }}'
+  - service: notify.marcus_email
+    data:
+      message: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
+        Grid Consumption so far today = {{states(''sensor.workshop_grid_consumption_energy_today'')
+        }} KWh'
+      title: Free Electricity START
   - wait_for_trigger:
     - platform: time
-      at: '13:55:00'
-    continue_on_timeout: false
+      at: '14:00:00'
     timeout:
       hours: 2
       minutes: 0
       seconds: 0
       milliseconds: 0
-  - service: select.select_option
-    target:
-      entity_id: select.workshop_work_mode
-    data:
-      option: Self Use
+    continue_on_timeout: true
   - service: foxess_modbus.update_charge_period
     data:
       enable_force_charge: true
       enable_charge_from_grid: true
       start: '15:00:00'
       end: '15:55:00'
-      charge_period: '2'
       inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '2'
   - delay:
       hours: 0
       minutes: 0
@@ -126,17 +127,8 @@ free_electricity_day:
       enable_charge_from_grid: true
       start: '15:00:00'
       end: '15:55:00'
-      charge_period: '2'
       inverter: 1185fbf7ef097c175604da2d3bb46177
-  - wait_for_trigger:
-    - platform: time
-      at: '14:00:00'
-    continue_on_timeout: false
-    timeout:
-      hours: 0
-      minutes: 30
-      seconds: 0
-      milliseconds: 0
+      charge_period: '2'
   - service: number.set_value
     target:
       entity_id: number.workshop_max_soc
@@ -148,5 +140,11 @@ free_electricity_day:
       value1: Free Electricity Log
       value2: Ending SoC
       value3: '{{ states(''sensor.workshop_battery_soc'') }}'
+  - service: notify.marcus_email
+    data:
+      message: 'Ending with with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
+        Grid Consumption now = {{states(''sensor.workshop_grid_consumption_energy_today'')
+        }} KWh'
+      title: Free Electricity END
   mode: single
-  icon: mdi:lightning-bolt-outline
+  icon: mdi:home-lightning-bolt
