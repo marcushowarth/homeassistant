@@ -1,10 +1,15 @@
 bedtime:
   alias: Bedtime
   sequence:
-  - type: turn_on
-    device_id: 61dd366fd275ffb11aa5f8603580f75c
-    entity_id: 1e020847e9336c733fcdbcb2119a437d
-    domain: switch
+  - if:
+    - condition: state
+      entity_id: binary_sensor.min_temp_fans_exceeded
+      state: 'on'
+    then:
+    - type: turn_on
+      device_id: 61dd366fd275ffb11aa5f8603580f75c
+      entity_id: 1e020847e9336c733fcdbcb2119a437d
+      domain: switch
   - service: scene.turn_on
     target:
       entity_id: scene.garden_off
@@ -69,8 +74,8 @@ set_min_soc_to_10:
     data:
       enable_force_charge: true
       enable_charge_from_grid: true
-      start: '13:00:00'
-      end: '14:00:00'
+      start: '{{ states(''input_datetime.free_electricity_start'') }}'
+      end: '{{ states(''input_datetime.free_electricity_end'') }}'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
   - service: number.set_value
@@ -80,7 +85,7 @@ set_min_soc_to_10:
       value: '100'
   - wait_for_trigger:
     - platform: time
-      at: '13:00:00'
+      at: input_datetime.free_electricity_start
     timeout:
       hours: 6
       minutes: 0
@@ -91,8 +96,9 @@ set_min_soc_to_10:
     data:
       event: HA_trigger_sheet
       value1: Free Electricity Log
-      value2: Starting SoC
-      value3: '{{ states(''sensor.workshop_battery_soc'') }}'
+      value2: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+      value3: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
   - service: notify.marcus_email
     data:
       message: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
@@ -101,13 +107,18 @@ set_min_soc_to_10:
       title: Free Electricity START
   - wait_for_trigger:
     - platform: time
-      at: '14:00:00'
+      at: input_datetime.free_electricity_end
     timeout:
       hours: 2
       minutes: 0
       seconds: 0
       milliseconds: 0
     continue_on_timeout: true
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: Self Use
   - service: foxess_modbus.update_charge_period
     data:
       enable_force_charge: true
@@ -138,8 +149,9 @@ set_min_soc_to_10:
     data:
       event: HA_trigger_sheet
       value1: Free Electricity Log
-      value2: Ending SoC
-      value3: '{{ states(''sensor.workshop_battery_soc'') }}'
+      value2: 'Ending with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+      value3: Grid Consumption now = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
   - service: notify.marcus_email
     data:
       message: 'Ending with with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
@@ -148,3 +160,235 @@ set_min_soc_to_10:
       title: Free Electricity END
   mode: single
   icon: mdi:home-lightning-bolt
+'1729422205524':
+  alias: Free Electricity Day Today
+  sequence:
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: Force Discharge
+  - service: foxess_modbus.update_charge_period
+    data:
+      enable_force_charge: true
+      enable_charge_from_grid: true
+      start: '{{ states(''input_datetime.free_electricity_start'') }}'
+      end: '{{ states(''input_datetime.free_electricity_end'') }}'
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '2'
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_max_soc
+    data:
+      value: '100'
+  - wait_for_trigger:
+    - platform: time
+      at: input_datetime.free_electricity_start
+    timeout:
+      hours: 6
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+    continue_on_timeout: false
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: Self Use
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Free Electricity Log
+      value2: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+      value3: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
+  - service: notify.marcus_email
+    data:
+      message: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
+        Grid Consumption so far today = {{states(''sensor.workshop_grid_consumption_energy_today'')
+        }} KWh'
+      title: Free Electricity START
+  - wait_for_trigger:
+    - platform: time
+      at: input_datetime.free_electricity_end
+    timeout:
+      hours: 2
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+    continue_on_timeout: true
+  - service: select.select_option
+    target:
+      entity_id: select.workshop_work_mode
+    data:
+      option: Self Use
+  - service: foxess_modbus.update_charge_period
+    data:
+      enable_force_charge: true
+      enable_charge_from_grid: true
+      start: '15:00:00'
+      end: '15:55:00'
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '2'
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: foxess_modbus.update_charge_period
+    data:
+      enable_force_charge: false
+      enable_charge_from_grid: true
+      start: '15:00:00'
+      end: '15:55:00'
+      inverter: 1185fbf7ef097c175604da2d3bb46177
+      charge_period: '2'
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_max_soc
+    data:
+      value: '{{ states(''input_number.max_soc_day'') | float() }}'
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Free Electricity Log
+      value2: 'Ending with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+      value3: Grid Consumption now = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
+  - service: notify.marcus_email
+    data:
+      message: 'Ending with with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
+        Grid Consumption now = {{states(''sensor.workshop_grid_consumption_energy_today'')
+        }} KWh'
+      title: Free Electricity END
+  mode: single
+  icon: mdi:home-lightning-bolt
+heat_workshop_overnight:
+  alias: Heat workshop overnight
+  sequence:
+  - wait_for_trigger:
+    - platform: time
+      at: input_datetime.off_peak_energy_start
+    timeout:
+      hours: 12
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+    continue_on_timeout: false
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Heater Usage Log
+      value2: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+      value3: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
+  - service: notify.marcus_email
+    data:
+      message: 'Starting with energy used, Heater: {{ states(''sensor.heater_today_energy'')
+        }} kWh and Fan Heater: {{ states(''sensor.fan_heater_today_energy'') }} kWh
+        and Grid Consumption now = {{ states(''sensor.workshop_grid_consumption_energy_today'')
+        }} kWh. Fan Heater will be {{ states(''input_boolean.heat_workshop_overnight_include_fan'')
+        }}'
+      title: Workshop Heater START
+  - service: switch.turn_on
+    target:
+      entity_id:
+      - switch.heater
+      device_id: []
+      area_id: []
+    data: {}
+  - if:
+    - condition: state
+      entity_id: input_boolean.heat_workshop_overnight_include_fan
+      state: 'on'
+    then:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.fan_heater
+      data: {}
+    else:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.fan_heater
+      data: {}
+  - wait_for_trigger:
+    - platform: time
+      at: input_datetime.off_peak_energy_end
+    timeout:
+      hours: 12
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+    continue_on_timeout: false
+  - service: switch.turn_off
+    target:
+      entity_id:
+      - switch.heater
+      device_id: []
+      area_id: []
+    data: {}
+  - service: switch.turn_off
+    target:
+      entity_id: switch.fan_heater
+    data: {}
+  - service: ifttt.trigger
+    data:
+      event: HA_trigger_sheet
+      value1: Heater Usage Log
+      value2: 'Ending with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+      value3: Grid Consumption now = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh | Heater used {{ states('sensor.heater_today_energy') }} kWh | Fan
+        Heater used {{ states('sensor.fan_heater_today_energy') }} kWh
+  - service: notify.marcus_email
+    data:
+      message: 'Ending with energy used, Heater: {{ states(''sensor.heater_today_energy'')
+        }} kWh and Fan Heater: {{ states(''sensor.fan_heater_today_energy'') }} kWh
+        and Grid Consumption now = {{ states(''sensor.workshop_grid_consumption_energy_today'')
+        }} kWh. Fan Heater was {{ states(''input_boolean.heat_workshop_overnight_include_fan'')
+        }}'
+      title: Heater Workshop END
+  mode: single
+  icon: mdi:radiator
+stop_using_battery_set_min_soc_to_current_level:
+  alias: Stop using battery (set Min SoC to current level)
+  sequence:
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_min_soc
+    data:
+      value: '{{ states(''sensor.workshop_battery_soc'') }}'
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_min_soc_on_grid
+    data:
+      value: '{{ states(''sensor.workshop_battery_soc'') }}'
+  mode: single
+  icon: mdi:battery-off
+bedroom_light_marcus_up:
+  alias: 'Bedroom Light: Marcus up'
+  sequence:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.holiday_bedroom_lamp
+    data: {}
+  - service: light.turn_off
+    target:
+      entity_id: light.bedroom_lamp
+    data: {}
+  - wait_for_trigger:
+    - platform: time
+      at: input_datetime.bedroom_light_resume_morning
+    timeout:
+      hours: 4
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: input_boolean.turn_off
+    target:
+      entity_id:
+      - input_boolean.holiday_bedroom_lamp
+      device_id: []
+      area_id: []
+    data: {}
+  mode: single
+  icon: mdi:weather-sunset-up

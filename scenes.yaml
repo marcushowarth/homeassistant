@@ -20,20 +20,20 @@
       - color_temp
       - hs
       - onoff
-      color_mode: hs
+      color_mode: color_temp
       brightness: 128
-      color_temp_kelvin:
-      color_temp:
+      color_temp_kelvin: 3012
+      color_temp: 332
       hs_color:
-      - 120
-      - 86
+      - 27.806
+      - 56.57
       rgb_color:
-      - 35
       - 255
-      - 35
+      - 177
+      - 110
       xy_color:
-      - 0.181
-      - 0.724
+      - 0.496
+      - 0.383
       friendly_name: Pool room lamp
       supported_features: 0
       state: 'on'
@@ -46,33 +46,6 @@
       friendly_name: Pool East
       supported_features: 0
       state: 'on'
-    light.pool_west:
-      supported_color_modes:
-      - brightness
-      - onoff
-      color_mode: brightness
-      brightness: 64
-      friendly_name: Pool West
-      supported_features: 0
-      state: 'on'
-    light.workshop_east:
-      supported_color_modes:
-      - brightness
-      - onoff
-      color_mode: brightness
-      brightness: 64
-      friendly_name: Workshop East
-      supported_features: 0
-      state: 'on'
-    light.workshop_west:
-      supported_color_modes:
-      - brightness
-      - onoff
-      color_mode: brightness
-      brightness: 64
-      friendly_name: Workshop West
-      supported_features: 0
-      state: 'on'
     light.patio_east:
       supported_color_modes:
       - brightness
@@ -80,15 +53,6 @@
       color_mode: brightness
       brightness: 64
       friendly_name: Patio East
-      supported_features: 0
-      state: 'on'
-    light.patio_west:
-      supported_color_modes:
-      - brightness
-      - onoff
-      color_mode: brightness
-      brightness: 64
-      friendly_name: Patio West
       supported_features: 0
       state: 'on'
     light.controller_rgb_c1f2c0:
@@ -122,17 +86,17 @@
       color_mode: rgb
       brightness: 191
       hs_color:
-      - 112.47
-      - 96.863
+      - 112.258
+      - 97.255
       rgb_color:
       - 39
       - 255
-      - 8
+      - 7
       xy_color:
       - 0.183
       - 0.735
       effect:
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
@@ -141,7 +105,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
@@ -3013,6 +2977,38 @@
       - 0.372
       - 0.35
       friendly_name: 'Bedroom lamp '
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
+- id: '1732010187422'
+  name: Bedroom Light 2700K 25% (Duplicate)
+  entities:
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - brightness
+      - color_temp
+      - hs
+      - onoff
+      color_mode: color_temp
+      brightness: 156
+      color_temp_kelvin: 2985
+      color_temp: 335
+      hs_color:
+      - 27.85
+      - 57.304
+      rgb_color:
+      - 255
+      - 176
+      - 108
+      xy_color:
+      - 0.498
+      - 0.383
+      friendly_name: Pool room lamp
       supported_features: 0
       state: 'on'
   icon: mdi:lamp-outline

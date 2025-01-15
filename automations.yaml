@@ -150,8 +150,8 @@
       value: '{{ minSoC }}'
   mode: single
 - id: '1718709626558'
-  alias: 'Energy: Battery Work mode: Feed-in First - target Force Discharge SoC level
-    achieved'
+  alias: 'Energy: Battery Switch Work mode from Force Discharge to Feed-in First -
+    when target Force Discharge SoC level achieved'
   description: Sets the work mode back to Feed-in First (from Force Discharge) once
     the target SoC acheived. - it 'polls' every 5 minutes during the 16th, 17th &
     18th hours to check condition
@@ -211,7 +211,8 @@
     data:
       event: HA_trigger_sheet
       value1: Daytime pre-PEAK charge log
-      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value2: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
       value3: Enabled at {{ states('sensor.workshop_battery_soc') }}%
   mode: single
 - id: '1719987790324'
@@ -245,7 +246,8 @@
     data:
       event: HA_trigger_sheet
       value1: Daytime pre-PEAK charge log
-      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value2: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
       value3: Disabled at {{ states('sensor.workshop_battery_soc') }}%
   mode: single
 - id: '1720625260635'
@@ -283,7 +285,8 @@
     data:
       event: HA_trigger_sheet
       value1: Overnight ECO charge log
-      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value2: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
       value3: Enabled at {{ states('sensor.workshop_battery_soc') }}%
   mode: single
 - id: '1720626084395'
@@ -323,11 +326,13 @@
     data:
       event: HA_trigger_sheet
       value1: Overnight ECO charge log
-      value2: '{{ now().strftime(''%d/%B/%Y %H:%M'') }}'
+      value2: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+        }} KWh
       value3: Disabled at {{ states('sensor.workshop_battery_soc') }}%
   mode: single
 - id: '1722951908479'
-  alias: 'Energy: Battery Work mode: Self Use - below target Force Discharge SoC level'
+  alias: 'Energy: Battery Switch Work mode from Feed-in First to Self Use - below
+    target Force Discharge SoC level'
   description: Sets the work mode back to Self Use if workmode is Feed-in First and
     the SoC is below the target SoC - it 'polls' every 5 minutes during the 16th,
     17th & 18th hours to check condition
@@ -400,6 +405,8 @@
   alias: IFTTT Reset Battery Full Flag
   description: ''
   trigger:
+  - platform: time
+    at: 00:00:00
   - platform: sun
     event: sunrise
     offset: 0
@@ -408,6 +415,7 @@
   - service: input_boolean.turn_off
     target:
       entity_id: input_boolean.battery_full_today
+    data: {}
   mode: single
 - id: '1724261003343'
   alias: Calendar IFTTT Marcus enter work
@@ -578,4 +586,141 @@
     data:
       event: HA_trigger_calendar
       value1: Leaves Home
+  mode: single
+- id: '1727682293238'
+  alias: 'Energy: Battery: Charge Reduction'
+  description: 'This is a simple automation that sets the charge current to 4A above
+    93% SoC and then increases it backs to 35A (the default max setting) when the
+    battery drops below 90%.
+
+    https://foxesscommunity.com/viewtopic.php?t=946'
+  trigger:
+  - platform: time_pattern
+    minutes: /10
+  condition:
+  - condition: or
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.workshop_battery_soc
+      below: 90
+    - condition: numeric_state
+      entity_id: sensor.workshop_battery_soc
+      above: 93
+  action:
+  - if:
+    - condition: numeric_state
+      entity_id: sensor.workshop_battery_soc
+      above: 92
+    then:
+    - if:
+      - condition: numeric_state
+        entity_id: sensor.workshop_max_charge_current
+        above: 10
+      then:
+      - service: number.set_value
+        data:
+          value: 4
+        target:
+          entity_id: number.workshop_max_charge_current
+      - service: logbook.log
+        data:
+          message: Setting Max Charge to 4A
+          name: Max Charge
+    else:
+    - if:
+      - condition: numeric_state
+        entity_id: sensor.workshop_battery_soc
+        below: 90
+      then:
+      - if:
+        - condition: numeric_state
+          entity_id: sensor.workshop_max_charge_current
+          below: 10
+        then:
+        - service: number.set_value
+          data:
+            value: 35
+          target:
+            entity_id: number.workshop_max_charge_current
+        - service: logbook.log
+          data:
+            message: Setting Max Charge to 35A
+            name: Max Charge
+  mode: single
+- id: '1731914318980'
+  alias: Email warning - workshop heater
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.heater_current_power
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+    above: 500
+  condition: []
+  action:
+  - service: notify.marcus_email
+    data:
+      message: Heater is running current power {{ states('sensor.heater_current_power')
+        }}W,  So far today it's used {{states('sensor.heater_today_energy') }} KWh
+        and been on for  {{states('sensor.heater_today_runtime') }} mins.
+      title: Check heater in workshop
+  mode: single
+- id: '1731915273289'
+  alias: Email warning - Iris' room
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.iriss_room_current_power
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+    above: 500
+  - platform: numeric_state
+    entity_id:
+    - sensor.iriss_room_today_energy
+    above: 1
+  condition: []
+  action:
+  - service: notify.marcus_email
+    data:
+      message: Her room's current power {{ states('sensor.iriss_room_current_power')
+        }}W,  So far today it's used {{states('sensor.iriss_room_today_energy') }}kWh
+      title: Check Iris' room for anything left on
+  mode: single
+- id: '1733254185943'
+  alias: 'Energy: Battery: Max SoC according to the alternative cooking value'
+  description: Sets the Max SoC according to the alternative cooking value
+  trigger:
+  - platform: time
+    at: '14:55:00'
+    variables:
+      maxSoC: '{{ states(''input_number.max_soc_day_alternative_cooking'') | float(states(''number.workshop_min_soc''))
+        }}'
+  condition:
+  - condition: template
+    value_template: "{{ states('sensor.oven_today_energy')|float(0) >=\n     states('input_number.energy_trigger_cooking')|float(0)
+      }}"
+  action:
+  - service: number.set_value
+    target:
+      entity_id: number.workshop_max_soc
+    data:
+      value: '{{ maxSoC }}'
+  - service: notify.marcus_email
+    data:
+      message: Oven current power {{ states('sensor.oven_current_power') }}W, so far
+        today it's used {{ states('sensor.oven_today_energy') }}kWh and the heater
+        in the workshop is currently using {{ states('sensor.heater_current_power')
+        }}W, so far today it's used {{ states('sensor.heater_today_energy') }}kWh
+        Either one of these has triggered Max SoC to now be set to {{ states('number.workshop_max_soc')
+        }}% (instead of normal Max SoC DAY {{ states('input_number.max_soc_day') }}%).
+        The Battery SoC is currently {{ states('sensor.workshop_battery_soc') }}%
+        (so there's a {{ states('sensor.workshop_battery_soc')|float(0) - states('number.workshop_max_soc')|float(0)  }}%
+        difference there before 4pm peak starts in about an hour.)
+      title: Bumped up Max SoC Day as looks like we're cooking or using heater
   mode: single
