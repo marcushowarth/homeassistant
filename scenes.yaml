@@ -109,6 +109,60 @@
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
+    light.kitchen_floor_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 120
+      - 82.353
+      rgb_color:
+      - 45
+      - 255
+      - 45
+      xy_color:
+      - 0.185
+      - 0.712
+      effect:
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.kitchen_floor_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.168
+      icon: mdi:speedometer
+      friendly_name: Kitchen Floor strip light Effect speed
+      state: '100'
   icon: mdi:coffee-maker-check-outline
   metadata: {}
 - id: '1707082844684'
@@ -263,17 +317,17 @@
       color_mode: rgb
       brightness: 255
       hs_color:
-      - 9.364
-      - 67.843
+      - 9.31
+      - 68.235
       rgb_color:
       - 255
-      - 109
-      - 82
+      - 108
+      - 81
       xy_color:
-      - 0.592
+      - 0.594
       - 0.329
       effect:
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
@@ -282,7 +336,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
@@ -327,7 +381,7 @@
       - 0.38
       - 0.17
       effect:
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -336,7 +390,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -430,7 +484,7 @@
       - 0.385
       - 0.157
       effect:
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -439,7 +493,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -484,7 +538,7 @@
       - 0.695
       - 0.298
       effect:
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
@@ -493,7 +547,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       icon: mdi:speedometer
       friendly_name: Fish Tank Striplight Effect speed
       state: '100'
@@ -538,7 +592,7 @@
       - 0.455
       - 0.187
       effect:
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
@@ -547,7 +601,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       icon: mdi:speedometer
       friendly_name: Worktop Light Strip Effect speed
       state: '100'
@@ -592,7 +646,7 @@
       - 0.59
       - 0.328
       effect:
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
@@ -601,7 +655,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       icon: mdi:speedometer
       friendly_name: Sofa strip Light Effect speed
       state: '100'
@@ -646,7 +700,7 @@
       - 0.589
       - 0.329
       effect:
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
@@ -655,9 +709,63 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       icon: mdi:speedometer
       friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
+    light.kitchen_floor_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 307.423
+      - 38.039
+      rgb_color:
+      - 255
+      - 158
+      - 243
+      xy_color:
+      - 0.371
+      - 0.239
+      effect:
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.kitchen_floor_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.168
+      icon: mdi:speedometer
+      friendly_name: Kitchen Floor strip light Effect speed
       state: '100'
   icon: mdi:amplifier
   metadata: {}
@@ -705,7 +813,7 @@
       - 0.393
       - 0.165
       effect:
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
@@ -714,7 +822,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
@@ -759,7 +867,7 @@
       - 0.364
       - 0.146
       effect:
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -768,7 +876,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -840,7 +948,7 @@
       - 0.392
       - 0.158
       effect:
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -849,7 +957,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -894,7 +1002,7 @@
       - 0.511
       - 0.212
       effect:
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
@@ -903,7 +1011,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       icon: mdi:speedometer
       friendly_name: Fish Tank Striplight Effect speed
       state: '100'
@@ -948,7 +1056,7 @@
       - 0.39
       - 0.161
       effect:
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
@@ -957,7 +1065,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       icon: mdi:speedometer
       friendly_name: Worktop Light Strip Effect speed
       state: '100'
@@ -1002,7 +1110,7 @@
       - 0.394
       - 0.161
       effect:
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
@@ -1011,7 +1119,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       icon: mdi:speedometer
       friendly_name: Sofa strip Light Effect speed
       state: '100'
@@ -1046,17 +1154,17 @@
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 297.176
+      - 296.235
       - 100
       rgb_color:
-      - 243
+      - 239
       - 0
       - 255
       xy_color:
-      - 0.37
-      - 0.148
+      - 0.365
+      - 0.145
       effect:
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
@@ -1065,9 +1173,63 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       icon: mdi:speedometer
       friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
+    light.kitchen_floor_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 107
+      hs_color:
+      - 314.118
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 195
+      xy_color:
+      - 0.47
+      - 0.194
+      effect:
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.kitchen_floor_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.168
+      icon: mdi:speedometer
+      friendly_name: Kitchen Floor strip light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -1115,7 +1277,7 @@
       - 0.208
       - 0.212
       effect:
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
@@ -1124,7 +1286,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
@@ -1159,17 +1321,17 @@
       color_mode: rgb
       brightness: 87
       hs_color:
-      - 248.018
-      - 85.098
+      - 247.909
+      - 86.275
       rgb_color:
-      - 67
-      - 38
+      - 64
+      - 35
       - 255
       xy_color:
-      - 0.16
-      - 0.06
+      - 0.158
+      - 0.058
       effect:
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -1178,7 +1340,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -1250,7 +1412,7 @@
       - 0.148
       - 0.128
       effect:
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -1259,7 +1421,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -1304,7 +1466,7 @@
       - 0.145
       - 0.112
       effect:
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
@@ -1313,7 +1475,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       icon: mdi:speedometer
       friendly_name: Fish Tank Striplight Effect speed
       state: '100'
@@ -1348,17 +1510,17 @@
       color_mode: rgb
       brightness: 250
       hs_color:
-      - 217.762
-      - 56.078
+      - 217.917
+      - 56.471
       rgb_color:
-      - 112
-      - 165
+      - 111
+      - 164
       - 255
       xy_color:
       - 0.194
-      - 0.205
+      - 0.203
       effect:
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
@@ -1367,7 +1529,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       icon: mdi:speedometer
       friendly_name: Worktop Light Strip Effect speed
       state: '100'
@@ -1412,7 +1574,7 @@
       - 0.208
       - 0.214
       effect:
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
@@ -1421,7 +1583,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       icon: mdi:speedometer
       friendly_name: Sofa strip Light Effect speed
       state: '100'
@@ -1466,7 +1628,7 @@
       - 0.208
       - 0.217
       effect:
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
@@ -1475,9 +1637,63 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       icon: mdi:speedometer
       friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
+    light.kitchen_floor_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 120
+      hs_color:
+      - 219.231
+      - 50.98
+      rgb_color:
+      - 125
+      - 170
+      - 255
+      xy_color:
+      - 0.206
+      - 0.214
+      effect:
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.kitchen_floor_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.168
+      icon: mdi:speedometer
+      friendly_name: Kitchen Floor strip light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -1515,17 +1731,17 @@
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 125.143
+      - 124.653
       - 96.078
       rgb_color:
       - 10
       - 255
-      - 31
+      - 29
       xy_color:
       - 0.173
-      - 0.733
+      - 0.734
       effect:
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
@@ -1534,7 +1750,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
@@ -1569,17 +1785,17 @@
       color_mode: rgb
       brightness: 204
       hs_color:
-      - 120.964
-      - 97.647
+      - 121.2
+      - 98.039
       rgb_color:
-      - 6
+      - 5
       - 255
       - 10
       xy_color:
       - 0.173
       - 0.743
       effect:
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -1588,7 +1804,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -1660,7 +1876,7 @@
       - 0.176
       - 0.727
       effect:
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -1669,7 +1885,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -1714,7 +1930,7 @@
       - 0.23
       - 0.692
       effect:
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
@@ -1723,7 +1939,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       icon: mdi:speedometer
       friendly_name: Fish Tank Striplight Effect speed
       state: '100'
@@ -1768,7 +1984,7 @@
       - 0.186
       - 0.727
       effect:
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
@@ -1777,7 +1993,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       icon: mdi:speedometer
       friendly_name: Worktop Light Strip Effect speed
       state: '100'
@@ -1822,7 +2038,7 @@
       - 0.172
       - 0.747
       effect:
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
@@ -1831,7 +2047,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       icon: mdi:speedometer
       friendly_name: Sofa strip Light Effect speed
       state: '100'
@@ -1876,7 +2092,7 @@
       - 0.172
       - 0.747
       effect:
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
@@ -1885,9 +2101,63 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       icon: mdi:speedometer
       friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
+    light.kitchen_floor_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 120
+      - 82.353
+      rgb_color:
+      - 45
+      - 255
+      - 45
+      xy_color:
+      - 0.185
+      - 0.712
+      effect:
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.kitchen_floor_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.168
+      icon: mdi:speedometer
+      friendly_name: Kitchen Floor strip light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -1928,7 +2198,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
       state: 'off'
@@ -1937,7 +2207,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
@@ -1975,7 +2245,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'off'
@@ -1984,7 +2254,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -2042,7 +2312,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'off'
@@ -2051,7 +2321,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -2089,7 +2359,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'off'
@@ -2098,7 +2368,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       icon: mdi:speedometer
       friendly_name: Fish Tank Striplight Effect speed
       state: '100'
@@ -2136,7 +2406,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'off'
@@ -2145,7 +2415,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       icon: mdi:speedometer
       friendly_name: Worktop Light Strip Effect speed
       state: '100'
@@ -2183,7 +2453,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'off'
@@ -2192,7 +2462,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       icon: mdi:speedometer
       friendly_name: Sofa strip Light Effect speed
       state: '100'
@@ -2230,7 +2500,7 @@
       rgb_color:
       xy_color:
       effect:
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'off'
@@ -2239,9 +2509,56 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       icon: mdi:speedometer
       friendly_name: Kitchen Fridge light strip Effect speed
+      state: '100'
+    light.kitchen_floor_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'off'
+    number.kitchen_floor_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.168
+      icon: mdi:speedometer
+      friendly_name: Kitchen Floor strip light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -2298,7 +2615,7 @@
       - 0.136
       - 0.04
       effect:
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
@@ -2307,7 +2624,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.86
+      ip_address: 10.0.10.140
       icon: mdi:speedometer
       friendly_name: Hallway Strip Light Effect speed
       state: '50'
@@ -2352,7 +2669,7 @@
       - 0.136
       - 0.04
       effect:
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
@@ -2361,7 +2678,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.136
+      ip_address: 10.0.10.217
       icon: mdi:speedometer
       friendly_name: Utility Strip light Effect speed
       state: '50'
@@ -2406,7 +2723,7 @@
       - 0.173
       - 0.098
       effect:
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
@@ -2415,7 +2732,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.47
+      ip_address: 10.0.10.44
       icon: mdi:speedometer
       friendly_name: Bar strip light Effect speed
       state: '100'
@@ -2489,7 +2806,7 @@
       - 0.136
       - 0.057
       effect:
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
@@ -2498,7 +2815,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.108
+      ip_address: 10.0.11.252
       icon: mdi:speedometer
       friendly_name: Fish Tank Striplight Effect speed
       state: '100'
@@ -2543,7 +2860,7 @@
       - 0.158
       - 0.185
       effect:
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
@@ -2552,7 +2869,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.178
+      ip_address: 10.0.11.133
       icon: mdi:speedometer
       friendly_name: Worktop Light Strip Effect speed
       state: '100'
@@ -2587,17 +2904,17 @@
       color_mode: rgb
       brightness: 13
       hs_color:
-      - 220.085
+      - 225.191
       - 92.157
       rgb_color:
       - 20
-      - 98
+      - 78
       - 255
       xy_color:
-      - 0.141
-      - 0.1
+      - 0.14
+      - 0.079
       effect:
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
@@ -2606,7 +2923,7 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.103
+      ip_address: 10.0.10.231
       icon: mdi:speedometer
       friendly_name: Kitchen Fridge light strip Effect speed
       state: '100'
@@ -2641,17 +2958,17 @@
       color_mode: rgb
       brightness: 13
       hs_color:
-      - 220.085
+      - 225.191
       - 92.157
       rgb_color:
       - 20
-      - 98
+      - 78
       - 255
       xy_color:
-      - 0.141
-      - 0.1
+      - 0.14
+      - 0.079
       effect:
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
@@ -2660,9 +2977,63 @@
       max: 100
       step: 1
       mode: slider
-      ip_address: 192.168.5.109
+      ip_address: 10.0.11.143
       icon: mdi:speedometer
       friendly_name: Sofa strip Light Effect speed
+      state: '100'
+    light.kitchen_floor_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 5
+      hs_color:
+      - 220
+      - 60
+      rgb_color:
+      - 102
+      - 153
+      - 255
+      xy_color:
+      - 0.186
+      - 0.186
+      effect:
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.kitchen_floor_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.168
+      icon: mdi:speedometer
+      friendly_name: Kitchen Floor strip light Effect speed
       state: '100'
   icon: mdi:shield-moon-outline
   metadata: {}

@@ -724,3 +724,27 @@
         difference there before 4pm peak starts in about an hour.)
       title: Bumped up Max SoC Day as looks like we're cooking or using heater
   mode: single
+- id: '1737056136655'
+  alias: Email warning - Breville
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - sensor.breville_current_power
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+    above: 500
+  - platform: numeric_state
+    entity_id:
+    - sensor.breville_today_energy
+    above: 1
+  condition: []
+  action:
+  - service: notify.marcus_email
+    data:
+      message: It's current power = {{ states('sensor.breville_current_power') }}W,  So
+        far today it's used {{states('sensor.breville_today_energy') }}kWh
+      title: Check kitchen and make sure Breville not left on by mistake
+  mode: single
