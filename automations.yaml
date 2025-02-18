@@ -748,3 +748,29 @@
         far today it's used {{states('sensor.breville_today_energy') }}kWh
       title: Check kitchen and make sure Breville not left on by mistake
   mode: single
+- id: '1738323900814'
+  alias: Email warning - workshop hot water heater
+  description: ''
+  triggers:
+  - entity_id:
+    - sensor.water_heater_current_power
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+    above: 1000
+    trigger: numeric_state
+    attribute: curr
+  - entity_id:
+    - sensor.water_heater_today_energy
+    above: 1
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - data:
+      message: It's currently using {{ states('sensor.water_heater_current_power')
+        }} W,  So far today it's used {{states('sensor.water_heater_today_energy')
+        }} kWh
+      title: Check workshop hot water
+    action: notify.marcus_email
+  mode: single

@@ -30,7 +30,3 @@ scene: !include scenes.yaml
 ifttt:
   key: d2On0P-eqPnRrKxyFSjZBQ
 
-  https://www:
-    home-assistant:
-      io/integrations/rest_command:
-
