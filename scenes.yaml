@@ -3384,3 +3384,45 @@
       state: 'on'
   icon: mdi:lamp-outline
   metadata: {}
+- id: '1740869651066'
+  name: Landing & Hall on
+  entities:
+    light.extension_lamp:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 166
+      friendly_name: Extension lamp
+      supported_features: 0
+      state: 'on'
+    light.landing_light:
+      supported_color_modes:
+      - brightness
+      friendly_name: Landing light
+      supported_features: 0
+      color_mode: brightness
+      brightness: 168
+      state: 'on'
+  metadata: {}
+  icon: mdi:lamps-outline
+- id: '1740869718082'
+  name: Landing & Hall off
+  entities:
+    light.extension_lamp:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 166
+      friendly_name: Extension lamp
+      supported_features: 0
+      state: 'off'
+    light.landing_light:
+      supported_color_modes:
+      - brightness
+      friendly_name: Landing light
+      supported_features: 0
+      color_mode: brightness
+      brightness: 168
+      state: 'off'
+  metadata: {}
+  icon: mdi:lamps

@@ -392,3 +392,19 @@ bedroom_light_marcus_up:
     data: {}
   mode: single
   icon: mdi:weather-sunset-up
+turn_on_cctv_monitor_5_mins:
+  sequence:
+  - type: turn_on
+    device_id: e089e21f12d388d802c0e4178bd386fc
+    entity_id: 895db067f32fc3cb9213ae38b659a529
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - type: turn_off
+    device_id: e089e21f12d388d802c0e4178bd386fc
+    entity_id: 895db067f32fc3cb9213ae38b659a529
+    domain: switch
+  alias: Turn on CCTV monitor 5 mins
+  description: ''

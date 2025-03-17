@@ -2,6 +2,9 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+recorder:
+  db_url: !secret recorder_db_url
+
 notify:
   - name: "MARCUS_EMAIL"
     platform: smtp
@@ -28,5 +31,5 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 ifttt:
-  key: d2On0P-eqPnRrKxyFSjZBQ
+  key: !secret ifttt_key
 

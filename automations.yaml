@@ -74,46 +74,45 @@
       value: '{{ maxSoC }}'
   mode: single
 - id: '1706128884321'
-  alias: 'Energy: Flux tariff: Work Mode around peak tariff times'
+  alias: 'Energy: Flux tariff: Work Mode around peak tariff times when Force exporting'
   description: Sets the inverter's Work Mode at start and end of peak tariff times
-  trigger:
-  - platform: time
-    at: input_datetime.peak_energy_start
+  triggers:
+  - at: input_datetime.peak_energy_start
     variables:
       workmode: Force Discharge
-  - platform: time
-    at: input_datetime.peak_energy_end
+    trigger: time
+  - at: input_datetime.peak_energy_end
     variables:
       workmode: Self Use
-  condition:
-  - and:
-    - condition: template
-      value_template: '{{ states(''input_boolean.peak_tariff_export_enabled'') ==
-        ''on'' }}'
-  action:
-  - service: select.select_option
-    target:
+    trigger: time
+  conditions:
+  - condition: state
+    entity_id: input_boolean.peak_tariff_export_enabled
+    state: 'on'
+  actions:
+  - target:
       entity_id: select.workshop_work_mode
     data:
       option: '{{ workmode }}'
+    action: select.select_option
   mode: single
 - id: '1712635069259'
-  alias: Trigger from IFTTT Webhook to call service
+  alias: Trigger from IFTTT Webhook to call HA service
   description: ''
-  trigger:
-  - platform: event
-    event_type: ifttt_webhook_received
+  triggers:
+  - event_type: ifttt_webhook_received
     event_data:
       action: call_service
-  condition: []
-  action:
-  - service: logbook.log
-    data:
+    trigger: event
+  conditions: []
+  actions:
+  - data:
       message: 'IFTTT webhook to service: "Trigger from IFTTT Webhook: {{ trigger.event.data.service
         }} entity_id {{trigger.event.data.entity_id }}"'
-  - service: '{{ trigger.event.data.service }}'
-    target:
+    action: logbook.log
+  - target:
       entity_id: '{{ trigger.event.data.entity_id }}'
+    action: '{{ trigger.event.data.service }}'
   mode: single
 - id: '1718360862145'
   alias: 'Energy: Battery Min SoC setting'
@@ -402,37 +401,20 @@
       message: Batteries reached 100%
   mode: single
 - id: '1723995992121'
-  alias: IFTTT Reset Battery Full Flag
+  alias: Energy - Reset Battery Full Flag
   description: ''
-  trigger:
-  - platform: time
-    at: 00:00:00
-  - platform: sun
-    event: sunrise
+  triggers:
+  - at: 00:00:00
+    trigger: time
+  - event: sunrise
     offset: 0
-  condition: []
-  action:
-  - service: input_boolean.turn_off
-    target:
+    trigger: sun
+  conditions: []
+  actions:
+  - target:
       entity_id: input_boolean.battery_full_today
     data: {}
-  mode: single
-- id: '1724261003343'
-  alias: Calendar IFTTT Marcus enter work
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
-    domain: device_tracker
-    entity_id: 98354a31bf3665ee1d1caba68923e38f
-    type: enters
-    zone: zone.battersea_studios
-  condition: []
-  action:
-  - service: ifttt.trigger
-    data:
-      event: HA_trigger_calendar
-      value1: Entered Work (Battersea Studios)
+    action: input_boolean.turn_off
   mode: single
 - id: '1724261138857'
   alias: Calendar IFTTT Marcus enter RRRC
@@ -518,23 +500,6 @@
     data:
       event: HA_trigger_calendar
       value1: Left The Hope
-  mode: single
-- id: '1724261395717'
-  alias: Calendar IFTTT Marcus leaves work
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
-    domain: device_tracker
-    entity_id: 98354a31bf3665ee1d1caba68923e38f
-    type: leaves
-    zone: zone.battersea_studios
-  condition: []
-  action:
-  - service: ifttt.trigger
-    data:
-      event: HA_trigger_calendar
-      value1: Left Work (Battersea Studios)
   mode: single
 - id: '1724261461321'
   alias: Calendar IFTTT Marcus leaves Tesco
@@ -773,4 +738,123 @@
         }} kWh
       title: Check workshop hot water
     action: notify.marcus_email
+  mode: single
+- id: '1740657511428'
+  alias: 'Energy: set Max SoC ECO based on tomorrow''s PV forecast'
+  description: Sets the Max SoC ECO according to the forecast for tomorrow
+  triggers:
+  - at: '22:15:00'
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.solcast_pv_forecast_forecast_tomorrow
+        above: input_number.pv_forecasthigh_threshold
+      sequence:
+      - target:
+          entity_id: input_number.max_soc_eco
+        data:
+          value: '{{ states(''input_number.max_soc_eco_high'') | float(0) }}'
+        action: input_number.set_value
+      - data:
+          message: Setting Max SoC ECO to {{ states('input_number.max_soc_eco_high')
+            }}% as PV forcast is {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+            }}kWh
+          name: Max SoC ECO
+        action: logbook.log
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.solcast_pv_forecast_forecast_tomorrow
+        above: input_number.pv_forecastmed_threshold
+      sequence:
+      - target:
+          entity_id: input_number.max_soc_eco
+        data:
+          value: '{{ states(''input_number.max_soc_eco_medium'') | float(0) }}'
+        action: input_number.set_value
+      - data:
+          message: Setting Max SoC ECO to {{ states('input_number.max_soc_eco_medium')
+            }}% as PV forcast is {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+            }}kWh
+          name: Max SoC ECO
+        action: logbook.log
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.solcast_pv_forecast_forecast_tomorrow
+        above: input_number.pv_forecastlow_threshold
+      sequence:
+      - target:
+          entity_id: input_number.max_soc_eco
+        data:
+          value: '{{ states(''input_number.max_soc_eco_low'') | float(0) }}'
+        action: input_number.set_value
+      - data:
+          message: Setting Max SoC ECO to {{ states('input_number.max_soc_eco_low')
+            }}% as PV forcast is {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+            }}kWh
+          name: Max SoC ECO
+        action: logbook.log
+    default:
+    - target:
+        entity_id: input_number.max_soc_eco
+      data:
+        value: '{{ states(''input_number.max_soc_eco_default'') | float(0) }}'
+      action: input_number.set_value
+    - data:
+        message: Setting Max SoC EC to default {{ states('input_number.max_soc_eco_default')
+          }}% PV forcast is {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+          }}kWh - check why default?
+        name: Max SoC ECO
+      action: logbook.log
+  - data:
+      event: HA_trigger_calendar
+      value1: Max SoC ECO = {{ states('input_number.max_soc_eco') }}% PV forecast
+        {{ states('sensor.solcast_pv_forecast_forecast_tomorrow') }}kWh
+    action: ifttt.trigger
+  - data:
+      event: HA_trigger_sheet
+      value1: PV Forecasts setting Max SoC ECO
+      value2: Tomorrow PV forecast {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+        }}kWh
+      value3: Todays actual PV {{ states('sensor.generation_today') }}kWh
+    action: ifttt.trigger
+  - data:
+      message: Tomorrow's forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+        }} kWh Max SoC ECO set to {{ states('input_number.max_soc_eco') }}% for the
+        overnight charge.
+    action: notify.marcus_email
+  mode: single
+- id: '1740673832275'
+  alias: 'Energy: Reset the Max SoC ECO to default'
+  description: ''
+  triggers:
+  - at: input_datetime.off_peak_energy_end
+    trigger: time
+  conditions: []
+  actions:
+  - target:
+      entity_id: input_number.max_soc_eco
+    data:
+      value: '{{ states(''input_number.max_soc_eco_default'') | float(0) }}'
+    action: input_number.set_value
+  mode: single
+- id: '1741125922921'
+  alias: Turn on CCTV monitor if Door Bell Visitor
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 0c2fa370e19dd3120be880febd2d14f6
+    entity_id: 50e653e2427c85a49849fc380565e847
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: switch.cctv_monitor
+    state: 'off'
+  actions:
+  - action: script.turn_on_cctv_monitor_5_mins
+    metadata: {}
+    data: {}
   mode: single
