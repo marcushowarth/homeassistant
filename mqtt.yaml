@@ -1,0 +1,139 @@
+sensor:
+  - name: "Outdoor Temperature"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "°C"
+    value_template: "{{ value_json['ZbReceived']['0xA19B']['Temperature'] }}"
+    device_class: temperature
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Outdoor Humidity"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json['ZbReceived']['0xA19B']['Humidity'] }}"
+    device_class: humidity
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Workshop Temperature"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "°C"
+    value_template: "{{ value_json['ZbReceived']['0xA450']['Temperature'] }}"
+    device_class: temperature
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Workshop Humidity"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json['ZbReceived']['0xA450']['Humidity'] }}"
+    device_class: humidity
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Outside Temp Battery"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json['ZbReceived']['0xA19B']['BatteryPercentage'] }}"
+    device_class: battery
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Workshop Temp Battery"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json['ZbReceived']['0xA450']['BatteryPercentage'] }}"
+    device_class: battery
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Pool room Motion Battery"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json['ZbReceived']['0x0A73']['BatteryPercentage'] }}"
+    device_class: battery
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Garden Motion Battery"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "%"
+    value_template: "{{ value_json['ZbReceived']['0x97E0']['BatteryPercentage'] }}"
+    device_class: battery
+    state_class: measurement
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Outside Temp LQI"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "LQI"
+    value_template: "{{ value_json['ZbReceived']['0xA19B']['LinkQuality'] }}"
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Workshop Temp LQI"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "LQI"
+    value_template: "{{ value_json['ZbReceived']['0xA450']['LinkQuality'] }}"
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Pool Room Motion LQI"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "LQI"
+    value_template: "{{ value_json['ZbReceived']['0x0A73']['LinkQuality'] }}"
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Garden Motion LQI"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "LQI"
+    value_template: "{{ value_json['ZbReceived']['0x97E0']['LinkQuality'] }}"
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+binary_sensor:
+  - name: "Pool Room Motion"
+    state_topic: "tele/zbbridge/SENSOR"
+    value_template: >
+      {% if value_json['ZbReceived']['0x0A73'] is defined %}
+        {{ value_json['ZbReceived']['0x0A73']['ZoneStatus'] == 1 }}
+      {% else %}
+        false
+      {% endif %}
+    device_class: motion
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Garden Motion"
+    state_topic: "tele/zbbridge/SENSOR"
+    value_template: >
+      {% if value_json['ZbReceived']['0x97E0'] is defined %}
+        {{ value_json['ZbReceived']['0x97E0']['ZoneStatus'] == 1 }}
+      {% else %}
+        false
+      {% endif %}
+    device_class: motion
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"

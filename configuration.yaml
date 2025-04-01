@@ -33,3 +33,5 @@ scene: !include scenes.yaml
 ifttt:
   key: !secret ifttt_key
 
+mqtt: !include mqtt.yaml
+
