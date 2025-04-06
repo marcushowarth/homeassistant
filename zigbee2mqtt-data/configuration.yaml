@@ -1,0 +1,47 @@
+version: 4
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://mosquitto:1883
+  retain: true
+serial:
+  port: /dev/ttyUSB0
+  adapter: ember
+advanced:
+  log_level: info
+  channel: 11
+  network_key:
+    - 237
+    - 223
+    - 19
+    - 6
+    - 14
+    - 231
+    - 189
+    - 100
+    - 158
+    - 123
+    - 13
+    - 66
+    - 4
+    - 77
+    - 95
+    - 165
+  pan_id: 6458
+  ext_pan_id:
+    - 9
+    - 243
+    - 203
+    - 201
+    - 137
+    - 118
+    - 209
+    - 174
+frontend:
+  enabled: true
+  port: 8080
+  host: 0.0.0.0
+homeassistant:
+  enabled: true 
+devices:
+  '0x0ceff6fffe8fe525':
+    friendly_name: landing_motion_sensor
