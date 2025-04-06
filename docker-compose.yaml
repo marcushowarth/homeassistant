@@ -1,0 +1,41 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    environment:
+      - TZ=Europe/London
+    volumes:
+      - /home/hauser:/config
+      - /run/dbus:/run/dbus:ro
+    depends_on:
+      - mosquitto
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+    volumes:
+      - /home/hauser/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - /home/hauser/mosquitto/data:/mosquitto/data
+      - /home/hauser/mosquitto/log:/mosquitto/log
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt:latest
+    restart: unless-stopped
+    devices:
+      - /dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_fea8eda44a4eef11804750b3174bec31-if00-port0:/dev/ttyUSB0
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Europe/London
+    volumes:
+      - /home/hauser/zigbee2mqtt-data:/app/data
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - mosquitto
