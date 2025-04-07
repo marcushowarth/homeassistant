@@ -858,3 +858,298 @@
     metadata: {}
     data: {}
   mode: single
+- id: '1742382554771'
+  alias: 'Energy: set flag to force peak export based on tomorrow''s PV forecast'
+  description: Sets the flag to force peak export based on tomorrow's PV forecast
+  triggers:
+  - at: '22:20:00'
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.solcast_pv_forecast_forecast_tomorrow
+        above: input_number.input_number_pv_forecastpeak_export_threshold
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.peak_tariff_export_enabled
+    default:
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.peak_tariff_export_enabled
+  - data:
+      message: Tomorrow's forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+        }} kWh so the flag to export during peak tariff set to {{ states('input_boolean.peak_tariff_export_enabled')
+        }} for tomorrow.
+    action: notify.marcus_email
+  mode: single
+- id: '1743343342572'
+  alias: New MQTT Test Trigger
+  description: ''
+  triggers:
+  - trigger: mqtt
+    topic: test/topic
+  conditions: []
+  actions:
+  - action: notify.marcus_email
+    data:
+      message: MQTT received!
+      title: MQTT!
+  mode: single
+- id: '1743528120482'
+  alias: 'Pool Room: turn TV on if person detected (CCTV)'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.pool_room_person
+    to: 'on'
+  conditions:
+  - condition: device
+    type: is_off
+    device_id: e22bd9643a03ccfdd146071f933bceb0
+    entity_id: b2dc0da6a18ef1c6696ebfdf8f81b692
+    domain: switch
+  actions:
+  - type: turn_on
+    device_id: e22bd9643a03ccfdd146071f933bceb0
+    entity_id: b2dc0da6a18ef1c6696ebfdf8f81b692
+    domain: switch
+  mode: single
+- id: '1743575339217'
+  alias: 'Switches: Pool room: Turn off TV if no motion detected'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.pool_room_person
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 45
+      seconds: 0
+  conditions:
+  - condition: device
+    type: is_on
+    device_id: e22bd9643a03ccfdd146071f933bceb0
+    entity_id: cd7e44c44030b60a17ea655e6d2cbb1b
+    domain: switch
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+  actions:
+  - type: turn_off
+    device_id: e22bd9643a03ccfdd146071f933bceb0
+    entity_id: cd7e44c44030b60a17ea655e6d2cbb1b
+    domain: switch
+  mode: single
+- id: '1743575766984'
+  alias: 'Switches: Pool room: Turn on lamp if dark and motion detected'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.pool_room_person
+    to: 'on'
+  conditions:
+  - condition: sun
+    before: sunrise
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.pool_room_light_blue
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 884f68553e69441148296ac281012994
+    entity_id: 48390b26e6605aa1e1fd911cfdfcdbec
+    domain: light
+  mode: single
+- id: '1743577499206'
+  alias: 'Switches: Pool room: Turn off lamp if dark and no motion detected'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.pool_room_person
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  conditions:
+  - condition: sun
+    before: sunrise
+  actions:
+  - type: turn_off
+    device_id: 884f68553e69441148296ac281012994
+    entity_id: 48390b26e6605aa1e1fd911cfdfcdbec
+    domain: light
+  mode: single
+- id: '1743577751018'
+  alias: 'Switches: Garden: Turn on corridor if dark and person detected (CCTV)'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.garden_person
+    to: 'on'
+  conditions:
+  - condition: sun
+    before: sunrise
+  - condition: device
+    type: is_off
+    device_id: f5c48cb9736b686921fba7f33027783d
+    entity_id: 813faf4a006b336e0784df661249fac8
+    domain: light
+  actions:
+  - action: script.turn_on_garden_corridor_1_min
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1744023985084'
+  alias: 'Switches: Kitchen: increase brightness if over night dim occupancy'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_kitchen_occupancy
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: scene.overnight_dim
+    state: 'on'
+  actions:
+  - device_id: 9304a59da2095983f2a8451aa4860ce1
+    domain: light
+    entity_id: fd0e21d750196006934af17ad654b314
+    type: brightness_increase
+  - device_id: 5f9b9f8e28a65cde38237a076155e868
+    domain: light
+    entity_id: b5be4ebf3a55bc8c1bf912afa88a4a02
+    type: brightness_increase
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.overnight_dim
+  mode: single
+- id: '1744024117792'
+  alias: 'Switches: Hallway: increase brightness if over night dim occupancy '
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_hallway_occupancy
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: scene.overnight_dim
+    state: 'on'
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.landing_hall_on
+  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
+    domain: light
+    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
+    type: brightness_increase
+  - delay:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.landing_hall_off
+  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
+    domain: light
+    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
+    type: brightness_decrease
+  mode: single
+- id: '1744024506979'
+  alias: 'Switches: Utility: increase brightness if over night dim occupancy'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_utility_occupancy
+    to: 'on'
+  conditions:
+  - condition: state
+    entity_id: scene.overnight_dim
+    state: 'on'
+  actions:
+  - device_id: 543c7f8e70c0cbbbd63ec9b0487b0dc7
+    domain: light
+    entity_id: 58227fda90455af19f1baecf3f917610
+    type: brightness_increase
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - device_id: 543c7f8e70c0cbbbd63ec9b0487b0dc7
+    domain: light
+    entity_id: 58227fda90455af19f1baecf3f917610
+    type: brightness_decrease
+  mode: single
+- id: '1744025273042'
+  alias: 'Switches: Landing: increase brightness if over night dim occupancy'
+  description: ''
+  triggers:
+  - type: occupied
+    device_id: c02543864fe2c8f3f5189271408aa2c1
+    entity_id: 1939c8028be93d09e92c0eb57b489266
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: scene.overnight_dim
+    state: 'on'
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.landing_hall_on
+  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
+    domain: light
+    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
+    type: brightness_increase
+  - delay:
+      hours: 0
+      minutes: 3
+      seconds: 0
+      milliseconds: 0
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.landing_hall_off
+  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
+    domain: light
+    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
+    type: brightness_decrease
+  mode: single

@@ -408,3 +408,22 @@ turn_on_cctv_monitor_5_mins:
     domain: switch
   alias: Turn on CCTV monitor 5 mins
   description: ''
+turn_on_garden_corridor_1_min:
+  sequence:
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.garden_corridor_50
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - action: scene.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: scene.garden_off
+  alias: Turn on Garden Corridor 1 min
+  description: ''

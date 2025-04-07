@@ -3398,10 +3398,10 @@
     light.landing_light:
       supported_color_modes:
       - brightness
+      color_mode: brightness
+      brightness: 102
       friendly_name: Landing light
       supported_features: 0
-      color_mode: brightness
-      brightness: 168
       state: 'on'
   metadata: {}
   icon: mdi:lamps-outline
@@ -3426,3 +3426,86 @@
       state: 'off'
   metadata: {}
   icon: mdi:lamps
+- id: '1743575995861'
+  name: Garden Corridor 50%
+  entities:
+    light.pool_east:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Pool East
+      supported_features: 0
+      state: 'on'
+    light.pool_west:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Pool West
+      supported_features: 0
+      state: 'off'
+    light.workshop_east:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Workshop East
+      supported_features: 0
+      state: 'off'
+    light.workshop_west:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Workshop West
+      supported_features: 0
+      state: 'on'
+    light.patio_east:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Patio East
+      supported_features: 0
+      state: 'on'
+    light.patio_west:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Patio West
+      supported_features: 0
+      state: 'off'
+  metadata: {}
+  icon: mdi:lightbulb-multiple
+- id: '1743748241146'
+  name: Pool Room Lamp Blue
+  entities:
+    light.pool_room_lamp:
+      min_color_temp_kelvin: 2500
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 400
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 196
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 128
+      - 174
+      - 255
+      xy_color:
+      - 0.208
+      - 0.22
+      friendly_name: Pool room lamp
+      supported_features: 0
+      state: 'on'
+  icon: mdi:lamp-outline
+  metadata: {}
