@@ -41,7 +41,13 @@ frontend:
   port: 8080
   host: 0.0.0.0
 homeassistant:
-  enabled: true 
+  enabled: true
 devices:
   '0x0ceff6fffe8fe525':
-    friendly_name: landing_motion_sensor
+    friendly_name: motion_landing
+  '0x28dba7fffe05d7e8':
+    friendly_name: motion_hallway
+  '0x0ceff6fffe8fe98b':
+    friendly_name: motion_kitchen
+  '0x0ceff6fffe8feaa1':
+    friendly_name: motion_utility
