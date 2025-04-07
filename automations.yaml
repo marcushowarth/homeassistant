@@ -889,19 +889,6 @@
         }} for tomorrow.
     action: notify.marcus_email
   mode: single
-- id: '1743343342572'
-  alias: New MQTT Test Trigger
-  description: ''
-  triggers:
-  - trigger: mqtt
-    topic: test/topic
-  conditions: []
-  actions:
-  - action: notify.marcus_email
-    data:
-      message: MQTT received!
-      title: MQTT!
-  mode: single
 - id: '1743528120482'
   alias: 'Pool Room: turn TV on if person detected (CCTV)'
   description: ''
@@ -1019,137 +1006,223 @@
     metadata: {}
     data: {}
   mode: single
-- id: '1744023985084'
-  alias: 'Switches: Kitchen: increase brightness if over night dim occupancy'
-  description: ''
+- id: '1744037830914'
+  alias: Overnight Dim Scene Activation
+  description: Activate overnight dim scene with different times for weekdays and
+    weekends.
   triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.motion_kitchen_occupancy
-    to: 'on'
+  - at: '22:40:00'
+    id: weekday_time
+    trigger: time
+  - at: '23:00:00'
+    id: weekend_time
+    trigger: time
   conditions:
-  - condition: state
-    entity_id: scene.overnight_dim
-    state: 'on'
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: trigger
+        id: weekday_time
+      - condition: time
+        weekday:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+    - condition: and
+      conditions:
+      - condition: trigger
+        id: weekend_time
+      - condition: time
+        weekday:
+        - fri
+        - sat
   actions:
-  - device_id: 9304a59da2095983f2a8451aa4860ce1
-    domain: light
-    entity_id: fd0e21d750196006934af17ad654b314
-    type: brightness_increase
-  - device_id: 5f9b9f8e28a65cde38237a076155e868
-    domain: light
-    entity_id: b5be4ebf3a55bc8c1bf912afa88a4a02
-    type: brightness_increase
-  - delay:
-      hours: 0
-      minutes: 5
-      seconds: 0
-      milliseconds: 0
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
+  - target:
       entity_id: scene.overnight_dim
+    action: scene.turn_on
+  - target:
+      entity_id: input_boolean.overnight_dim_active
+    action: input_boolean.turn_on
   mode: single
-- id: '1744024117792'
-  alias: 'Switches: Hallway: increase brightness if over night dim occupancy '
+- id: '1744037903514'
+  alias: Morning Reset
   description: ''
   triggers:
-  - trigger: state
-    entity_id:
+  - at: 05:30:00
+    trigger: time
+  actions:
+  - target:
+      entity_id: input_boolean.overnight_dim_active
+    action: input_boolean.turn_off
+    data: {}
+  mode: single
+- id: '1744038635290'
+  alias: 'Switches: Landing: dynamic brightness adjustment overnight'
+  description: Increase brightness on motion during overnight dim, reduce after both
+    sensors clear with a small delay.
+  triggers:
+  - entity_id:
     - binary_sensor.motion_hallway_occupancy
+    - binary_sensor.motion_landing_occupancy
     to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id:
+    - binary_sensor.motion_hallway_occupancy
+    - binary_sensor.motion_landing_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
   conditions:
   - condition: state
-    entity_id: scene.overnight_dim
+    entity_id: input_boolean.overnight_dim_active
     state: 'on'
   actions:
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: scene.landing_hall_on
-  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
-    domain: light
-    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
-    type: brightness_increase
-  - delay:
-      hours: 0
-      minutes: 3
-      seconds: 0
-      milliseconds: 0
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: scene.landing_hall_off
-  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
-    domain: light
-    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
-    type: brightness_decrease
-  mode: single
-- id: '1744024506979'
-  alias: 'Switches: Utility: increase brightness if over night dim occupancy'
-  description: ''
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id: scene.landing_hall_on
+        action: scene.turn_on
+      - target:
+          entity_id: light.controller_rgb_c1f45a
+        data:
+          brightness_pct: 80
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: binary_sensor.motion_hallway_occupancy
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.motion_landing_occupancy
+          state: 'off'
+      - target:
+          entity_id: scene.landing_hall_off
+        action: scene.turn_on
+      - target:
+          entity_id: light.controller_rgb_c1f45a
+        data:
+          brightness_pct: 3
+        action: light.turn_on
+  mode: restart
+- id: '1744039170743'
+  alias: 'Switches: Kitchen: dynamic lighting on motion'
+  description: Turn on kitchen lights on motion, dim after clear with small delay.
   triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.motion_utility_occupancy
+  - entity_id: binary_sensor.motion_kitchen_occupancy
     to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
   conditions:
   - condition: state
-    entity_id: scene.overnight_dim
+    entity_id: input_boolean.overnight_dim_active
     state: 'on'
   actions:
-  - device_id: 543c7f8e70c0cbbbd63ec9b0487b0dc7
-    domain: light
-    entity_id: 58227fda90455af19f1baecf3f917610
-    type: brightness_increase
-  - delay:
-      hours: 0
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id:
+          - light.kitchen_floor_strip_light
+          - light.kitchen_fridge_light_strip
+        data:
+          brightness_pct: 80
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: state
+        entity_id: binary_sensor.motion_kitchen_occupancy
+        state: 'off'
+      - target:
+          entity_id:
+          - light.kitchen_floor_strip_light
+          - light.kitchen_fridge_light_strip
+        data:
+          brightness_pct: 3
+        action: light.turn_on
+  mode: restart
+- id: '1744039224088'
+  alias: 'Switches: Utility Room: dynamic lighting on motion'
+  description: Turn on utility room light on motion, dim after clear with small delay.
+  triggers:
+  - entity_id: binary_sensor.motion_utility_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id: binary_sensor.motion_utility_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id: light.controller_rgb_c1f544
+        data:
+          brightness_pct: 80
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: state
+        entity_id: binary_sensor.motion_utility_occupancy
+        state: 'off'
+      - target:
+          entity_id: light.controller_rgb_c1f544
+        data:
+          brightness_pct: 3
+        action: light.turn_on
+  mode: restart
+- id: '1744040652495'
+  alias: 'Safety: Breville turn off if no kitchen occupancy'
+  description: Turn off Breville if kitchen empty for 5 mins while in use.
+  triggers:
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'off'
+    for:
       minutes: 5
-      seconds: 0
-      milliseconds: 0
-  - device_id: 543c7f8e70c0cbbbd63ec9b0487b0dc7
-    domain: light
-    entity_id: 58227fda90455af19f1baecf3f917610
-    type: brightness_decrease
-  mode: single
-- id: '1744025273042'
-  alias: 'Switches: Landing: increase brightness if over night dim occupancy'
-  description: ''
-  triggers:
-  - type: occupied
-    device_id: c02543864fe2c8f3f5189271408aa2c1
-    entity_id: 1939c8028be93d09e92c0eb57b489266
-    domain: binary_sensor
-    trigger: device
+    trigger: state
   conditions:
-  - condition: state
-    entity_id: scene.overnight_dim
-    state: 'on'
+  - condition: numeric_state
+    entity_id: sensor.breville_current_power
+    above: 500
   actions:
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: scene.landing_hall_on
-  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
-    domain: light
-    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
-    type: brightness_increase
-  - delay:
-      hours: 0
-      minutes: 3
-      seconds: 0
-      milliseconds: 0
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: scene.landing_hall_off
-  - device_id: 1dc4643fff949669e6aa5ebfe9b71a38
-    domain: light
-    entity_id: db5c656b6cf9b8bd7d99eac2aa31e5d9
-    type: brightness_decrease
+  - target:
+      entity_id: switch.breville
+    action: switch.turn_off
+  - data:
+      title: Breville Auto Turn-Off
+      message: 'The Breville was turned off automatically after 5 minutes of no kitchen
+        activity. Current power before shutdown: {{ states(''sensor.breville_current_power'')
+        }}W.'
+    action: notify.marcus_email
   mode: single
