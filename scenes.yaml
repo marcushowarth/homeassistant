@@ -331,15 +331,6 @@
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f2c0_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.44
-      icon: mdi:speedometer
-      friendly_name: Bar strip light Effect speed
-      state: '100'
     light.controller_rgb_c1f544:
       effect_list:
       - blue_fade
@@ -385,15 +376,6 @@
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f544_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.217
-      icon: mdi:speedometer
-      friendly_name: Utility Strip light Effect speed
-      state: '50'
     light.extension_lamp:
       supported_color_modes:
       - brightness
@@ -488,15 +470,6 @@
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f45a_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.140
-      icon: mdi:speedometer
-      friendly_name: Hallway Strip Light Effect speed
-      state: '50'
     light.fish_tank_striplight:
       effect_list:
       - blue_fade
@@ -542,15 +515,6 @@
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
-    number.fish_tank_striplight_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.252
-      icon: mdi:speedometer
-      friendly_name: Fish Tank Striplight Effect speed
-      state: '100'
     light.worktop_light_strip:
       effect_list:
       - blue_fade
@@ -596,15 +560,6 @@
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
-    number.worktop_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.133
-      icon: mdi:speedometer
-      friendly_name: Worktop Light Strip Effect speed
-      state: '100'
     light.sofa_strip_light:
       effect_list:
       - blue_fade
@@ -650,15 +605,6 @@
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
-    number.sofa_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.143
-      icon: mdi:speedometer
-      friendly_name: Sofa strip Light Effect speed
-      state: '100'
     light.kitchen_fridge_light_strip:
       effect_list:
       - blue_fade
@@ -704,15 +650,6 @@
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
-    number.kitchen_fridge_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.231
-      icon: mdi:speedometer
-      friendly_name: Kitchen Fridge light strip Effect speed
-      state: '100'
     light.kitchen_floor_strip_light:
       effect_list:
       - blue_fade
@@ -758,15 +695,6 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.kitchen_floor_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.168
-      icon: mdi:speedometer
-      friendly_name: Kitchen Floor strip light Effect speed
-      state: '100'
   icon: mdi:amplifier
   metadata: {}
 - id: '1707217791586'
@@ -817,15 +745,6 @@
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f2c0_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.44
-      icon: mdi:speedometer
-      friendly_name: Bar strip light Effect speed
-      state: '100'
     light.controller_rgb_c1f544:
       effect_list:
       - blue_fade
@@ -871,15 +790,6 @@
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f544_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.217
-      icon: mdi:speedometer
-      friendly_name: Utility Strip light Effect speed
-      state: '50'
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
@@ -952,15 +862,6 @@
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f45a_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.140
-      icon: mdi:speedometer
-      friendly_name: Hallway Strip Light Effect speed
-      state: '50'
     light.fish_tank_striplight:
       effect_list:
       - blue_fade
@@ -1006,15 +907,6 @@
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
-    number.fish_tank_striplight_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.252
-      icon: mdi:speedometer
-      friendly_name: Fish Tank Striplight Effect speed
-      state: '100'
     light.worktop_light_strip:
       effect_list:
       - blue_fade
@@ -1060,15 +952,6 @@
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
-    number.worktop_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.133
-      icon: mdi:speedometer
-      friendly_name: Worktop Light Strip Effect speed
-      state: '100'
     light.sofa_strip_light:
       effect_list:
       - blue_fade
@@ -1114,15 +997,6 @@
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
-    number.sofa_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.143
-      icon: mdi:speedometer
-      friendly_name: Sofa strip Light Effect speed
-      state: '100'
     light.kitchen_fridge_light_strip:
       effect_list:
       - blue_fade
@@ -1168,15 +1042,6 @@
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
-    number.kitchen_fridge_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.231
-      icon: mdi:speedometer
-      friendly_name: Kitchen Fridge light strip Effect speed
-      state: '100'
     light.kitchen_floor_strip_light:
       effect_list:
       - blue_fade
@@ -1222,15 +1087,6 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.kitchen_floor_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.168
-      icon: mdi:speedometer
-      friendly_name: Kitchen Floor strip light Effect speed
-      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707217867570'
@@ -1281,15 +1137,6 @@
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f2c0_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.44
-      icon: mdi:speedometer
-      friendly_name: Bar strip light Effect speed
-      state: '100'
     light.controller_rgb_c1f544:
       effect_list:
       - blue_fade
@@ -1335,15 +1182,6 @@
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f544_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.217
-      icon: mdi:speedometer
-      friendly_name: Utility Strip light Effect speed
-      state: '50'
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
@@ -1416,15 +1254,6 @@
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f45a_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.140
-      icon: mdi:speedometer
-      friendly_name: Hallway Strip Light Effect speed
-      state: '50'
     light.fish_tank_striplight:
       effect_list:
       - blue_fade
@@ -1470,15 +1299,6 @@
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
-    number.fish_tank_striplight_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.252
-      icon: mdi:speedometer
-      friendly_name: Fish Tank Striplight Effect speed
-      state: '100'
     light.worktop_light_strip:
       effect_list:
       - blue_fade
@@ -1524,15 +1344,6 @@
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
-    number.worktop_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.133
-      icon: mdi:speedometer
-      friendly_name: Worktop Light Strip Effect speed
-      state: '100'
     light.sofa_strip_light:
       effect_list:
       - blue_fade
@@ -1578,15 +1389,6 @@
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
-    number.sofa_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.143
-      icon: mdi:speedometer
-      friendly_name: Sofa strip Light Effect speed
-      state: '100'
     light.kitchen_fridge_light_strip:
       effect_list:
       - blue_fade
@@ -1632,15 +1434,6 @@
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
-    number.kitchen_fridge_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.231
-      icon: mdi:speedometer
-      friendly_name: Kitchen Fridge light strip Effect speed
-      state: '100'
     light.kitchen_floor_strip_light:
       effect_list:
       - blue_fade
@@ -1686,15 +1479,6 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.kitchen_floor_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.168
-      icon: mdi:speedometer
-      friendly_name: Kitchen Floor strip light Effect speed
-      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707229963331'
@@ -1745,15 +1529,6 @@
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f2c0_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.44
-      icon: mdi:speedometer
-      friendly_name: Bar strip light Effect speed
-      state: '100'
     light.controller_rgb_c1f544:
       effect_list:
       - blue_fade
@@ -1799,15 +1574,6 @@
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f544_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.217
-      icon: mdi:speedometer
-      friendly_name: Utility Strip light Effect speed
-      state: '50'
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
@@ -1880,15 +1646,6 @@
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f45a_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.140
-      icon: mdi:speedometer
-      friendly_name: Hallway Strip Light Effect speed
-      state: '50'
     light.fish_tank_striplight:
       effect_list:
       - blue_fade
@@ -1934,15 +1691,6 @@
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
-    number.fish_tank_striplight_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.252
-      icon: mdi:speedometer
-      friendly_name: Fish Tank Striplight Effect speed
-      state: '100'
     light.worktop_light_strip:
       effect_list:
       - blue_fade
@@ -1988,15 +1736,6 @@
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
-    number.worktop_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.133
-      icon: mdi:speedometer
-      friendly_name: Worktop Light Strip Effect speed
-      state: '100'
     light.sofa_strip_light:
       effect_list:
       - blue_fade
@@ -2042,15 +1781,6 @@
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
-    number.sofa_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.143
-      icon: mdi:speedometer
-      friendly_name: Sofa strip Light Effect speed
-      state: '100'
     light.kitchen_fridge_light_strip:
       effect_list:
       - blue_fade
@@ -2096,15 +1826,6 @@
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
-    number.kitchen_fridge_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.231
-      icon: mdi:speedometer
-      friendly_name: Kitchen Fridge light strip Effect speed
-      state: '100'
     light.kitchen_floor_strip_light:
       effect_list:
       - blue_fade
@@ -2150,15 +1871,6 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.kitchen_floor_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.168
-      icon: mdi:speedometer
-      friendly_name: Kitchen Floor strip light Effect speed
-      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707233428389'
@@ -2202,15 +1914,6 @@
       friendly_name: Bar strip light
       supported_features: 36
       state: 'off'
-    number.controller_rgb_c1f2c0_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.44
-      icon: mdi:speedometer
-      friendly_name: Bar strip light Effect speed
-      state: '100'
     light.controller_rgb_c1f544:
       effect_list:
       - blue_fade
@@ -2249,15 +1952,6 @@
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'off'
-    number.controller_rgb_c1f544_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.217
-      icon: mdi:speedometer
-      friendly_name: Utility Strip light Effect speed
-      state: '50'
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
@@ -2316,15 +2010,6 @@
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'off'
-    number.controller_rgb_c1f45a_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.140
-      icon: mdi:speedometer
-      friendly_name: Hallway Strip Light Effect speed
-      state: '50'
     light.fish_tank_striplight:
       effect_list:
       - blue_fade
@@ -2363,15 +2048,6 @@
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'off'
-    number.fish_tank_striplight_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.252
-      icon: mdi:speedometer
-      friendly_name: Fish Tank Striplight Effect speed
-      state: '100'
     light.worktop_light_strip:
       effect_list:
       - blue_fade
@@ -2410,15 +2086,6 @@
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'off'
-    number.worktop_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.133
-      icon: mdi:speedometer
-      friendly_name: Worktop Light Strip Effect speed
-      state: '100'
     light.sofa_strip_light:
       effect_list:
       - blue_fade
@@ -2457,15 +2124,6 @@
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'off'
-    number.sofa_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.143
-      icon: mdi:speedometer
-      friendly_name: Sofa strip Light Effect speed
-      state: '100'
     light.kitchen_fridge_light_strip:
       effect_list:
       - blue_fade
@@ -2504,15 +2162,6 @@
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'off'
-    number.kitchen_fridge_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.231
-      icon: mdi:speedometer
-      friendly_name: Kitchen Fridge light strip Effect speed
-      state: '100'
     light.kitchen_floor_strip_light:
       effect_list:
       - blue_fade
@@ -2551,15 +2200,6 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'off'
-    number.kitchen_floor_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.168
-      icon: mdi:speedometer
-      friendly_name: Kitchen Floor strip light Effect speed
-      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707322902788'
@@ -2619,15 +2259,6 @@
       friendly_name: Hallway Strip Light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f45a_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.140
-      icon: mdi:speedometer
-      friendly_name: Hallway Strip Light Effect speed
-      state: '50'
     light.controller_rgb_c1f544:
       effect_list:
       - blue_fade
@@ -2673,15 +2304,6 @@
       friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f544_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.217
-      icon: mdi:speedometer
-      friendly_name: Utility Strip light Effect speed
-      state: '50'
     light.controller_rgb_c1f2c0:
       effect_list:
       - blue_fade
@@ -2727,15 +2349,6 @@
       friendly_name: Bar strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_c1f2c0_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.44
-      icon: mdi:speedometer
-      friendly_name: Bar strip light Effect speed
-      state: '100'
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
@@ -2810,15 +2423,6 @@
       friendly_name: Fish Tank Striplight
       supported_features: 36
       state: 'on'
-    number.fish_tank_striplight_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.252
-      icon: mdi:speedometer
-      friendly_name: Fish Tank Striplight Effect speed
-      state: '100'
     light.worktop_light_strip:
       effect_list:
       - blue_fade
@@ -2864,15 +2468,6 @@
       friendly_name: Worktop Light Strip
       supported_features: 36
       state: 'on'
-    number.worktop_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.133
-      icon: mdi:speedometer
-      friendly_name: Worktop Light Strip Effect speed
-      state: '100'
     light.kitchen_fridge_light_strip:
       effect_list:
       - blue_fade
@@ -2918,15 +2513,6 @@
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
       state: 'on'
-    number.kitchen_fridge_light_strip_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.10.231
-      icon: mdi:speedometer
-      friendly_name: Kitchen Fridge light strip Effect speed
-      state: '100'
     light.sofa_strip_light:
       effect_list:
       - blue_fade
@@ -2972,15 +2558,6 @@
       friendly_name: Sofa strip Light
       supported_features: 36
       state: 'on'
-    number.sofa_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.143
-      icon: mdi:speedometer
-      friendly_name: Sofa strip Light Effect speed
-      state: '100'
     light.kitchen_floor_strip_light:
       effect_list:
       - blue_fade
@@ -3026,15 +2603,6 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.kitchen_floor_strip_light_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.168
-      icon: mdi:speedometer
-      friendly_name: Kitchen Floor strip light Effect speed
-      state: '100'
   icon: mdi:shield-moon-outline
   metadata: {}
 - id: '1707495233920'
