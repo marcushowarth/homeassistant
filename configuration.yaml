@@ -34,4 +34,5 @@ ifttt:
   key: !secret ifttt_key
 
 mqtt: !include mqtt.yaml
+template: !include templates.yaml
 
