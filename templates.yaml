@@ -3,5 +3,5 @@
       unique_id: daily_gas_consumption_energy
       unit_of_measurement: "kWh"
       device_class: energy
-      state_class: measurement
+      state_class: total_increasing
       state: "{{ states('sensor.octopus_energy_gas_e6s11752851961_578554309_previous_accumulative_consumption_kwh') | float(0) }}"
