@@ -854,10 +854,20 @@
     entity_id: switch.cctv_monitor
     state: 'off'
   actions:
-  - action: script.turn_on_cctv_monitor_5_mins
-    metadata: {}
-    data: {}
-  mode: single
+  - type: turn_on
+    device_id: e089e21f12d388d802c0e4178bd386fc
+    entity_id: 895db067f32fc3cb9213ae38b659a529
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: e089e21f12d388d802c0e4178bd386fc
+    entity_id: 895db067f32fc3cb9213ae38b659a529
+    domain: switch
+  mode: restart
 - id: '1742382554771'
   alias: 'Energy: set flag to force peak export based on tomorrow''s PV forecast'
   description: Sets the flag to force peak export based on tomorrow's PV forecast
@@ -987,25 +997,33 @@
   mode: single
 - id: '1743577751018'
   alias: 'Switches: Garden: Turn on corridor if dark and person detected (CCTV)'
-  description: ''
+  description: Activates scene to light corridor if person detected before sunrise
+    and it's currently off.
   triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.garden_person
+  - entity_id: binary_sensor.garden_person
     to: 'on'
+    trigger: state
   conditions:
   - condition: sun
     before: sunrise
-  - condition: device
-    type: is_off
-    device_id: f5c48cb9736b686921fba7f33027783d
-    entity_id: 813faf4a006b336e0784df661249fac8
-    domain: light
+  - condition: template
+    value_template: "{{ \n  is_state('light.pool_east', 'off') and\n  is_state('light.workshop_west',
+      'off') and\n  is_state('light.patio_east', 'off')\n}}\n"
   actions:
-  - action: script.turn_on_garden_corridor_1_min
-    metadata: {}
+  - target:
+      entity_id: scene.garden_corridor_50
+    action: scene.turn_on
     data: {}
-  mode: single
+  - delay: 00:01:00
+  - target:
+      entity_id: scene.garden_off
+    action: scene.turn_on
+    data: {}
+  - data:
+      event: HA_trigger_calendar
+      value1: '[Garden] has detected a person at {{ now().strftime(''%H:%M'') }}'
+    action: ifttt.trigger
+  mode: restart
 - id: '1744037830914'
   alias: Overnight Dim Scene Activation
   description: Activate overnight dim scene with different times for weekdays and
@@ -1143,7 +1161,7 @@
           - light.kitchen_floor_strip_light
           - light.kitchen_fridge_light_strip
         data:
-          brightness_pct: 80
+          brightness_pct: 100
         action: light.turn_on
     - conditions:
       - condition: trigger
@@ -1186,7 +1204,7 @@
       - target:
           entity_id: light.controller_rgb_c1f544
         data:
-          brightness_pct: 80
+          brightness_pct: 60
         action: light.turn_on
     - conditions:
       - condition: trigger
@@ -1226,3 +1244,112 @@
         }}W.'
     action: notify.marcus_email
   mode: single
+- id: '1744108621901'
+  alias: 'Energy: Daily: Update Octopus Energy Tariffs'
+  description: Run daily at 7am to update import/export rates from Octopus Energy.
+  triggers:
+  - at: 07:00:00
+    trigger: time
+  actions:
+  - action: script.update_octopus_energy_tariffs_with_change_detection
+    data: {}
+  mode: single
+- id: '1744194965918'
+  alias: 'Switches: Landing: dynamic evening after sunset'
+  description: Increase brightness on motion during overnight dim, reduce after both
+    sensors clear with a small delay.
+  triggers:
+  - entity_id:
+    - binary_sensor.motion_hallway_occupancy
+    - binary_sensor.motion_landing_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id:
+    - binary_sensor.motion_hallway_occupancy
+    - binary_sensor.motion_landing_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'off'
+  - condition: sun
+    after: sunset
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id:
+          - scene.landing_on_bright
+        action: scene.turn_on
+        data: {}
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: binary_sensor.motion_hallway_occupancy
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.motion_landing_occupancy
+          state: 'off'
+      - target:
+          entity_id:
+          - scene.landing_off
+        action: scene.turn_on
+        data: {}
+  mode: restart
+- id: '1744685643551'
+  alias: 'Switches: Utility: dynamic evening after sunset'
+  description: Increase brightness on motion after sunset, reduce after sensor clears
+    with a small delay.
+  triggers:
+  - entity_id:
+    - binary_sensor.motion_utility_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id:
+    - binary_sensor.motion_utility_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'off'
+  - condition: sun
+    after: sunset
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id: light.controller_rgb_c1f544
+        data:
+          brightness_pct: 100
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: state
+        entity_id: binary_sensor.motion_utility_occupancy
+        state: 'off'
+      - target:
+          entity_id: light.controller_rgb_c1f544
+        data:
+          brightness_pct: 60
+        action: light.turn_on
+  mode: restart

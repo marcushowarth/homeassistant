@@ -2959,7 +2959,7 @@
       supported_color_modes:
       - brightness
       color_mode: brightness
-      brightness: 166
+      brightness: 21
       friendly_name: Extension lamp
       supported_features: 0
       state: 'on'
@@ -2967,7 +2967,7 @@
       supported_color_modes:
       - brightness
       color_mode: brightness
-      brightness: 102
+      brightness: 3
       friendly_name: Landing light
       supported_features: 0
       state: 'on'
@@ -3077,3 +3077,29 @@
       state: 'on'
   icon: mdi:lamp-outline
   metadata: {}
+- id: '1744194805981'
+  name: Landing on (Bright)
+  entities:
+    light.landing_light:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 153
+      friendly_name: Landing light
+      supported_features: 0
+      state: 'on'
+  metadata: {}
+  icon: mdi:ceiling-light-outline
+- id: '1744194916431'
+  name: Landing off
+  entities:
+    light.landing_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: Landing light
+      supported_features: 0
+      state: 'off'
+  metadata: {}
+  icon: mdi:ceiling-light

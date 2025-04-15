@@ -392,38 +392,123 @@ bedroom_light_marcus_up:
     data: {}
   mode: single
   icon: mdi:weather-sunset-up
-turn_on_cctv_monitor_5_mins:
+update_octopus_energy_tariffs_with_change_detection:
+  alias: Update Octopus Energy Tariffs with Change Detection
+  variables:
+    import_previous: '{{ states(''sensor.octopus_energy_electricity_19l3262960_1900017085873_previous_rate'')
+      | float(0) }}'
+    import_current: '{{ states(''sensor.octopus_energy_electricity_19l3262960_1900017085873_current_rate'')
+      | float(0) }}'
+    import_next: '{{ states(''sensor.octopus_energy_electricity_19l3262960_1900017085873_next_rate'')
+      | float(0) }}'
+    export_previous: '{{ states(''sensor.octopus_energy_electricity_19l3262960_1900092445141_export_previous_rate'')
+      | float(0) }}'
+    export_current: '{{ states(''sensor.octopus_energy_electricity_19l3262960_1900092445141_export_current_rate'')
+      | float(0) }}'
+    export_next: '{{ states(''sensor.octopus_energy_electricity_19l3262960_1900092445141_export_next_rate'')
+      | float(0) }}'
+    gas_today: '{{ states(''sensor.octopus_energy_gas_e6s11752851961_578554309_current_rate'')
+      | float(0) }}'
+    changed_tariffs: ''
   sequence:
-  - type: turn_on
-    device_id: e089e21f12d388d802c0e4178bd386fc
-    entity_id: 895db067f32fc3cb9213ae38b659a529
-    domain: switch
-  - delay:
-      hours: 0
-      minutes: 5
-      seconds: 0
-  - type: turn_off
-    device_id: e089e21f12d388d802c0e4178bd386fc
-    entity_id: 895db067f32fc3cb9213ae38b659a529
-    domain: switch
-  alias: Turn on CCTV monitor 5 mins
-  description: ''
-turn_on_garden_corridor_1_min:
-  sequence:
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: scene.garden_corridor_50
-  - delay:
-      hours: 0
-      minutes: 1
-      seconds: 0
-      milliseconds: 0
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: scene.garden_off
-  alias: Turn on Garden Corridor 1 min
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ import_previous > 0 and import_previous != states(''input_number.import_rate_eco'')
+          | float(0) }}'
+      sequence:
+      - data:
+          entity_id: input_number.import_rate_eco
+          value: '{{ import_previous }}'
+        action: input_number.set_value
+      - variables:
+          changed_tariffs: '{{ changed_tariffs + ''\nImport Rate Eco changed to: ''
+            ~ import_previous ~ ''p'' }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ import_current > 0 and import_current != states(''input_number.import_rate_day'')
+          | float(0) }}'
+      sequence:
+      - data:
+          entity_id: input_number.import_rate_day
+          value: '{{ import_current }}'
+        action: input_number.set_value
+      - variables:
+          changed_tariffs: '{{ changed_tariffs + ''\nImport Rate Day changed to: ''
+            ~ import_current ~ ''p'' }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ import_next > 0 and import_next != states(''input_number.import_rate_peak'')
+          | float(0) }}'
+      sequence:
+      - data:
+          entity_id: input_number.import_rate_peak
+          value: '{{ import_next }}'
+        action: input_number.set_value
+      - variables:
+          changed_tariffs: '{{ changed_tariffs + ''\nImport Rate Peak changed to:
+            '' ~ import_next ~ ''p'' }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ export_previous > 0 and export_previous != states(''input_number.feed_in_rate_eco'')
+          | float(0) }}'
+      sequence:
+      - data:
+          entity_id: input_number.feed_in_rate_eco
+          value: '{{ export_previous }}'
+        action: input_number.set_value
+      - variables:
+          changed_tariffs: '{{ changed_tariffs + ''\nExport Rate Eco changed to: ''
+            ~ export_previous ~ ''p'' }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ export_current > 0 and export_current != states(''input_number.feed_in_rate_day'')
+          | float(0) }}'
+      sequence:
+      - data:
+          entity_id: input_number.feed_in_rate_day
+          value: '{{ export_current }}'
+        action: input_number.set_value
+      - variables:
+          changed_tariffs: '{{ changed_tariffs + ''\nExport Rate Day changed to: ''
+            ~ export_current ~ ''p'' }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ export_next > 0 and export_next != states(''input_number.feed_in_rate_peak'')
+          | float(0) }}'
+      sequence:
+      - data:
+          entity_id: input_number.feed_in_rate_peak
+          value: '{{ export_next }}'
+        action: input_number.set_value
+      - variables:
+          changed_tariffs: '{{ changed_tariffs + ''\nExport Rate Peak changed to:
+            '' ~ export_next ~ ''p'' }}'
+    - conditions:
+      - condition: template
+        value_template: '{{ gas_today > 0 and gas_today != states(''input_number.gas_rate'')
+          | float(0) }}'
+      sequence:
+      - data:
+          entity_id: input_number.gas_rate
+          value: '{{ gas_today }}'
+        action: input_number.set_value
+      - variables:
+          changed_tariffs: '{{ changed_tariffs + ''\nGas Rate changed to: '' ~ gas_today
+            ~ ''p'' }}'
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ changed_tariffs | length > 0 }}'
+      sequence:
+      - data:
+          title: Octopus Tariff Update
+          message: 'The following tariffs were updated: {{ changed_tariffs }}'
+        action: notify.marcus_email
+      - data:
+          event: HA_trigger_sheet
+          value1: Octopus Tariff Update
+          value2: 'The following tariffs were updated: {{ changed_tariffs }}'
+        action: ifttt.trigger
+  mode: single
   description: ''
