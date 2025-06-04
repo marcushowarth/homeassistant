@@ -2,6 +2,8 @@ version: 4
 mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://mosquitto:1883
+  user: tasmota
+  password: password
   retain: true
 serial:
   port: /dev/ttyUSB0
@@ -51,3 +53,9 @@ devices:
     friendly_name: motion_kitchen
   '0x0ceff6fffe8feaa1':
     friendly_name: motion_utility
+  '0x08ddebfffed8ff08':
+    friendly_name: temp_office
+  '0x08ddebfffea57aaf':
+    friendly_name: temp_bedroom
+  '0x44e2f8fffe09429e':
+    friendly_name: switch_office_light
