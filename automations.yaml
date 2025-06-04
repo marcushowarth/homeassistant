@@ -636,26 +636,26 @@
 - id: '1731915273289'
   alias: Email warning - Iris' room
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
+  triggers:
+  - entity_id:
     - sensor.iriss_room_current_power
     for:
       hours: 0
       minutes: 0
       seconds: 30
     above: 500
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+  - entity_id:
     - sensor.iriss_room_today_energy
-    above: 1
-  condition: []
-  action:
-  - service: notify.marcus_email
-    data:
+    above: 2
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - data:
       message: Her room's current power {{ states('sensor.iriss_room_current_power')
         }}W,  So far today it's used {{states('sensor.iriss_room_today_energy') }}kWh
       title: Check Iris' room for anything left on
+    action: notify.marcus_email
   mode: single
 - id: '1733254185943'
   alias: 'Energy: Battery: Max SoC according to the alternative cooking value'
@@ -1353,3 +1353,656 @@
           brightness_pct: 60
         action: light.turn_on
   mode: restart
+- id: '1745249419330'
+  alias: Calendar IFTTT Marcus enter Royston Park
+  description: ''
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.royston_park
+    trigger: device
+  conditions: []
+  actions:
+  - data:
+      event: HA_trigger_calendar
+      value1: Entered Royston Park
+    action: ifttt.trigger
+  mode: single
+- id: '1746030803787'
+  alias: 'Switches: Pool room: Turn on cross trainer fans if hot and motion detected'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.pool_room_person
+    to: 'on'
+  conditions:
+  - condition: numeric_state
+    entity_id: sensor.workshop_temperature
+    above: input_number.input_number_min_temp_fans_workshop
+  actions:
+  - type: turn_on
+    device_id: c2538969a005b978a1aeeb0549ff0b1d
+    entity_id: e2022028bb105f89442376c67e10f9fe
+    domain: switch
+  mode: single
+- id: '1746030947407'
+  alias: 'Switches: Pool room: Turn off cross trainer fans if no motion detected'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.pool_room_person
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: c2538969a005b978a1aeeb0549ff0b1d
+    entity_id: e2022028bb105f89442376c67e10f9fe
+    domain: switch
+  mode: single
+- id: '1748793771021'
+  alias: 'Schedules: Bedroom Lamp Schedule'
+  description: Full bedroom light automation from 07:00 to 09:00 on weekdays unless
+    holiday mode is active
+  triggers:
+  - minutes: /5
+    trigger: time_pattern
+  conditions:
+  - condition: template
+    value_template: '{{ not is_state(''input_boolean.holiday_bedroom_lamp'', ''on'')
+      }}'
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''07:00'' }}'
+      sequence:
+      - target:
+          entity_id: scene.bedroom_light_green_3
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''07:20'' }}'
+      sequence:
+      - target:
+          entity_id: scene.bedroom_light_2700k_50
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''07:50'' }}'
+      sequence:
+      - target:
+          entity_id: scene.bedroom_light_3200k_25
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''08:00'' }}'
+      sequence:
+      - target:
+          entity_id: scene.bedroom_light_4000k_50
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''08:30'' }}'
+      sequence:
+      - target:
+          entity_id: scene.bedroom_light_5000k_65
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''08:50'' }}'
+      sequence:
+      - target:
+          entity_id: scene.bedroom_light_red_100
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''09:00'' }}'
+      sequence:
+      - target:
+          entity_id: scene.bedroom_light_2700k_50
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''09:10'' }}'
+      sequence:
+      - target:
+          entity_id: light.bedroom_lamp
+        action: light.turn_off
+  mode: single
+- id: '1748952040030'
+  alias: 'Schedules: Fish Tank Lighting'
+  description: Turn on fish tank light at 18:30 or 20 minutes before sunset, and off
+    at 22:00.
+  triggers:
+  - at: '18:30:00'
+    trigger: time
+  - event: sunset
+    offset: -00:20:00
+    trigger: sun
+  - at: '22:00:00'
+    trigger: time
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''22:00'' }}'
+      sequence:
+      - target:
+          entity_id: light.controller_dimmable_bee234
+        action: light.turn_off
+    default:
+    - target:
+        entity_id: light.controller_dimmable_bee234
+      action: light.turn_on
+  mode: single
+- id: '1748952936172'
+  alias: 'Schedules: Landing Lighting'
+  description: 'Landing light control: weekday/weekend mornings, sunset on, and evening
+    off.'
+  triggers:
+  - at: 06:00:00
+    trigger: time
+  - at: 07:00:00
+    trigger: time
+  - event: sunrise
+    offset: 00:10:00
+    trigger: sun
+  - event: sunset
+    offset: -00:10:00
+    trigger: sun
+  - at: '22:20:00'
+    trigger: time
+  conditions:
+  - condition: state
+    entity_id: input_boolean.holiday_landing_light
+    state: 'off'
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''06:00'' and now().weekday()
+          in [0,1,2,3,4] }}'
+      sequence:
+      - target:
+          entity_id: light.landing_light
+        action: light.turn_on
+        data: {}
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''07:00'' and now().weekday()
+          in [5,6] }}'
+      sequence:
+      - target:
+          entity_id: light.landing_light
+        action: light.turn_on
+        data: {}
+    - conditions:
+      - condition: trigger
+        id: sunrise_offset
+      sequence:
+      - target:
+          entity_id: light.landing_light
+        action: light.turn_off
+        data: {}
+    - conditions:
+      - condition: trigger
+        id: sunset_offset
+      sequence:
+      - target:
+          entity_id: light.landing_light
+        action: light.turn_on
+        data: {}
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''22:20'' }}'
+      sequence:
+      - target:
+          entity_id: light.landing_light
+        action: light.turn_off
+        data: {}
+  mode: single
+- id: '1748961427071'
+  alias: 'Schedules: Garden Lighting'
+  description: 'Controls garden lighting: sunrise/morning on, sunset dim, and evening
+    off with weekend variant.'
+  triggers:
+  - at: 06:30:00
+    trigger: time
+  - at: 07:30:00
+    trigger: time
+  - event: sunrise
+    trigger: sun
+  - event: sunset
+    trigger: sun
+  - at: '21:45:00'
+    trigger: time
+  - at: '22:20:00'
+    trigger: time
+  - at: '23:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''06:30'' and now().weekday()
+          in [0,1,2,3,4] }}'
+      sequence:
+      - target:
+          entity_id: scene.garden_on
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''07:30'' and now().weekday()
+          in [5,6] }}'
+      sequence:
+      - target:
+          entity_id: scene.garden_on
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: sunrise
+      sequence:
+      - target:
+          entity_id: scene.garden_off
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: sunset
+      sequence:
+      - target:
+          entity_id: scene.garden_50
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''22:20'' and now().weekday()
+          in [0,1,2,3,6] }}'
+      sequence:
+      - target:
+          entity_id: scene.garden_off
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''23:00'' and now().weekday()
+          in [4,5] }}'
+      sequence:
+      - target:
+          entity_id: scene.garden_off
+        action: scene.turn_on
+  mode: single
+- id: '1748962213931'
+  alias: 'Schedules: House Lighting'
+  description: Automates LED scenes throughout the house by time and weekday.
+  triggers:
+  - at: 05:20:00
+    trigger: time
+  - at: 07:20:00
+    trigger: time
+  - at: '11:00:00'
+    trigger: time
+  - at: '16:00:00'
+    trigger: time
+  - at: '20:00:00'
+    trigger: time
+  - at: '22:40:00'
+    trigger: time
+  - at: 00:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''05:20'' and now().weekday()
+          in [0,1,2,3,4] }}'
+      sequence:
+      - target:
+          entity_id: scene.lighting_green
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''07:20'' and now().weekday()
+          in [5,6] }}'
+      sequence:
+      - target:
+          entity_id: scene.lighting_green
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''11:00'' }}'
+      sequence:
+      - target:
+          entity_id: scene.lighting_blue
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''16:00'' }}'
+      sequence:
+      - target:
+          entity_id: scene.lighting_green
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''20:00'' }}'
+      sequence:
+      - target:
+          entity_id: scene.lighting_purple
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''22:40'' and now().weekday()
+          in [0,1,2,3,6] }}'
+      sequence:
+      - target:
+          entity_id: scene.overnight_dim
+        action: scene.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''00:00'' and now().weekday()
+          in [5,6] }}'
+      sequence:
+      - target:
+          entity_id: scene.overnight_dim
+        action: scene.turn_on
+  mode: single
+- id: '1748962918075'
+  alias: 'Schedules: Extension Lamp (Sunrise & Sunset Edge Cases)'
+  description: Controls Tapo L510 lamp on workday mornings before sunrise, and post-sunset
+    only if before 19:45.
+  triggers:
+  - at: 05:50:00
+    trigger: time
+  - event: sunset
+    trigger: sun
+  - at: '19:45:00'
+    trigger: time
+  - event: sunrise
+    trigger: sun
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().weekday() in [0,1,2,3,4] and now().strftime(''%H:%M'')
+          == ''05:50'' and state_attr(''sun.sun'', ''elevation'') < 0 }}'
+      sequence:
+      - target:
+          entity_id: light.extension_lamp
+        action: light.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == (state_attr(''sun.sun'',
+          ''next_setting'') | as_datetime | as_local).strftime(''%H:%M'') and (state_attr(''sun.sun'',
+          ''next_setting'') | as_datetime | as_local).strftime(''%H:%M'') < ''19:45''
+          }}'
+      sequence:
+      - target:
+          entity_id: light.extension_lamp
+        action: light.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''19:45'' }}'
+      sequence:
+      - target:
+          entity_id: light.extension_lamp
+        action: light.turn_off
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == (state_attr(''sun.sun'',
+          ''next_rising'') | as_datetime | as_local).strftime(''%H:%M'') }}'
+      sequence:
+      - target:
+          entity_id: light.extension_lamp
+        action: light.turn_off
+  mode: single
+- id: '1748963661748'
+  alias: 'Schedules: Bug Zapper Fixed Times'
+  description: Controls Tapo plug for Bug Zapper at fixed times AM and PM.
+  triggers:
+  - at: 07:00:00
+    trigger: time
+  - at: '10:00:00'
+    trigger: time
+  - at: '17:00:00'
+    trigger: time
+  - at: '20:30:00'
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''07:00'' or now().strftime(''%H:%M'')
+          == ''17:00'' }}'
+      sequence:
+      - target:
+          entity_id: switch.bugzapper
+        action: switch.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''10:00'' or now().strftime(''%H:%M'')
+          == ''20:30'' }}'
+      sequence:
+      - target:
+          entity_id: switch.bugzapper
+        action: switch.turn_off
+  mode: single
+- id: '1748964170424'
+  alias: 'Schedules: Bug Zapper Motion Activated (Excludes Fixed ON Periods)'
+  description: Turns on bug zapper with kitchen motion between 05:00–22:00, but prevents
+    auto-OFF when motion ceases during fixed ON slots (07–10, 17–20:30).
+  triggers:
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'off'
+    for:
+      minutes: 10
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: template
+    value_template: '{{ ''05:00'' <= now().strftime(''%H:%M'') < ''22:00'' and not
+      (''07:00'' <= now().strftime(''%H:%M'') < ''10:00'') and not (''17:00'' <= now().strftime(''%H:%M'')
+      < ''20:30'') }}'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id: switch.bugzapper
+        action: switch.turn_on
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - target:
+          entity_id: switch.bugzapper
+        action: switch.turn_off
+  mode: single
+- id: '1748964325065'
+  alias: 'Schedules: eBike Charger Availability'
+  description: Ensures switch.ebike_charger is ON from sunrise until 20:00 every day.
+  triggers:
+  - event: sunrise
+    trigger: sun
+  - at: '20:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: sun
+        after: sunrise
+      sequence:
+      - target:
+          entity_id: switch.ebike_charger
+        action: switch.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''20:00'' }}'
+      sequence:
+      - target:
+          entity_id: switch.ebike_charger
+        action: switch.turn_off
+  mode: single
+- id: '1748964712322'
+  alias: 'Schedules: Firestick Reboot (Weekly)'
+  description: Turns off the Amazon Firestick TV switch every Monday from 05:00 to
+    06:00 to force a reset.
+  triggers:
+  - at: 05:00:00
+    trigger: time
+  conditions:
+  - condition: time
+    weekday:
+    - mon
+  actions:
+  - target:
+      entity_id: switch.amazon_firestick_tv
+    action: switch.turn_off
+  - delay:
+      hours: 1
+  - target:
+      entity_id: switch.amazon_firestick_tv
+    action: switch.turn_on
+  mode: single
+- id: '1748964862160'
+  alias: 'Schedules: Dishwasher Reboot (Weekly)'
+  description: Turns off the Dishwasher switch every Monday from 05:00 to 06:00 to
+    force a reset.
+  triggers:
+  - at: 05:00:00
+    trigger: time
+  conditions:
+  - condition: time
+    weekday:
+    - mon
+  actions:
+  - target:
+      entity_id: switch.dishwasher
+    action: switch.turn_off
+  - delay:
+      hours: 1
+  - target:
+      entity_id: switch.dishwasher
+    action: switch.turn_on
+  mode: single
+- id: '1748965468409'
+  alias: 'Schedules: Christmas Lights (Dec 1 – Jan 1, with Holiday Overnight)'
+  description: Christmas lights ON at sunset and OFF at 23:20 between Dec 1 and Jan
+    1, except on 24th, 25th, and 31st Dec when they stay ON until sunrise.
+  triggers:
+  - event: sunset
+    trigger: sun
+  - at: '23:20:00'
+    trigger: time
+  - event: sunrise
+    trigger: sun
+  conditions:
+  - condition: template
+    value_template: '{{ (now().month == 12 and now().day >= 1) or (now().month ==
+      1 and now().day == 1) }}'
+  actions:
+  - choose:
+    - conditions:
+      - condition: sun
+        after: sunset
+      sequence:
+      - target:
+          entity_id: switch.christmas_lights
+        action: switch.turn_on
+    - conditions:
+      - condition: template
+        value_template: '{{ now().strftime(''%H:%M'') == ''23:20'' }}'
+      - condition: template
+        value_template: '{{ now().day not in [24, 25, 31] }}'
+      sequence:
+      - target:
+          entity_id: switch.christmas_lights
+        action: switch.turn_off
+    - conditions:
+      - condition: sun
+        after: sunrise
+      - condition: template
+        value_template: '{{ now().day in [24, 25, 31] or (now().month == 1 and now().day
+          == 1) }}'
+      sequence:
+      - target:
+          entity_id: switch.christmas_lights
+        action: switch.turn_off
+  mode: single
+- id: '1748967031460'
+  alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
+  description: 'Turns ON bedroom fans when temperature exceeds threshold, during night-time
+    cooling windows:
+
+    - Weekdays (Sun–Thu): 21:50–08:00
+
+    - Weekends (Fri–Sat): 23:00–10:00
+
+    - Blocked if input_boolean.bedroom_fan_override_off is ON'
+  triggers:
+  - entity_id: binary_sensor.min_temp_fans_exceeded
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.bedroom_fan_override_off
+    state: 'off'
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: time
+        after: '21:50:00'
+        before: 08:00:00
+      - condition: template
+        value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
+    - condition: and
+      conditions:
+      - condition: time
+        after: '23:00:00'
+        before: '10:00:00'
+      - condition: template
+        value_template: '{{ now().weekday() in [4, 5] }}'
+  actions:
+  - target:
+      entity_id: switch.bedroom_fans
+    action: switch.turn_on
+  mode: single
+- id: '1748968592567'
+  alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
+  description: Turns ON the office ceiling fan when temperature exceeds the office
+    threshold (input_number.min_temp_fans_office) on weekdays (Mon–Fri) between 08:00–18:30,
+    unless input_boolean.office_fan_override_off is ON.
+  triggers:
+  - entity_id: binary_sensor.min_temp_fans_office_exceeded
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.office_fan_override_off
+    state: 'off'
+  - condition: time
+    after: 08:00:00
+    before: '18:30:00'
+  - condition: template
+    value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+  actions:
+  - target:
+      entity_id: switch.switch_office_light
+    action: switch.turn_on
+  mode: single

@@ -10,32 +10,39 @@ bedtime:
       device_id: 61dd366fd275ffb11aa5f8603580f75c
       entity_id: 1e020847e9336c733fcdbcb2119a437d
       domain: switch
-  - service: scene.turn_on
-    target:
+  - target:
       entity_id: scene.garden_off
     metadata: {}
+    action: scene.turn_on
+    data: {}
   - type: turn_off
     device_id: 994179d72feccd3796a4e876a78cdefe
     entity_id: 2cd01e5cc1d83176ba5ab4c5ce41d5fc
     domain: light
-  - service: ifttt.trigger
-    data:
+  - data:
       event: HA_trigger_calendar
       value1: Bedtime script run
+    action: ifttt.trigger
   - delay:
       hours: 0
       minutes: 5
       seconds: 0
       milliseconds: 0
-  - service: scene.turn_on
-    target:
+  - target:
       entity_id: scene.overnight_dim
     metadata: {}
-  - service: ifttt.trigger
-    data:
+    action: scene.turn_on
+    data: {}
+  - action: input_boolean.turn_on
+    target:
+      entity_id:
+      - input_boolean.overnight_dim_active
+    data: {}
+  - data:
       event: HA_trigger_sheet
       value1: Bedtime script log
       value2: Zzzzzz ;-)
+    action: ifttt.trigger
   mode: single
   icon: mdi:bed
 set_min_soc_to_10:
