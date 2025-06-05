@@ -1515,9 +1515,11 @@
   - event: sunrise
     offset: 00:10:00
     trigger: sun
+    id: sunrise_offset
   - event: sunset
     offset: -00:10:00
     trigger: sun
+    id: sunset_offset
   - at: '22:20:00'
     trigger: time
   conditions:
@@ -1529,21 +1531,27 @@
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''06:00'' and now().weekday()
-          in [0,1,2,3,4] }}'
+          in [0,1,2,3,4] }}
+
+          '
+      - condition: sun
+        before: sunrise
       sequence:
       - target:
           entity_id: light.landing_light
         action: light.turn_on
-        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''07:00'' and now().weekday()
-          in [5,6] }}'
+          in [5,6] }}
+
+          '
+      - condition: sun
+        before: sunrise
       sequence:
       - target:
           entity_id: light.landing_light
         action: light.turn_on
-        data: {}
     - conditions:
       - condition: trigger
         id: sunrise_offset
@@ -1551,7 +1559,6 @@
       - target:
           entity_id: light.landing_light
         action: light.turn_off
-        data: {}
     - conditions:
       - condition: trigger
         id: sunset_offset
@@ -1559,7 +1566,6 @@
       - target:
           entity_id: light.landing_light
         action: light.turn_on
-        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''22:20'' }}'
@@ -1567,7 +1573,6 @@
       - target:
           entity_id: light.landing_light
         action: light.turn_off
-        data: {}
   mode: single
 - id: '1748961427071'
   alias: 'Schedules: Garden Lighting'
@@ -1965,7 +1970,7 @@
 
     - Blocked if input_boolean.bedroom_fan_override_off is ON'
   triggers:
-  - entity_id: binary_sensor.min_temp_fans_exceeded
+  - entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
     to: 'on'
     trigger: state
   conditions:
@@ -1992,6 +1997,7 @@
   - target:
       entity_id: switch.bedroom_fans
     action: switch.turn_on
+    data: {}
   mode: single
 - id: '1748968592567'
   alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
