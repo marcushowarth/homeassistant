@@ -5,12 +5,7 @@ sensor:
     unit_of_measurement: "°C"
     device_class: temperature
     state_class: measurement
-    value_template: >
-      {% if value_json.ZbReceived.temp_outside.Temperature is defined %}
-        {{ value_json.ZbReceived.temp_outside.Temperature }}
-      {% else %}
-        {{ states('sensor.outdoor_temperature') }}
-      {% endif %}
+    value_template: "{{ value_json['ZbReceived']['0x5FCD'].Temperature }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -20,25 +15,7 @@ sensor:
     unit_of_measurement: "%"
     device_class: humidity
     state_class: measurement
-    value_template: >
-      {% if value_json.ZbReceived.temp_outside.Humidity is defined %}
-        {{ value_json.ZbReceived.temp_outside.Humidity }}
-      {% else %}
-        {{ states('sensor.outdoor_humidity') }}
-      {% endif %}
-    availability_topic: "tele/zbbridge/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-
-  - name: "Outside Temp LQI"
-    state_topic: "tele/zbbridge/SENSOR"
-    unit_of_measurement: "LQI"
-    value_template: >
-      {% if value_json.ZbReceived.temp_outside.LinkQuality is defined %}
-        {{ value_json.ZbReceived.temp_outside.LinkQuality }}
-      {% else %}
-        {{ states('sensor.outside_temp_lqi') }}
-      {% endif %}
+    value_template: "{{ value_json['ZbReceived']['0x5FCD'].Humidity }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -48,12 +25,15 @@ sensor:
     unit_of_measurement: "%"
     device_class: battery
     state_class: measurement
-    value_template: >
-      {% if value_json.ZbReceived.temp_outside.BatteryPercentage is defined %}
-        {{ value_json.ZbReceived.temp_outside.BatteryPercentage }}
-      {% else %}
-        {{ states('sensor.outside_temp_battery') }}
-      {% endif %}
+    value_template: "{{ value_json['ZbReceived']['0x5FCD'].BatteryPercentage }}"
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Outside Temp LQI"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "LQI"
+    value_template: "{{ value_json['ZbReceived']['0x5FCD'].LinkQuality }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -64,12 +44,7 @@ sensor:
     unit_of_measurement: "°C"
     device_class: temperature
     state_class: measurement
-    value_template: >
-      {% if value_json.ZbReceived.temp_workshop.Temperature is defined %}
-        {{ value_json.ZbReceived.temp_workshop.Temperature }}
-      {% else %}
-        {{ states('sensor.workshop_temperature') }}
-      {% endif %}
+    value_template: "{{ value_json['ZbReceived']['0x5928'].Temperature }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -79,25 +54,7 @@ sensor:
     unit_of_measurement: "%"
     device_class: humidity
     state_class: measurement
-    value_template: >
-      {% if value_json.ZbReceived.temp_workshop.Humidity is defined %}
-        {{ value_json.ZbReceived.temp_workshop.Humidity }}
-      {% else %}
-        {{ states('sensor.workshop_humidity') }}
-      {% endif %}
-    availability_topic: "tele/zbbridge/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-
-  - name: "Workshop Temp LQI"
-    state_topic: "tele/zbbridge/SENSOR"
-    unit_of_measurement: "LQI"
-    value_template: >
-      {% if value_json.ZbReceived.temp_workshop.LinkQuality is defined %}
-        {{ value_json.ZbReceived.temp_workshop.LinkQuality }}
-      {% else %}
-        {{ states('sensor.workshop_temp_lqi') }}
-      {% endif %}
+    value_template: "{{ value_json['ZbReceived']['0x5928'].Humidity }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -107,12 +64,15 @@ sensor:
     unit_of_measurement: "%"
     device_class: battery
     state_class: measurement
-    value_template: >
-      {% if value_json.ZbReceived.temp_workshop.BatteryPercentage is defined %}
-        {{ value_json.ZbReceived.temp_workshop.BatteryPercentage }}
-      {% else %}
-        {{ states('sensor.workshop_temp_battery') }}
-      {% endif %}
+    value_template: "{{ value_json['ZbReceived']['0x5928'].BatteryPercentage }}"
+    availability_topic: "tele/zbbridge/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+  - name: "Workshop Temp LQI"
+    state_topic: "tele/zbbridge/SENSOR"
+    unit_of_measurement: "LQI"
+    value_template: "{{ value_json['ZbReceived']['0x5928'].LinkQuality }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
