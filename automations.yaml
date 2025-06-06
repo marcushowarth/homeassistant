@@ -1024,47 +1024,6 @@
       value1: '[Garden] has detected a person at {{ now().strftime(''%H:%M'') }}'
     action: ifttt.trigger
   mode: restart
-- id: '1744037830914'
-  alias: Overnight Dim Scene Activation
-  description: Activate overnight dim scene with different times for weekdays and
-    weekends.
-  triggers:
-  - at: '22:40:00'
-    id: weekday_time
-    trigger: time
-  - at: '23:00:00'
-    id: weekend_time
-    trigger: time
-  conditions:
-  - condition: or
-    conditions:
-    - condition: and
-      conditions:
-      - condition: trigger
-        id: weekday_time
-      - condition: time
-        weekday:
-        - sun
-        - mon
-        - tue
-        - wed
-        - thu
-    - condition: and
-      conditions:
-      - condition: trigger
-        id: weekend_time
-      - condition: time
-        weekday:
-        - fri
-        - sat
-  actions:
-  - target:
-      entity_id: scene.overnight_dim
-    action: scene.turn_on
-  - target:
-      entity_id: input_boolean.overnight_dim_active
-    action: input_boolean.turn_on
-  mode: single
 - id: '1744037903514'
   alias: Morning Reset
   description: ''
@@ -1224,8 +1183,9 @@
   alias: 'Safety: Breville turn off if no kitchen occupancy'
   description: Turn off Breville if kitchen empty for 5 mins while in use.
   triggers:
-  - entity_id: binary_sensor.motion_kitchen_occupancy
-    to: 'off'
+  - entity_id:
+    - binary_sensor.motion_kitchen_occupancy
+    to: Clear
     for:
       minutes: 5
     trigger: state
@@ -1237,6 +1197,7 @@
   - target:
       entity_id: switch.breville
     action: switch.turn_off
+    data: {}
   - data:
       title: Breville Auto Turn-Off
       message: 'The Breville was turned off automatically after 5 minutes of no kitchen
@@ -1381,7 +1342,7 @@
   conditions:
   - condition: numeric_state
     entity_id: sensor.workshop_temperature
-    above: input_number.input_number_min_temp_fans_workshop
+    above: input_number.min_temp_fans_workshop
   actions:
   - type: turn_on
     device_id: c2538969a005b978a1aeeb0549ff0b1d
@@ -1682,6 +1643,7 @@
       - target:
           entity_id: scene.lighting_green
         action: scene.turn_on
+        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''07:20'' and now().weekday()
@@ -1690,6 +1652,7 @@
       - target:
           entity_id: scene.lighting_green
         action: scene.turn_on
+        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''11:00'' }}'
@@ -1697,6 +1660,7 @@
       - target:
           entity_id: scene.lighting_blue
         action: scene.turn_on
+        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''16:00'' }}'
@@ -1704,6 +1668,7 @@
       - target:
           entity_id: scene.lighting_green
         action: scene.turn_on
+        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''20:00'' }}'
@@ -1711,6 +1676,7 @@
       - target:
           entity_id: scene.lighting_purple
         action: scene.turn_on
+        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''22:40'' and now().weekday()
@@ -1719,6 +1685,11 @@
       - target:
           entity_id: scene.overnight_dim
         action: scene.turn_on
+        data: {}
+      - target:
+          entity_id: input_boolean.overnight_dim_active
+        action: input_boolean.turn_on
+        data: {}
     - conditions:
       - condition: template
         value_template: '{{ now().strftime(''%H:%M'') == ''00:00'' and now().weekday()
@@ -1727,6 +1698,11 @@
       - target:
           entity_id: scene.overnight_dim
         action: scene.turn_on
+        data: {}
+      - target:
+          entity_id: input_boolean.overnight_dim_active
+        action: input_boolean.turn_on
+        data: {}
   mode: single
 - id: '1748962918075'
   alias: 'Schedules: Extension Lamp (Sunrise & Sunset Edge Cases)'
