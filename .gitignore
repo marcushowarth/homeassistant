@@ -1,1 +1,34 @@
+# Home Assistant generated files
+/home-assistant.log
+/home-assistant_v2.db
+/home-assistant_v2.db-shm
+/home-assistant_v2.db-wal
+/home-assistant_*.db
+/home-assistant_*.log
+
+# Secrets and sensitive files
 secrets.yaml
+secrets/
+
+# Backup and temporary files
+*.bak
+*.tmp
+*.swp
+*.swo
+*.orig
+
+# Recorder purge cache
+storage/core.restore_state
+
+# SQLite WAL files
+*.db-shm
+*.db-wal
+
+# IDEs
+.idea/
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+ehthumbs.db
