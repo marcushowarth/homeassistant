@@ -841,7 +841,7 @@
     action: input_number.set_value
   mode: single
 - id: '1741125922921'
-  alias: Turn on CCTV monitor if Door Bell Visitor
+  alias: Turn on CCTV monitor if Door Bell Visitor or Motion
   description: ''
   triggers:
   - type: turned_on
@@ -855,8 +855,13 @@
     domain: binary_sensor
     trigger: device
   - type: turned_on
-    device_id: ed8196c4147532e4780086f763a2e05b
-    entity_id: 923bd84070d375946811644928fb0144
+    device_id: 7f1ef56e2b8635650c5a6ad50a39a584
+    entity_id: 3b532fb35c3b4a0093384dbcc03b2b0c
+    domain: binary_sensor
+    trigger: device
+  - type: turned_on
+    device_id: 7f1ef56e2b8635650c5a6ad50a39a584
+    entity_id: e0a6b98cc516f49ffb18b557b70523c4
     domain: binary_sensor
     trigger: device
   conditions:
@@ -1018,9 +1023,10 @@
     domain: light
   mode: single
 - id: '1743577751018'
-  alias: 'Switches: Garden: Turn on corridor if dark and person detected (CCTV)'
+  alias: 'Switches: Garden: Turn on corridor (add to calendar) if dark and person
+    detected (CCTV)'
   description: Activates scene to light corridor if person detected before sunrise
-    and it's currently off.
+    and it's currently off. It then uses the IFTTT applet to make calender entry.
   triggers:
   - entity_id: binary_sensor.garden_person
     to: 'on'
