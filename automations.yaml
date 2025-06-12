@@ -849,10 +849,32 @@
     entity_id: 50e653e2427c85a49849fc380565e847
     domain: binary_sensor
     trigger: device
+  - type: turned_on
+    device_id: ed8196c4147532e4780086f763a2e05b
+    entity_id: 13177e10c566ef33b8df73a66cfc8be3
+    domain: binary_sensor
+    trigger: device
+  - type: turned_on
+    device_id: ed8196c4147532e4780086f763a2e05b
+    entity_id: 923bd84070d375946811644928fb0144
+    domain: binary_sensor
+    trigger: device
   conditions:
   - condition: state
     entity_id: switch.cctv_monitor
     state: 'off'
+  - condition: or
+    conditions:
+    - type: is_motion
+      condition: device
+      device_id: e9ff0e951af08702378e8bf81e1492d6
+      entity_id: 5a3f0a5f4c35d8326e4940fc7a18797b
+      domain: binary_sensor
+    - type: is_motion
+      condition: device
+      device_id: 66f8ba89b3dd4149144463e123f0ed25
+      entity_id: a2b5ee099dece23a3089a04f3ecfc744
+      domain: binary_sensor
   actions:
   - type: turn_on
     device_id: e089e21f12d388d802c0e4178bd386fc
@@ -1937,64 +1959,83 @@
   mode: single
 - id: '1748967031460'
   alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
-  description: 'Turns ON bedroom fans when temperature exceeds threshold, during night-time
-    cooling windows:
+  description: 'Control bedroom fans based on temperature threshold and time windows.
 
-    - Weekdays (Sun–Thu): 21:50–08:00
-
-    - Weekends (Fri–Sat): 23:00–10:00
-
-    - Blocked if input_boolean.bedroom_fan_override_off is ON'
+    - Weekdays (Sun–Thu): 21:50–08:00   - Weekends (Fri–Sat): 23:00–10:00   - Blocked
+    if override is ON'
   triggers:
   - entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
-    to: 'on'
     trigger: state
-  conditions:
-  - condition: state
-    entity_id: input_boolean.bedroom_fan_override_off
-    state: 'off'
-  - condition: or
-    conditions:
-    - condition: and
-      conditions:
-      - condition: time
-        after: '21:50:00'
-        before: 08:00:00
-      - condition: template
-        value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
-    - condition: and
-      conditions:
-      - condition: time
-        after: '23:00:00'
-        before: '10:00:00'
-      - condition: template
-        value_template: '{{ now().weekday() in [4, 5] }}'
+  - minutes: /5
+    trigger: time_pattern
+  conditions: []
   actions:
-  - target:
-      entity_id: switch.bedroom_fans
-    action: switch.turn_on
-    data: {}
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.bedroom_fan_override_off
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
+        state: 'on'
+      - condition: or
+        conditions:
+        - condition: and
+          conditions:
+          - condition: time
+            after: '21:50:00'
+            before: 08:00:00
+          - condition: template
+            value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
+        - condition: and
+          conditions:
+          - condition: time
+            after: '23:00:00'
+            before: '10:00:00'
+          - condition: template
+            value_template: '{{ now().weekday() in [4, 5] }}'
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_on
+    - conditions: []
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_off
   mode: single
 - id: '1748968592567'
   alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
-  description: Turns ON the office ceiling fan when temperature exceeds the office
-    threshold (input_number.min_temp_fans_office) on weekdays (Mon–Fri) between 08:00–18:30,
-    unless input_boolean.office_fan_override_off is ON.
+  description: 'Controls the office ceiling fan based on temperature and time: - Active
+    Mon–Fri between 08:00–18:30 - Turns ON when threshold exceeded and override is
+    OFF - Turns OFF outside of schedule or when threshold no longer exceeded'
   triggers:
   - entity_id: binary_sensor.min_temp_fans_office_exceeded
-    to: 'on'
     trigger: state
-  conditions:
-  - condition: state
-    entity_id: input_boolean.office_fan_override_off
-    state: 'off'
-  - condition: time
-    after: 08:00:00
-    before: '18:30:00'
-  - condition: template
-    value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+  - minutes: /5
+    trigger: time_pattern
+  conditions: []
   actions:
-  - target:
-      entity_id: switch.switch_office_light
-    action: switch.turn_on
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.office_fan_override_off
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.min_temp_fans_office_exceeded
+        state: 'on'
+      - condition: time
+        after: 08:00:00
+        before: '18:30:00'
+      - condition: template
+        value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+      sequence:
+      - target:
+          entity_id: switch.switch_office_light
+        action: switch.turn_on
+    - conditions: []
+      sequence:
+      - target:
+          entity_id: switch.switch_office_light
+        action: switch.turn_off
   mode: single
