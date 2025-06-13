@@ -365,10 +365,10 @@
 - id: '1723828018073'
   alias: IFTTT adds row to spreadsheet and calender when batteries fully charged
   description: using IFTTT
-  trigger:
-  - platform: time_pattern
-    minutes: /5
-  condition:
+  triggers:
+  - minutes: /5
+    trigger: time_pattern
+  conditions:
   - and:
     - condition: template
       value_template: '{{ states(''input_boolean.battery_full_today'') == ''off''
@@ -376,9 +376,8 @@
     - condition: template
       value_template: '{{ states(''sensor.workshop_battery_soc'')|float(0) == 100
         }}'
-  action:
-  - service: ifttt.trigger
-    data:
+  actions:
+  - data:
       event: HA_trigger_sheet
       value1: Battery Log - fully charged
       value2: '{% for state in states.weather -%} {%- if loop.first %}The {% elif
@@ -387,18 +386,20 @@
       value3: '{% if is_state("sun.sun", "above_horizon") -%}  The sun rose {{ relative_time(states.sun.sun.last_changed)
         }} ago. {%- else -%} The sun will rise at {{ as_timestamp(state_attr("sun.sun",
         "next_rising")) | timestamp_local }}. {%- endif %} '
-  - service: ifttt.trigger
-    data:
+    action: ifttt.trigger
+  - data:
       event: HA_trigger_calendar
       value1: Batteries 100%
-  - service: input_boolean.turn_on
-    target:
+      value2: 14 Farmington Ave, Sutton SM1 3PT
+    action: ifttt.trigger
+  - target:
       entity_id: input_boolean.battery_full_today
     data: {}
-  - service: notify.marcus_email
-    data:
+    action: input_boolean.turn_on
+  - data:
       title: Batteries charged
       message: Batteries reached 100%
+    action: notify.marcus_email
   mode: single
 - id: '1723995992121'
   alias: Energy - Reset Battery Full Flag
@@ -419,70 +420,75 @@
 - id: '1724261138857'
   alias: Calendar IFTTT Marcus enter RRRC
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: enters
     zone: zone.recycle_centre
-  condition: []
-  action:
-  - service: ifttt.trigger
-    data:
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       event: HA_trigger_calendar
       value1: Entered Recycle Centre Kimpton RRRC
+      value2: Kimpton Park Way Re-Use and Recycling Centre
+    action: ifttt.trigger
   mode: single
 - id: '1724261205032'
   alias: Calendar IFTTT Marcus enter Screwfix
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: enters
     zone: zone.screwfix
-  condition: []
-  action:
-  - service: ifttt.trigger
-    data:
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       event: HA_trigger_calendar
       value1: Entered Screwfix
+      value2: Unit 1, Sutton Trade Park, Off Kimpton Park Way, Oldfields Rd, Sutton
+        SM3 9DA
+    action: ifttt.trigger
   mode: single
 - id: '1724261234584'
   alias: Calendar IFTTT Marcus enter Tesco
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: enters
     zone: zone.tesco
-  condition: []
-  action:
-  - service: ifttt.trigger
-    data:
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       event: HA_trigger_calendar
       value1: Entered Tesco
+      value2: 55 Oldfields Rd, Sutton SM1 2NB
+    action: ifttt.trigger
   mode: single
 - id: '1724261277522'
   alias: Calendar IFTTT Marcus enter The Hope
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: enters
     zone: zone.the_hope
-  condition: []
-  action:
-  - service: ifttt.trigger
-    data:
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       event: HA_trigger_calendar
       value1: Entered The Hope
+      value2: 48 West St, Carshalton SM5 2PR
+    action: ifttt.trigger
   mode: single
 - id: '1724261342636'
   alias: Calendar IFTTT Marcus leaves The Hope
@@ -521,19 +527,20 @@
 - id: '1724261571070'
   alias: Calendar IFTTT Marcus returns Home
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: enters
     zone: zone.home
-  condition: []
-  action:
-  - service: ifttt.trigger
-    data:
+    trigger: device
+  conditions: []
+  actions:
+  - data:
       event: HA_trigger_calendar
       value1: Returned Home
+      value2: 14 Farmington Ave, Sutton SM1 3PT
+    action: ifttt.trigger
   mode: single
 - id: '1724261610598'
   alias: Calendar IFTTT Marcus leaves Home
@@ -1050,6 +1057,7 @@
   - data:
       event: HA_trigger_calendar
       value1: '[Garden] has detected a person at {{ now().strftime(''%H:%M'') }}'
+      value2: 14 Farmington Ave, Sutton SM1 3PT
     action: ifttt.trigger
   mode: restart
 - id: '1744037903514'
@@ -1357,6 +1365,7 @@
   - data:
       event: HA_trigger_calendar
       value1: Entered Royston Park
+      value2: Royston Park, Sutton SM1 3PW
     action: ifttt.trigger
   mode: single
 - id: '1746030803787'
@@ -1967,8 +1976,13 @@
   alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
   description: 'Control bedroom fans based on temperature threshold and time windows.
 
-    - Weekdays (Sun–Thu): 21:50–08:00   - Weekends (Fri–Sat): 23:00–10:00   - Blocked
-    if override is ON'
+    - Weekdays (Sun–Thu): 21:50–08:00
+
+    - Weekends (Fri–Sat): 23:00–10:00
+
+    - Blocked if override is ON
+
+    '
   triggers:
   - entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
     trigger: state
@@ -1990,16 +2004,26 @@
           conditions:
           - condition: time
             after: '21:50:00'
-            before: 08:00:00
           - condition: template
             value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
         - condition: and
           conditions:
           - condition: time
+            before: 08:00:00
+          - condition: template
+            value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+        - condition: and
+          conditions:
+          - condition: time
             after: '23:00:00'
-            before: '10:00:00'
           - condition: template
             value_template: '{{ now().weekday() in [4, 5] }}'
+        - condition: and
+          conditions:
+          - condition: time
+            before: '10:00:00'
+          - condition: template
+            value_template: '{{ now().weekday() in [5, 6] }}'
       sequence:
       - target:
           entity_id: switch.bedroom_fans
