@@ -2083,7 +2083,7 @@
   mode: single
 - id: '1749827413674'
   alias: 'Switches: Workshop: Blink bulb Green if Door Bell Visitor'
-  description: Blinks the workshop Tapo bulb green for 2 minutes when the doorbell
+  description: Blinks the workshop alert bulb GREEN for 1 minute when the doorbell
     rings.
   triggers:
   - entity_id: binary_sensor.door_bell_visitor
@@ -2106,15 +2106,16 @@
       - target:
           entity_id: light.alert_bulb
         action: light.turn_off
+        data: {}
       - delay: 00:00:01
       until:
       - condition: template
-        value_template: '{{ repeat.index >= 60 }}'
+        value_template: '{{ repeat.index >= 30 }}'
   mode: restart
 - id: '1749827861501'
   alias: 'Switches: Workshop: Blink bulb Red if Person Detected (Drive East)'
-  description: Blinks the workshop Tapo bulb red for 2 minutes when a person is detected
-    on the Drive East camera.
+  description: Blinks the workshop alert bulb RED for 30 seconds when a person is
+    detected on the Drive East camera.
   triggers:
   - entity_id: binary_sensor.drive_east_person
     to: 'on'
@@ -2136,15 +2137,16 @@
       - target:
           entity_id: light.alert_bulb
         action: light.turn_off
+        data: {}
       - delay: 00:00:01
       until:
       - condition: template
-        value_template: '{{ repeat.index >= 60 }}'
+        value_template: '{{ repeat.index >= 15 }}'
   mode: restart
 - id: '1749828180660'
-  alias: 'Switches: Workshop: Blink bulb Blue if Alley Person Detected'
-  description: Blinks the workshop Tapo bulb blue for 1 minutes when a person is detected
-    in Royston Alley.
+  alias: 'Switches: Workshop: Blink bulb Blue if Person Detected in Royston Alley'
+  description: Blinks the workshop alert bulb BLUE for 30 seconds when a person is
+    detected in Royston Alley.
   triggers:
   - entity_id: binary_sensor.royston_alley_person
     to: 'on'
@@ -2166,8 +2168,9 @@
       - target:
           entity_id: light.alert_bulb
         action: light.turn_off
+        data: {}
       - delay: 00:00:01
       until:
       - condition: template
-        value_template: '{{ repeat.index >= 30 }}'
+        value_template: '{{ repeat.index >= 15 }}'
   mode: restart
