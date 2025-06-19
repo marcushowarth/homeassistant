@@ -2061,8 +2061,9 @@
 - id: '1748968592567'
   alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
   description: 'Controls the office ceiling fan based on temperature and time: - Active
-    Mon–Fri between 08:00–18:30 - Turns ON when threshold exceeded and override is
-    OFF - Turns OFF outside of schedule or when threshold no longer exceeded'
+    Mon–Fri between office_start and office_end - Turns ON when threshold exceeded
+    and override is OFF - Turns OFF outside of schedule or when threshold no longer
+    exceeded'
   triggers:
   - entity_id: binary_sensor.min_temp_fans_office_exceeded
     trigger: state
@@ -2079,19 +2080,21 @@
         entity_id: binary_sensor.min_temp_fans_office_exceeded
         state: 'on'
       - condition: time
-        after: 08:00:00
-        before: '18:30:00'
+        after: input_datetime.office_start
+        before: input_datetime.office_end
       - condition: template
         value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
       sequence:
       - target:
           entity_id: switch.switch_office_light
         action: switch.turn_on
+        data: {}
     - conditions: []
       sequence:
       - target:
           entity_id: switch.switch_office_light
         action: switch.turn_off
+        data: {}
   mode: single
 - id: '1749827413674'
   alias: 'Switches: Workshop: Blink bulb Green if Door Bell Visitor'
