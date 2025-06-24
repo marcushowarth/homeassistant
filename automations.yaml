@@ -1839,7 +1839,8 @@
 - id: '1748964170424'
   alias: 'Schedules: Bug Zapper Motion Activated (Excludes Fixed ON Periods)'
   description: Turns on bug zapper with kitchen motion between 05:00–22:00, avoids
-    auto-OFF during fixed ON periods (07–10, 17–20:30).
+    auto-OFF during fixed ON periods (07–10, 17–20:30). Outside 22:00–05:00, zapper
+    will turn off.
   triggers:
   - entity_id: binary_sensor.motion_kitchen_occupancy
     to: 'on'
@@ -1851,15 +1852,15 @@
       minutes: 10
     id: motion_off
     trigger: state
-  conditions:
-  - condition: time
-    after: 05:00:00
-    before: '22:00:00'
+  conditions: []
   actions:
   - choose:
     - conditions:
       - condition: trigger
         id: motion_on
+      - condition: time
+        after: 05:00:00
+        before: '22:00:00'
       sequence:
       - target:
           entity_id: switch.bugzapper
@@ -1998,7 +1999,7 @@
   alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
   description: 'Control bedroom fans based on temperature threshold and time windows.
 
-    - Weekdays (Sun–Thu): 21:50–08:00
+    - Weekdays (Sun–Thu): 21:30-08:00
 
     - Weekends (Fri–Sat): 22:15–10:00
 
@@ -2025,7 +2026,7 @@
         - condition: and
           conditions:
           - condition: time
-            after: '21:50:00'
+            after: '21:30:00'
           - condition: template
             value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
         - condition: and
