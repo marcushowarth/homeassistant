@@ -33,3 +33,6 @@ storage/core.restore_state
 .DS_Store
 Thumbs.db
 ehthumbs.db
+
+# Local scripts
+*.sh
