@@ -12,13 +12,13 @@
 
 A categorized breakdown of key automations in this Home Assistant setup:
 
-- [📈 Energy Automations](./energy-automations.md)  
+- [📈 Energy Automations](./Energy-automations.md)  
   High-level automations for managing battery charging, grid import/export settings, and tariff-based behavior using Octopus Flux and PV forecasts to limit overnight charge levels using .
 
-- [⏰ Schedules Automations](./schedules-automations.md)  
+- [⏰ Schedules Automations](./Schedules-automations.md)  
   Time-based routines for indoor and outdoor lighting, appliances (e.g. dishwasher, Firestick), and seasonal behaviors like Christmas lights.
 
-- [💡 Switches Automations](./switches-automations.md)  
+- [💡 Switches Automations](./Switches-automations.md)  
   Motion-activated and context-aware control of lights, fans, and other smart switches throughout the home, often with dynamic brightness or temperature-based logic.
 
 ## 🔗 Notes
