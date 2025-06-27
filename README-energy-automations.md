@@ -6,7 +6,7 @@ Below should have been reviewed before pushing!! 😂
 The main point of documenting this was to highlight what I have working with [FOXESS MODBUS](https://github.com/nathanmarlor/foxess_modbus):
 * Energy dashboard setup [with tariffs as by example](https://www.speaktothegeek.co.uk/2024/03/octopus-smart-tariffs-and-home-assistants-energy-dashboard/)
 * Use [OctopusEnergy](https://github.com/BottlecapDave/HomeAssistant-OctopusEnergy) to update price entities using automations
-* Use the [Sol Cast API](https://solcast.com.au/) to automate the overnight charge levels based on the next day's PV forecast
+* Use the [Sol Cast API](https://solcast.com.au/) for the next day's PV forecast and automate the overnight SoC level
 * Anticipate a charge required before the Peak Tariff to avoid excessive charging
 * Ability to set a period of **Force Discharge** during peak tariff if away or excess PV
 * Battery: Charge Reduction - [courtesy of Dave Foster](https://foxesscommunity.com/viewtopic.php?t=946)
