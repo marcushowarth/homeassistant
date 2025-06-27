@@ -25,6 +25,7 @@ storage/core.restore_state
 *.db-wal
 
 # IDEs
+*.iml
 .idea/
 .vscode/
 
