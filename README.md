@@ -4,7 +4,27 @@
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-41BDF5?logo=home-assistant&logoColor=white)
 ![Zigbee2MQTT](https://img.shields.io/badge/Zigbee2MQTT-FFCC00?logo=zigbee&logoColor=black)
 ![Mosquitto](https://img.shields.io/badge/MQTT-660066?logo=eclipsemosquitto&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-10.6.22--Debian-003545?logo=mariadb&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04%20LTS-E95420?logo=ubuntu&logoColor=white)
+
+
+## 🔗 Home Assistant Automation Summaries
+
+A categorized breakdown of key automations in this Home Assistant setup:
+
+- [📈 Energy Automations](./energy-automations.md)  
+  High-level automations for managing battery charging, grid import/export settings, and tariff-based behavior using Octopus Flux and PV forecasts to limit overnight charge levels using .
+
+- [⏰ Schedules Automations](./schedules-automations.md)  
+  Time-based routines for indoor and outdoor lighting, appliances (e.g. dishwasher, Firestick), and seasonal behaviors like Christmas lights.
+
+- [💡 Switches Automations](./switches-automations.md)  
+  Motion-activated and context-aware control of lights, fans, and other smart switches throughout the home, often with dynamic brightness or temperature-based logic.
+
+## 🔗 Notes
+
+- [💡 Entities Config example](entities/README.md)
+  No longer required but helpful to keep where manual config may not be available through the UI.
 
 ---
 # Home Assistant, Mosquitto MQTT, and Zigbee2MQTT Setup
