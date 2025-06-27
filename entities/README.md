@@ -6,7 +6,7 @@
 
 In case I was ever to forget this rabbit hole!! But this may be useful for similar config in future.
 
-These input numbers were needed for the Energy dashboard when I wanted to set prices dynamically using entities set on another dashboard/page (they are now still used but maintained by the automation making use of the Octopus API, see [Energy-automations.md](../Energy-automations.md)).
+These input numbers were needed for the Energy dashboard when I wanted to set prices dynamically using entities set on another dashboard/page (they are now still used but maintained by the automation making use of the Octopus API, see [Energy-automations.md](../README-energy-automations.md)).
 
 Initially when setting up I couldn't see a way of configuring 
 
