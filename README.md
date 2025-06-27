@@ -8,6 +8,10 @@
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04%20LTS-E95420?logo=ubuntu&logoColor=white)
 
 
+## 🔗 Home Assistant Intro
+
+A good intro/background to our setup can be [found here](https://foxesscommunity.com/viewtopic.php?t=633) 
+
 ## 🔗 Home Assistant Automation Summaries
 
 A categorized breakdown of key automations in this Home Assistant setup:
