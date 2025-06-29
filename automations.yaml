@@ -2061,10 +2061,9 @@
   mode: single
 - id: '1748968592567'
   alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
-  description: 'Controls the office ceiling fan based on temperature and time: - Active
-    Mon–Fri between office_start and office_end - Turns ON when threshold exceeded
-    and override is OFF - Turns OFF outside of schedule or when threshold no longer
-    exceeded'
+  description: 'Controls the office fan Mon–Fri based on temperature and schedule.
+    Respects overrides: `override_off` disables auto-control, `override_on` forces
+    fan ON.'
   triggers:
   - entity_id: binary_sensor.min_temp_fans_office_exceeded
     trigger: state
@@ -2076,7 +2075,20 @@
     - conditions:
       - condition: state
         entity_id: input_boolean.office_fan_override_off
-        state: 'off'
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.switch_office_light
+        action: switch.turn_off
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.office_fan_override_on
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.switch_office_light
+        action: switch.turn_on
+    - conditions:
       - condition: state
         entity_id: binary_sensor.min_temp_fans_office_exceeded
         state: 'on'
@@ -2089,13 +2101,11 @@
       - target:
           entity_id: switch.switch_office_light
         action: switch.turn_on
-        data: {}
     - conditions: []
       sequence:
       - target:
           entity_id: switch.switch_office_light
         action: switch.turn_off
-        data: {}
   mode: single
 - id: '1749827413674'
   alias: 'Switches: Workshop: Blink bulb Green if Door Bell Visitor'
@@ -2190,3 +2200,51 @@
       - condition: template
         value_template: '{{ repeat.index >= 15 }}'
   mode: restart
+- id: '1751192747169'
+  alias: 'Schedules: Office Fan (Reset Office Fan Override On when fan turned off)'
+  description: Turns off the manual override when the office fan switch is turned
+    off.
+  triggers:
+  - entity_id: switch.switch_office_light
+    to: 'off'
+    trigger: state
+  conditions: []
+  actions:
+  - target:
+      entity_id: input_boolean.office_fan_override_on
+    action: input_boolean.turn_off
+  mode: single
+- id: '1751192964216'
+  alias: 'Schedules: Office Fan (Turn On Fan When Override On)'
+  description: When office_fan_override_on is enabled, turn on the office fan and
+    clear override_off.
+  triggers:
+  - entity_id: input_boolean.office_fan_override_on
+    to: 'on'
+    trigger: state
+  conditions: []
+  actions:
+  - target:
+      entity_id: input_boolean.office_fan_override_off
+    action: input_boolean.turn_off
+  - target:
+      entity_id: switch.switch_office_light
+    action: switch.turn_on
+  mode: single
+- id: '1751193101694'
+  alias: 'Schedules: Office Fan (Turn Off Fan When Override Off)'
+  description: When office_fan_override_off is enabled, turn off the office fan and
+    clear override_on.
+  triggers:
+  - entity_id: input_boolean.office_fan_override_off
+    to: 'on'
+    trigger: state
+  conditions: []
+  actions:
+  - target:
+      entity_id: input_boolean.office_fan_override_on
+    action: input_boolean.turn_off
+  - target:
+      entity_id: switch.switch_office_light
+    action: switch.turn_off
+  mode: single
