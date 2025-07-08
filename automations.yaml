@@ -622,30 +622,30 @@
 - id: '1731914318980'
   alias: Email warning - workshop heater
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.heater_current_power
+  triggers:
+  - entity_id:
+    - sensor.heater_current_consumption
     for:
       hours: 0
       minutes: 0
       seconds: 30
     above: 500
-  condition: []
-  action:
-  - service: notify.marcus_email
-    data:
-      message: Heater is running current power {{ states('sensor.heater_current_power')
-        }}W,  So far today it's used {{states('sensor.heater_today_energy') }} KWh
-        and been on for  {{states('sensor.heater_today_runtime') }} mins.
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - data:
+      message: Heater is running current power {{ states('sensor.heater_current_consumption')
+        }}W,  So far today it's used {{states('sensor.heater_today_s_consumption')
+        }} KWh
       title: Check heater in workshop
+    action: notify.marcus_email
   mode: single
 - id: '1731915273289'
   alias: Email warning - Iris' room
   description: ''
   triggers:
   - entity_id:
-    - sensor.iriss_room_current_power
+    - sensor.iriss_room_current_consumption
     for:
       hours: 0
       minutes: 0
@@ -659,8 +659,9 @@
   conditions: []
   actions:
   - data:
-      message: Her room's current power {{ states('sensor.iriss_room_current_power')
-        }}W,  So far today it's used {{states('sensor.iriss_room_today_energy') }}kWh
+      message: Her room's current power {{ states('sensor.iriss_room_current_consumption')
+        }}W,  So far today it's used {{states('sensor.iriss_room_today_s_consumption')
+        }}kWh
       title: Check Iris' room for anything left on
     action: notify.marcus_email
   mode: single
@@ -699,33 +700,34 @@
 - id: '1737056136655'
   alias: Email warning - Breville
   description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id:
-    - sensor.breville_current_power
+  triggers:
+  - entity_id:
+    - sensor.breville_current_consumption
     for:
       hours: 0
       minutes: 0
       seconds: 30
     above: 500
-  - platform: numeric_state
-    entity_id:
+    trigger: numeric_state
+  - entity_id:
     - sensor.breville_today_energy
     above: 1
-  condition: []
-  action:
-  - service: notify.marcus_email
-    data:
-      message: It's current power = {{ states('sensor.breville_current_power') }}W,  So
-        far today it's used {{states('sensor.breville_today_energy') }}kWh
+    trigger: numeric_state
+  conditions: []
+  actions:
+  - data:
+      message: It's current power = {{ states('sensor.breville_current_consumption')
+        }}W,  So far today it's used {{states('sensor.breville_today_s_consumption')
+        }}kWh
       title: Check kitchen and make sure Breville not left on by mistake
+    action: notify.marcus_email
   mode: single
 - id: '1738323900814'
   alias: Email warning - workshop hot water heater
   description: ''
   triggers:
   - entity_id:
-    - sensor.water_heater_current_power
+    - sensor.water_heater_current_consumption
     for:
       hours: 0
       minutes: 3
@@ -740,8 +742,8 @@
   conditions: []
   actions:
   - data:
-      message: It's currently using {{ states('sensor.water_heater_current_power')
-        }} W,  So far today it's used {{states('sensor.water_heater_today_energy')
+      message: It's currently using {{ states('sensor.water_heater_current_consumption')
+        }} W,  So far today it's used {{states('sensor.water_heater_today_s_consumptiony')
         }} kWh
       title: Check workshop hot water
     action: notify.marcus_email
@@ -1026,7 +1028,7 @@
   actions:
   - type: turn_off
     device_id: 884f68553e69441148296ac281012994
-    entity_id: 48390b26e6605aa1e1fd911cfdfcdbec
+    entity_id: 5cc569e56eaaa8d4271a4104472edab6
     domain: light
   mode: single
 - id: '1743577751018'
@@ -1386,7 +1388,7 @@
   actions:
   - type: turn_on
     device_id: c2538969a005b978a1aeeb0549ff0b1d
-    entity_id: e2022028bb105f89442376c67e10f9fe
+    entity_id: edfe00f0a39b383316df59be5cc6edd7
     domain: switch
   mode: single
 - id: '1746030947407'
@@ -1405,7 +1407,7 @@
   actions:
   - type: turn_off
     device_id: c2538969a005b978a1aeeb0549ff0b1d
-    entity_id: e2022028bb105f89442376c67e10f9fe
+    entity_id: edfe00f0a39b383316df59be5cc6edd7
     domain: switch
   mode: single
 - id: '1748793771021'
