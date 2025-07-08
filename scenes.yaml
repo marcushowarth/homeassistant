@@ -2959,9 +2959,9 @@
       supported_color_modes:
       - brightness
       color_mode: brightness
-      brightness: 21
+      brightness: 3
       friendly_name: Extension lamp
-      supported_features: 0
+      supported_features: 32
       state: 'on'
     light.landing_light:
       supported_color_modes:
@@ -2969,7 +2969,7 @@
       color_mode: brightness
       brightness: 3
       friendly_name: Landing light
-      supported_features: 0
+      supported_features: 32
       state: 'on'
   metadata: {}
   icon: mdi:lamps-outline
