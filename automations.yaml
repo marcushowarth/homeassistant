@@ -668,34 +668,40 @@
 - id: '1733254185943'
   alias: 'Energy: Battery: Max SoC according to the alternative cooking value'
   description: Sets the Max SoC according to the alternative cooking value
-  trigger:
-  - platform: time
-    at: '14:55:00'
+  triggers:
+  - at: '14:55:00'
     variables:
       maxSoC: '{{ states(''input_number.max_soc_day_alternative_cooking'') | float(states(''number.workshop_min_soc''))
         }}'
-  condition:
+    trigger: time
+  conditions:
   - condition: template
-    value_template: "{{ states('sensor.oven_today_energy')|float(0) >=\n     states('input_number.energy_trigger_cooking')|float(0)
+    value_template: "{{ states('sensor.oven_today_s_consumption')|float(0) >=\n     states('input_number.energy_trigger_cooking')|float(0)
       }}"
-  action:
-  - service: number.set_value
-    target:
+  actions:
+  - target:
       entity_id: number.workshop_max_soc
     data:
       value: '{{ maxSoC }}'
-  - service: notify.marcus_email
-    data:
-      message: Oven current power {{ states('sensor.oven_current_power') }}W, so far
-        today it's used {{ states('sensor.oven_today_energy') }}kWh and the heater
-        in the workshop is currently using {{ states('sensor.heater_current_power')
-        }}W, so far today it's used {{ states('sensor.heater_today_energy') }}kWh
-        Either one of these has triggered Max SoC to now be set to {{ states('number.workshop_max_soc')
-        }}% (instead of normal Max SoC DAY {{ states('input_number.max_soc_day') }}%).
-        The Battery SoC is currently {{ states('sensor.workshop_battery_soc') }}%
-        (so there's a {{ states('sensor.workshop_battery_soc')|float(0) - states('number.workshop_max_soc')|float(0)  }}%
-        difference there before 4pm peak starts in about an hour.)
+    action: number.set_value
+  - data:
+      message: "Oven current power: {{ states('sensor.oven_current_consumption') }} W,
+        \ntoday's usage: {{ states('sensor.oven_today_s_consumption') }} kWh. \n\nWorkshop
+        heater is currently using: {{ states('sensor.heater_current_consumption')
+        }} W, \ntoday's usage: {{ states('sensor.heater_today_s_consumption') }} kWh.
+        \n\nAs a result, Max SoC has been adjusted to {{ states('number.workshop_max_soc')
+        }}% \n(instead of the usual {{ states('input_number.max_soc_day') }}% for
+        daytime operation).\n\nBattery SoC is currently {{ states('sensor.workshop_battery_soc')
+        }}%.\n\n{% set diff = states('sensor.workshop_battery_soc')|float(0) - states('number.workshop_max_soc')|float(0)
+        %}\n\n{% if diff > 5 %}\n✅ The battery is comfortably {{ diff | round(1) }}%
+        above the adjusted Max SoC — no additional charging is expected before the
+        4 pm peak period.\n{% elif diff > 0 %}\n⚠️ The battery is only {{ diff | round(1)
+        }}% above the adjusted Max SoC — monitor in case pre-peak charging is still
+        required.\n{% else %}\n❗ The battery is {{ diff | abs | round(1) }}% **below**
+        the target Max SoC — a top-up is likely needed before 4 pm peak begins.\n{%
+        endif %}"
       title: Bumped up Max SoC Day as looks like we're cooking or using heater
+    action: notify.marcus_email
   mode: single
 - id: '1737056136655'
   alias: Email warning - Breville
@@ -892,7 +898,7 @@
   actions:
   - type: turn_on
     device_id: e089e21f12d388d802c0e4178bd386fc
-    entity_id: 895db067f32fc3cb9213ae38b659a529
+    entity_id: 99400218b452ec07c16b3ce86b18ed6a
     domain: switch
   - delay:
       hours: 0
@@ -901,7 +907,7 @@
       milliseconds: 0
   - type: turn_off
     device_id: e089e21f12d388d802c0e4178bd386fc
-    entity_id: 895db067f32fc3cb9213ae38b659a529
+    entity_id: 99400218b452ec07c16b3ce86b18ed6a
     domain: switch
   mode: restart
 - id: '1742382554771'
@@ -935,101 +941,84 @@
         }} for tomorrow.
     action: notify.marcus_email
   mode: single
-- id: '1743528120482'
-  alias: 'Pool Room: turn TV on if person detected (CCTV)'
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.pool_room_person
-    to: 'on'
-  conditions:
-  - condition: device
-    type: is_off
-    device_id: e22bd9643a03ccfdd146071f933bceb0
-    entity_id: b2dc0da6a18ef1c6696ebfdf8f81b692
-    domain: switch
-  actions:
-  - type: turn_on
-    device_id: e22bd9643a03ccfdd146071f933bceb0
-    entity_id: b2dc0da6a18ef1c6696ebfdf8f81b692
-    domain: switch
-  mode: single
 - id: '1743575339217'
-  alias: 'Switches: Pool room: Turn off TV if no motion detected'
-  description: ''
+  alias: 'Switches: Pool room: Auto Control TV based on Presence'
+  description: Turns the pool room TV on when a person is detected, and off if no
+    motion for 45 mins and the TV has been on for 30 mins.
   triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.pool_room_person
+  - entity_id: binary_sensor.pool_room_person
+    to: 'on'
+    id: motion_detected
+    trigger: state
+  - entity_id: binary_sensor.pool_room_person
     to: 'off'
     for:
-      hours: 0
       minutes: 45
-      seconds: 0
-  conditions:
-  - condition: device
-    type: is_on
-    device_id: e22bd9643a03ccfdd146071f933bceb0
-    entity_id: cd7e44c44030b60a17ea655e6d2cbb1b
-    domain: switch
-    for:
-      hours: 0
-      minutes: 30
-      seconds: 0
+    id: no_motion
+    trigger: state
+  conditions: []
   actions:
-  - type: turn_off
-    device_id: e22bd9643a03ccfdd146071f933bceb0
-    entity_id: cd7e44c44030b60a17ea655e6d2cbb1b
-    domain: switch
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_detected
+      - condition: state
+        entity_id: switch.pool_room_tv
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.pool_room_tv
+        action: switch.turn_on
+    - conditions:
+      - condition: trigger
+        id: no_motion
+      - condition: state
+        entity_id: switch.pool_room_tv
+        state: 'on'
+        for:
+          minutes: 30
+      sequence:
+      - target:
+          entity_id: switch.pool_room_tv
+        action: switch.turn_off
   mode: single
 - id: '1743575766984'
-  alias: 'Switches: Pool room: Turn on lamp if dark and motion detected'
-  description: ''
+  alias: 'Switches: Pool room: Lamp control based on motion and darkness'
+  description: Turns the pool room lamp on if motion is detected in dark hours, and
+    off if no motion for 10 minutes.
   triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.pool_room_person
+  - entity_id: binary_sensor.pool_room_person
     to: 'on'
-  conditions:
-  - condition: sun
-    before: sunrise
-  actions:
-  - action: scene.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: scene.pool_room_light_blue
-  - delay:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
-  - type: turn_off
-    device_id: 884f68553e69441148296ac281012994
-    entity_id: 48390b26e6605aa1e1fd911cfdfcdbec
-    domain: light
-  mode: single
-- id: '1743577499206'
-  alias: 'Switches: Pool room: Turn off lamp if dark and no motion detected'
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - binary_sensor.pool_room_person
+    trigger: state
+  - entity_id: binary_sensor.pool_room_person
     to: 'off'
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
+    for: 00:10:00
+    trigger: state
   conditions:
-  - condition: sun
-    before: sunrise
+  - condition: or
+    conditions:
+    - condition: sun
+      before: sunrise
+    - condition: sun
+      after: sunset
   actions:
-  - type: turn_off
-    device_id: 884f68553e69441148296ac281012994
-    entity_id: 5cc569e56eaaa8d4271a4104472edab6
-    domain: light
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.pool_room_person
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: scene.pool_room_light_blue
+        action: scene.turn_on
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.pool_room_person
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: light.pool_room_lamp
+        action: light.turn_off
   mode: single
 - id: '1743577751018'
   alias: 'Switches: Garden: Turn on corridor (add to calendar) if dark and person
@@ -2001,7 +1990,7 @@
   alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
   description: 'Control bedroom fans based on temperature threshold and time windows.
 
-    - Weekdays (Sun–Thu): 21:30-08:00
+    - Weekdays (Sun–Thu): 21:00-08:00
 
     - Weekends (Fri–Sat): 22:15–10:00
 
@@ -2028,7 +2017,7 @@
         - condition: and
           conditions:
           - condition: time
-            after: '21:30:00'
+            after: '21:00:00'
           - condition: template
             value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
         - condition: and
