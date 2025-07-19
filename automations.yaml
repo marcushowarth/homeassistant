@@ -818,15 +818,15 @@
         value: '{{ states(''input_number.max_soc_eco_default'') | float(0) }}'
       action: input_number.set_value
     - data:
-        message: Setting Max SoC EC to default {{ states('input_number.max_soc_eco_default')
+        message: Setting Max SoC ECO to default {{ states('input_number.max_soc_eco_default')
           }}% PV forcast is {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
           }}kWh - check why default?
         name: Max SoC ECO
       action: logbook.log
   - data:
       event: HA_trigger_calendar
-      value1: Max SoC ECO = {{ states('input_number.max_soc_eco') }}% PV forecast
-        {{ states('sensor.solcast_pv_forecast_forecast_tomorrow') }}kWh
+      value1: Tomorrow forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+        }}kWh Max SoC ECO = {{ states('input_number.max_soc_eco') }}%
     action: ifttt.trigger
   - data:
       event: HA_trigger_sheet
@@ -1988,13 +1988,9 @@
   mode: single
 - id: '1748967031460'
   alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
-  description: 'Control bedroom fans based on temperature threshold and time windows.
-
-    - Weekdays (Sun–Thu): 21:00-08:00
-
-    - Weekends (Fri–Sat): 22:15–10:00
-
-    - Blocked if override is ON
+  description: 'Controls the bedroom fans based on temperature and time windows. -
+    Weekdays (Sun–Thu): 21:00–08:00 - Weekends (Fri–Sat): 22:15–10:00 - Respects overrides:
+    ''override_off'' disables control, ''override_on'' forces ON.
 
     '
   triggers:
@@ -2008,7 +2004,20 @@
     - conditions:
       - condition: state
         entity_id: input_boolean.bedroom_fan_override_off
-        state: 'off'
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_off
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.bedroom_fan_override_on
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_on
+    - conditions:
       - condition: state
         entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
         state: 'on'
@@ -2042,13 +2051,11 @@
       - target:
           entity_id: switch.bedroom_fans
         action: switch.turn_on
-        data: {}
     - conditions: []
       sequence:
       - target:
           entity_id: switch.bedroom_fans
         action: switch.turn_off
-        data: {}
   mode: single
 - id: '1748968592567'
   alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
