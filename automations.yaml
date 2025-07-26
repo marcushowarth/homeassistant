@@ -825,7 +825,7 @@
       action: logbook.log
   - data:
       event: HA_trigger_calendar
-      value1: Tomorrow forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+      value1: Forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
         }}kWh Max SoC ECO = {{ states('input_number.max_soc_eco') }}%
     action: ifttt.trigger
   - data:
@@ -1578,48 +1578,56 @@
   mode: single
 - id: '1748961427071'
   alias: 'Schedules: Garden Lighting'
-  description: 'Controls garden lighting: sunrise/morning on, sunset dim, and evening
-    off with weekend variant.'
+  description: 'Controls garden lighting: - Morning ON before sunrise (weekday/weekend
+    time variants) - OFF at sunrise - ON at sunset - DIM at 22:00 if ON - OFF later
+    depending on weekday/weekend'
   triggers:
   - at: 06:30:00
+    id: morning_weekday
     trigger: time
   - at: 07:30:00
+    id: morning_weekend
     trigger: time
   - event: sunrise
+    id: sunrise
     trigger: sun
   - event: sunset
+    id: sunset
     trigger: sun
-  - at: '21:45:00'
+  - at: '22:00:00'
+    id: dim_weekday
     trigger: time
   - at: '22:20:00'
+    id: off_weekday
     trigger: time
   - at: '23:00:00'
+    id: off_weekend
     trigger: time
   conditions: []
   actions:
   - choose:
     - conditions:
+      - condition: trigger
+        id: morning_weekday
       - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''06:30'' and now().weekday()
-          in [0,1,2,3,4] }}'
+        value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
       - condition: sun
         before: sunrise
       sequence:
       - target:
           entity_id: scene.garden_on
         action: scene.turn_on
-        data: {}
     - conditions:
+      - condition: trigger
+        id: morning_weekend
       - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''07:30'' and now().weekday()
-          in [5,6] }}'
+        value_template: '{{ now().weekday() in [5, 6] }}'
       - condition: sun
         before: sunrise
       sequence:
       - target:
           entity_id: scene.garden_on
         action: scene.turn_on
-        data: {}
     - conditions:
       - condition: trigger
         id: sunrise
@@ -1627,33 +1635,43 @@
       - target:
           entity_id: scene.garden_off
         action: scene.turn_on
-        data: {}
     - conditions:
       - condition: trigger
         id: sunset
       sequence:
       - target:
+          entity_id: scene.garden_on
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: dim_weekday
+      - condition: template
+        value_template: "{{ expand([\n  'light.pool_east',\n  'light.pool_west',\n
+          \ 'light.workshop_east',\n  'light.workshop_west',\n  'light.patio_east',\n
+          \ 'light.patio_west'\n]) | selectattr('state', 'eq', 'on') | list | count
+          > 0 }}\n"
+      sequence:
+      - target:
           entity_id: scene.garden_50
         action: scene.turn_on
-        data: {}
     - conditions:
+      - condition: trigger
+        id: off_weekday
       - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''22:20'' and now().weekday()
-          in [0,1,2,3,6] }}'
+        value_template: '{{ now().weekday() in [0, 1, 2, 3, 6] }}'
       sequence:
       - target:
           entity_id: scene.garden_off
         action: scene.turn_on
-        data: {}
     - conditions:
+      - condition: trigger
+        id: off_weekend
       - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''23:00'' and now().weekday()
-          in [4,5] }}'
+        value_template: '{{ now().weekday() in [4, 5] }}'
       sequence:
       - target:
           entity_id: scene.garden_off
         action: scene.turn_on
-        data: {}
   mode: single
 - id: '1748962213931'
   alias: 'Schedules: House Lighting'
