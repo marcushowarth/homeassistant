@@ -2275,24 +2275,38 @@
   triggers:
   - at: '22:20:00'
     trigger: time
+    id: weekday_time
   - at: '23:00:00'
     trigger: time
-  conditions:
-  - condition: or
-    conditions:
-    - condition: time
-      weekday:
-      - mon
-      - tue
-      - wed
-      - thu
-      - sun
-    - condition: time
-      weekday:
-      - fri
-      - sat
+    id: weekend_time
+  conditions: []
   actions:
-  - action: scene.turn_on
-    target:
-      entity_id: scene.garden_off
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: weekday_time
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - sun
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: scene.garden_off
+        data: {}
+    - conditions:
+      - condition: trigger
+        id: weekend_time
+      - condition: time
+        weekday:
+        - fri
+        - sat
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: scene.garden_off
+        data: {}
   mode: single
