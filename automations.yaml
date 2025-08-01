@@ -1400,84 +1400,109 @@
     domain: switch
   mode: single
 - id: '1748793771021'
-  alias: 'Schedules: Bedroom Lamp Schedule'
-  description: Full bedroom light automation from 07:00 to 09:00 on weekdays unless
-    holiday mode is active
+  alias: 'Schedules: Bedroom Lamp - Gradual Wake-up Schedule'
+  description: 'Gradual morning light sequence on weekdays (07:00-09:10)
+
+    Light progression: Green dim → Warm white → Cool white → Bright daylight → Red
+    alert → Warm finish → Off
+
+    Skipped when holiday mode is active
+
+    '
   triggers:
-  - minutes: /5
-    trigger: time_pattern
+  - at: 07:00:00
+    trigger: time
+  - at: 07:20:00
+    trigger: time
+  - at: 07:50:00
+    trigger: time
+  - at: 08:00:00
+    trigger: time
+  - at: 08:30:00
+    trigger: time
+  - at: 08:50:00
+    trigger: time
+  - at: 09:00:00
+    trigger: time
+  - at: 09:10:00
+    trigger: time
   conditions:
-  - condition: template
-    value_template: '{{ not is_state(''input_boolean.holiday_bedroom_lamp'', ''on'')
-      }}'
-  - condition: template
-    value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+  - condition: state
+    entity_id: input_boolean.holiday_bedroom_lamp
+    state: 'off'
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
   actions:
   - choose:
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''07:00'' }}'
+      - condition: time
+        after: 07:00:00
+        before: 07:01:00
       sequence:
-      - target:
+      - action: scene.turn_on
+        target:
           entity_id: scene.bedroom_light_green_3
-        action: scene.turn_on
-        data: {}
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''07:20'' }}'
+      - condition: time
+        after: 07:20:00
+        before: 07:21:00
       sequence:
-      - target:
+      - action: scene.turn_on
+        target:
           entity_id: scene.bedroom_light_2700k_50
-        action: scene.turn_on
-        data: {}
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''07:50'' }}'
+      - condition: time
+        after: 07:50:00
+        before: 07:51:00
       sequence:
-      - target:
+      - action: scene.turn_on
+        target:
           entity_id: scene.bedroom_light_3200k_25
-        action: scene.turn_on
-        data: {}
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''08:00'' }}'
+      - condition: time
+        after: 08:00:00
+        before: 08:01:00
       sequence:
-      - target:
+      - action: scene.turn_on
+        target:
           entity_id: scene.bedroom_light_4000k_50
-        action: scene.turn_on
-        data: {}
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''08:30'' }}'
+      - condition: time
+        after: 08:30:00
+        before: 08:31:00
       sequence:
-      - target:
+      - action: scene.turn_on
+        target:
           entity_id: scene.bedroom_light_5000k_65
-        action: scene.turn_on
-        data: {}
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''08:50'' }}'
+      - condition: time
+        after: 08:50:00
+        before: 08:51:00
       sequence:
-      - target:
+      - action: scene.turn_on
+        target:
           entity_id: scene.bedroom_light_red_100
-        action: scene.turn_on
-        data: {}
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''09:00'' }}'
+      - condition: time
+        after: 09:00:00
+        before: 09:01:00
       sequence:
-      - target:
+      - action: scene.turn_on
+        target:
           entity_id: scene.bedroom_light_2700k_50
-        action: scene.turn_on
-        data: {}
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''09:10'' }}'
+      - condition: time
+        after: 09:10:00
+        before: 09:11:00
       sequence:
-      - target:
+      - action: light.turn_off
+        target:
           entity_id: light.bedroom_lamp
-        action: light.turn_off
-        data: {}
   mode: single
 - id: '1748952040030'
   alias: 'Schedules: Fish Tank Lighting'
@@ -1577,101 +1602,49 @@
         action: light.turn_off
   mode: single
 - id: '1748961427071'
-  alias: 'Schedules: Garden Lighting'
-  description: 'Controls garden lighting: - Morning ON before sunrise (weekday/weekend
-    time variants) - OFF at sunrise - ON at sunset - DIM at 22:00 if ON - OFF later
-    depending on weekday/weekend'
+  alias: 'Schedules: Garden Lighting - Turn ON'
+  description: Turn on garden lights in morning (if before sunrise) or at sunset
   triggers:
   - at: 06:30:00
-    id: morning_weekday
     trigger: time
   - at: 07:30:00
-    id: morning_weekend
     trigger: time
-  - event: sunrise
-    id: sunrise
-    trigger: sun
   - event: sunset
-    id: sunset
     trigger: sun
-  - at: '22:00:00'
-    id: dim_weekday
-    trigger: time
-  - at: '22:20:00'
-    id: off_weekday
-    trigger: time
-  - at: '23:00:00'
-    id: off_weekend
-    trigger: time
-  conditions: []
+  conditions:
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: time
+        after: 06:30:00
+        before: 06:31:00
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: sun
+        before: sunrise
+    - condition: and
+      conditions:
+      - condition: time
+        after: 07:30:00
+        before: 07:31:00
+      - condition: time
+        weekday:
+        - sat
+        - sun
+      - condition: sun
+        before: sunrise
+    - condition: sun
+      after: sunset
   actions:
-  - choose:
-    - conditions:
-      - condition: trigger
-        id: morning_weekday
-      - condition: template
-        value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
-      - condition: sun
-        before: sunrise
-      sequence:
-      - target:
-          entity_id: scene.garden_on
-        action: scene.turn_on
-    - conditions:
-      - condition: trigger
-        id: morning_weekend
-      - condition: template
-        value_template: '{{ now().weekday() in [5, 6] }}'
-      - condition: sun
-        before: sunrise
-      sequence:
-      - target:
-          entity_id: scene.garden_on
-        action: scene.turn_on
-    - conditions:
-      - condition: trigger
-        id: sunrise
-      sequence:
-      - target:
-          entity_id: scene.garden_off
-        action: scene.turn_on
-    - conditions:
-      - condition: trigger
-        id: sunset
-      sequence:
-      - target:
-          entity_id: scene.garden_on
-        action: scene.turn_on
-    - conditions:
-      - condition: trigger
-        id: dim_weekday
-      - condition: template
-        value_template: "{{ expand([\n  'light.pool_east',\n  'light.pool_west',\n
-          \ 'light.workshop_east',\n  'light.workshop_west',\n  'light.patio_east',\n
-          \ 'light.patio_west'\n]) | selectattr('state', 'eq', 'on') | list | count
-          > 0 }}\n"
-      sequence:
-      - target:
-          entity_id: scene.garden_50
-        action: scene.turn_on
-    - conditions:
-      - condition: trigger
-        id: off_weekday
-      - condition: template
-        value_template: '{{ now().weekday() in [0, 1, 2, 3, 6] }}'
-      sequence:
-      - target:
-          entity_id: scene.garden_off
-        action: scene.turn_on
-    - conditions:
-      - condition: trigger
-        id: off_weekend
-      - condition: template
-        value_template: '{{ now().weekday() in [4, 5] }}'
-      sequence:
-      - target:
-          entity_id: scene.garden_off
-        action: scene.turn_on
+  - action: scene.turn_on
+    target:
+      entity_id: scene.garden_on
   mode: single
 - id: '1748962213931'
   alias: 'Schedules: House Lighting'
@@ -1764,54 +1737,41 @@
         data: {}
   mode: single
 - id: '1748962918075'
-  alias: 'Schedules: Extension Lamp (Sunrise & Sunset Edge Cases)'
-  description: Controls Tapo L510 lamp on workday mornings before sunrise, and post-sunset
-    only if before 19:45.
+  alias: 'Schedules: Extension Lamp - Turn ON'
+  description: Turn on lamp at 05:50 on workdays (if before sunrise) or at sunset
+    (if before 19:45)
   triggers:
   - at: 05:50:00
     trigger: time
   - event: sunset
     trigger: sun
-  - at: '19:45:00'
-    trigger: time
-  - event: sunrise
-    trigger: sun
-  conditions: []
+  conditions:
+  - condition: or
+    conditions:
+    - condition: and
+      conditions:
+      - condition: time
+        after: 05:50:00
+        before: 05:51:00
+      - condition: time
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+      - condition: sun
+        before: sunrise
+    - condition: and
+      conditions:
+      - condition: sun
+        after: sunset
+      - condition: time
+        before: '19:45:00'
   actions:
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: '{{ now().weekday() in [0,1,2,3,4] and now().strftime(''%H:%M'')
-          == ''05:50'' and state_attr(''sun.sun'', ''elevation'') < 0 }}'
-      sequence:
-      - target:
-          entity_id: light.extension_lamp
-        action: light.turn_on
-    - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == (state_attr(''sun.sun'',
-          ''next_setting'') | as_datetime | as_local).strftime(''%H:%M'') and (state_attr(''sun.sun'',
-          ''next_setting'') | as_datetime | as_local).strftime(''%H:%M'') < ''19:45''
-          }}'
-      sequence:
-      - target:
-          entity_id: light.extension_lamp
-        action: light.turn_on
-    - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''19:45'' }}'
-      sequence:
-      - target:
-          entity_id: light.extension_lamp
-        action: light.turn_off
-    - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == (state_attr(''sun.sun'',
-          ''next_rising'') | as_datetime | as_local).strftime(''%H:%M'') }}'
-      sequence:
-      - target:
-          entity_id: light.extension_lamp
-        action: light.turn_off
+  - action: light.turn_on
+    target:
+      entity_id: light.extension_lamp
   mode: single
 - id: '1748963661748'
   alias: 'Schedules: Bug Zapper Fixed Times'
@@ -2263,4 +2223,76 @@
   - target:
       entity_id: switch.switch_office_light
     action: switch.turn_off
+  mode: single
+- id: '1754062287653'
+  alias: 'Schedules: Extension Lamp - Turn OFF'
+  description: Turn off lamp at sunrise or at 19:45
+  triggers:
+  - event: sunrise
+    trigger: sun
+  - at: '19:45:00'
+    trigger: time
+  conditions:
+  - condition: state
+    entity_id: light.extension_lamp
+    state: 'on'
+  actions:
+  - action: light.turn_off
+    target:
+      entity_id: light.extension_lamp
+  mode: single
+- id: '1754063209222'
+  alias: 'Schedules: Garden Lighting - Turn OFF (Sunrise)'
+  description: Turn off garden lights at sunrise
+  triggers:
+  - event: sunrise
+    trigger: sun
+  conditions: []
+  actions:
+  - action: scene.turn_on
+    target:
+      entity_id: scene.garden_off
+  mode: single
+- id: '1754063251359'
+  alias: 'Schedules: Garden Lighting - DIM at 22:00'
+  description: Dim garden lights at 22:00 if any are currently on
+  triggers:
+  - at: '22:00:00'
+    trigger: time
+  conditions:
+  - condition: template
+    value_template: "{{ expand([\n  'light.pool_east',\n  'light.pool_west',\n  'light.workshop_east',\n
+      \ 'light.workshop_west',\n  'light.patio_east',\n  'light.patio_west'\n]) |
+      selectattr('state', 'eq', 'on') | list | count > 0 }}\n"
+  actions:
+  - action: scene.turn_on
+    target:
+      entity_id: scene.garden_50
+  mode: single
+- id: '1754063435396'
+  alias: 'Schedules: Garden Lighting - Turn OFF (Evening)'
+  description: Turn off garden lights at different times for weekdays vs weekends
+  triggers:
+  - at: '22:20:00'
+    trigger: time
+  - at: '23:00:00'
+    trigger: time
+  conditions:
+  - condition: or
+    conditions:
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - sun
+    - condition: time
+      weekday:
+      - fri
+      - sat
+  actions:
+  - action: scene.turn_on
+    target:
+      entity_id: scene.garden_off
   mode: single
