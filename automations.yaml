@@ -883,18 +883,6 @@
   - condition: state
     entity_id: switch.cctv_monitor
     state: 'off'
-  - condition: or
-    conditions:
-    - type: is_motion
-      condition: device
-      device_id: e9ff0e951af08702378e8bf81e1492d6
-      entity_id: 5a3f0a5f4c35d8326e4940fc7a18797b
-      domain: binary_sensor
-    - type: is_motion
-      condition: device
-      device_id: 66f8ba89b3dd4149144463e123f0ed25
-      entity_id: a2b5ee099dece23a3089a04f3ecfc744
-      domain: binary_sensor
   actions:
   - type: turn_on
     device_id: e089e21f12d388d802c0e4178bd386fc
