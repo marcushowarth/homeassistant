@@ -314,96 +314,52 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
-      - 9.31
+      - 8.966
       - 68.235
       rgb_color:
       - 255
-      - 108
+      - 107
       - 81
       xy_color:
       - 0.594
-      - 0.329
-      effect:
+      - 0.328
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
-      supported_features: 36
-      state: 'on'
-    light.controller_rgb_c1f544:
-      effect_list:
-      - blue_fade
-      - blue_strobe
-      - colorjump
-      - colorloop
-      - colorstrobe
-      - cyan_fade
-      - cyan_strobe
-      - cycle_rgb
-      - cycle_seven_colors
-      - gb_cross_fade
-      - green_fade
-      - green_strobe
-      - purple_fade
-      - purple_strobe
-      - rb_cross_fade
-      - red_fade
-      - red_strobe
-      - rg_cross_fade
-      - rgb_cross_fade
-      - white_fade
-      - white_strobe
-      - yellow_fade
-      - yellow_strobe
-      - random
-      supported_color_modes:
-      - rgb
-      color_mode: rgb
-      brightness: 255
-      hs_color:
-      - 300
-      - 72.157
-      rgb_color:
-      - 255
-      - 71
-      - 255
-      xy_color:
-      - 0.38
-      - 0.17
-      effect:
-      ip_address: 10.0.10.217
-      friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
     light.extension_lamp:
       supported_color_modes:
       - brightness
-      - onoff
       color_mode: brightness
       brightness: 51
       friendly_name: Extension lamp
-      supported_features: 0
+      supported_features: 32
       state: 'on'
     light.landing_light:
       supported_color_modes:
       - brightness
-      - onoff
       color_mode: brightness
       brightness: 10
       friendly_name: Landing light
-      supported_features: 0
+      supported_features: 32
       state: 'on'
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
       min_mireds: 153
       max_mireds: 400
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
       supported_color_modes:
-      - brightness
       - color_temp
       - hs
-      - onoff
+      effect: 'off'
       color_mode: hs
       brightness: 255
       color_temp_kelvin:
@@ -412,18 +368,14 @@
       - 277
       - 41
       rgb_color:
-      - 214
+      - 215
       - 150
       - 255
       xy_color:
-      - 0.311
+      - 0.313
       - 0.21
       friendly_name: Pool room lamp
-      supported_features: 0
-      state: 'on'
-    switch.tv:
-      device_class: outlet
-      friendly_name: TV
+      supported_features: 36
       state: 'on'
     light.controller_rgb_c1f45a:
       effect_list:
@@ -453,6 +405,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 76
       hs_color:
@@ -465,7 +418,6 @@
       xy_color:
       - 0.385
       - 0.157
-      effect:
       ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
@@ -498,6 +450,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 189
       hs_color:
@@ -510,7 +463,6 @@
       xy_color:
       - 0.695
       - 0.298
-      effect:
       ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
@@ -543,6 +495,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -555,7 +508,6 @@
       xy_color:
       - 0.455
       - 0.187
-      effect:
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -588,6 +540,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -600,7 +553,6 @@
       xy_color:
       - 0.59
       - 0.328
-      effect:
       ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
@@ -633,6 +585,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -645,7 +598,6 @@
       xy_color:
       - 0.589
       - 0.329
-      effect:
       ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
@@ -678,6 +630,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -690,9 +643,61 @@
       xy_color:
       - 0.371
       - 0.239
-      effect:
       ip_address: 10.0.11.168
       friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_194ae7_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.69
+      friendly_name: Controller RGB 194AE7 Effect speed
+      state: '100'
+    light.utility_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 249
+      hs_color:
+      - 0
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      xy_color:
+      - 0.701
+      - 0.299
+      ip_address: 10.0.11.69
+      friendly_name: Utility Strip Light
       supported_features: 36
       state: 'on'
   icon: mdi:amplifier
@@ -728,6 +733,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 191
       hs_color:
@@ -740,54 +746,8 @@
       xy_color:
       - 0.393
       - 0.165
-      effect:
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
-      supported_features: 36
-      state: 'on'
-    light.controller_rgb_c1f544:
-      effect_list:
-      - blue_fade
-      - blue_strobe
-      - colorjump
-      - colorloop
-      - colorstrobe
-      - cyan_fade
-      - cyan_strobe
-      - cycle_rgb
-      - cycle_seven_colors
-      - gb_cross_fade
-      - green_fade
-      - green_strobe
-      - purple_fade
-      - purple_strobe
-      - rb_cross_fade
-      - red_fade
-      - red_strobe
-      - rg_cross_fade
-      - rgb_cross_fade
-      - white_fade
-      - white_strobe
-      - yellow_fade
-      - yellow_strobe
-      - random
-      supported_color_modes:
-      - rgb
-      color_mode: rgb
-      brightness: 59
-      hs_color:
-      - 295.785
-      - 94.902
-      rgb_color:
-      - 238
-      - 13
-      - 255
-      xy_color:
-      - 0.364
-      - 0.146
-      effect:
-      ip_address: 10.0.10.217
-      friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
     light.pool_room_lamp:
@@ -795,11 +755,14 @@
       max_color_temp_kelvin: 6500
       min_mireds: 153
       max_mireds: 400
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
       supported_color_modes:
-      - brightness
       - color_temp
       - hs
-      - onoff
+      effect: 'off'
       color_mode: hs
       brightness: 128
       color_temp_kelvin:
@@ -815,7 +778,7 @@
       - 0.336
       - 0.189
       friendly_name: Pool room lamp
-      supported_features: 0
+      supported_features: 36
       state: 'on'
     light.controller_rgb_c1f45a:
       effect_list:
@@ -845,6 +808,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 153
       hs_color:
@@ -857,7 +821,6 @@
       xy_color:
       - 0.392
       - 0.158
-      effect:
       ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
@@ -890,6 +853,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 156
       hs_color:
@@ -902,7 +866,6 @@
       xy_color:
       - 0.511
       - 0.212
-      effect:
       ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
@@ -935,6 +898,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 194
       hs_color:
@@ -947,7 +911,6 @@
       xy_color:
       - 0.39
       - 0.161
-      effect:
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -980,6 +943,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 105
       hs_color:
@@ -992,7 +956,6 @@
       xy_color:
       - 0.394
       - 0.161
-      effect:
       ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
@@ -1025,19 +988,19 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 296.235
+      - 295.765
       - 100
       rgb_color:
-      - 239
+      - 237
       - 0
       - 255
       xy_color:
-      - 0.365
-      - 0.145
-      effect:
+      - 0.363
+      - 0.144
       ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
@@ -1070,21 +1033,74 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 107
       hs_color:
-      - 314.118
+      - 314.588
       - 100
       rgb_color:
       - 255
       - 0
-      - 195
+      - 193
       xy_color:
-      - 0.47
-      - 0.194
-      effect:
+      - 0.473
+      - 0.195
       ip_address: 10.0.11.168
       friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_194ae7_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.69
+      friendly_name: Controller RGB 194AE7 Effect speed
+      state: '100'
+    light.utility_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 176
+      hs_color:
+      - 276.449
+      - 41.961
+      rgb_color:
+      - 213
+      - 148
+      - 255
+      xy_color:
+      - 0.311
+      - 0.208
+      ip_address: 10.0.11.69
+      friendly_name: Utility Strip Light
       supported_features: 36
       state: 'on'
   icon: mdi:led-strip-variant
@@ -1120,6 +1136,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -1132,54 +1149,8 @@
       xy_color:
       - 0.208
       - 0.212
-      effect:
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
-      supported_features: 36
-      state: 'on'
-    light.controller_rgb_c1f544:
-      effect_list:
-      - blue_fade
-      - blue_strobe
-      - colorjump
-      - colorloop
-      - colorstrobe
-      - cyan_fade
-      - cyan_strobe
-      - cycle_rgb
-      - cycle_seven_colors
-      - gb_cross_fade
-      - green_fade
-      - green_strobe
-      - purple_fade
-      - purple_strobe
-      - rb_cross_fade
-      - red_fade
-      - red_strobe
-      - rg_cross_fade
-      - rgb_cross_fade
-      - white_fade
-      - white_strobe
-      - yellow_fade
-      - yellow_strobe
-      - random
-      supported_color_modes:
-      - rgb
-      color_mode: rgb
-      brightness: 87
-      hs_color:
-      - 247.909
-      - 86.275
-      rgb_color:
-      - 64
-      - 35
-      - 255
-      xy_color:
-      - 0.158
-      - 0.058
-      effect:
-      ip_address: 10.0.10.217
-      friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
     light.pool_room_lamp:
@@ -1187,11 +1158,14 @@
       max_color_temp_kelvin: 6500
       min_mireds: 153
       max_mireds: 400
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
       supported_color_modes:
-      - brightness
       - color_temp
       - hs
-      - onoff
+      effect: 'off'
       color_mode: hs
       brightness: 255
       color_temp_kelvin:
@@ -1200,14 +1174,14 @@
       - 218
       - 50
       rgb_color:
-      - 127
+      - 128
       - 174
       - 255
       xy_color:
-      - 0.207
+      - 0.208
       - 0.22
       friendly_name: Pool room lamp
-      supported_features: 0
+      supported_features: 36
       state: 'on'
     light.controller_rgb_c1f45a:
       effect_list:
@@ -1237,6 +1211,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 191
       hs_color:
@@ -1249,7 +1224,6 @@
       xy_color:
       - 0.148
       - 0.128
-      effect:
       ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
@@ -1282,6 +1256,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 191
       hs_color:
@@ -1294,7 +1269,6 @@
       xy_color:
       - 0.145
       - 0.112
-      effect:
       ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
@@ -1327,19 +1301,19 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 250
       hs_color:
-      - 217.917
-      - 56.471
+      - 218.367
+      - 57.647
       rgb_color:
-      - 111
-      - 164
+      - 108
+      - 161
       - 255
       xy_color:
-      - 0.194
-      - 0.203
-      effect:
+      - 0.191
+      - 0.198
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -1372,6 +1346,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 201
       hs_color:
@@ -1384,7 +1359,6 @@
       xy_color:
       - 0.208
       - 0.214
-      effect:
       ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
@@ -1417,6 +1391,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -1429,7 +1404,6 @@
       xy_color:
       - 0.208
       - 0.217
-      effect:
       ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
@@ -1462,21 +1436,74 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 120
       hs_color:
-      - 219.231
+      - 218.382
+      - 53.333
+      rgb_color:
+      - 119
+      - 168
+      - 255
+      xy_color:
+      - 0.2
+      - 0.21
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_194ae7_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.69
+      friendly_name: Controller RGB 194AE7 Effect speed
+      state: '100'
+    light.utility_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 186
+      hs_color:
+      - 218.769
       - 50.98
       rgb_color:
       - 125
-      - 170
+      - 171
       - 255
       xy_color:
       - 0.206
-      - 0.214
-      effect:
-      ip_address: 10.0.11.168
-      friendly_name: Kitchen Floor strip light
+      - 0.215
+      ip_address: 10.0.11.69
+      friendly_name: Utility Strip Light
       supported_features: 36
       state: 'on'
   icon: mdi:led-strip-variant
@@ -1512,66 +1539,21 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 124.653
+      - 124.163
       - 96.078
       rgb_color:
       - 10
       - 255
-      - 29
+      - 27
       xy_color:
-      - 0.173
-      - 0.734
-      effect:
+      - 0.174
+      - 0.735
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
-      supported_features: 36
-      state: 'on'
-    light.controller_rgb_c1f544:
-      effect_list:
-      - blue_fade
-      - blue_strobe
-      - colorjump
-      - colorloop
-      - colorstrobe
-      - cyan_fade
-      - cyan_strobe
-      - cycle_rgb
-      - cycle_seven_colors
-      - gb_cross_fade
-      - green_fade
-      - green_strobe
-      - purple_fade
-      - purple_strobe
-      - rb_cross_fade
-      - red_fade
-      - red_strobe
-      - rg_cross_fade
-      - rgb_cross_fade
-      - white_fade
-      - white_strobe
-      - yellow_fade
-      - yellow_strobe
-      - random
-      supported_color_modes:
-      - rgb
-      color_mode: rgb
-      brightness: 204
-      hs_color:
-      - 121.2
-      - 98.039
-      rgb_color:
-      - 5
-      - 255
-      - 10
-      xy_color:
-      - 0.173
-      - 0.743
-      effect:
-      ip_address: 10.0.10.217
-      friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
     light.pool_room_lamp:
@@ -1579,11 +1561,14 @@
       max_color_temp_kelvin: 6500
       min_mireds: 153
       max_mireds: 400
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
       supported_color_modes:
-      - brightness
       - color_temp
       - hs
-      - onoff
+      effect: 'off'
       color_mode: hs
       brightness: 196
       color_temp_kelvin:
@@ -1592,14 +1577,14 @@
       - 122
       - 95
       rgb_color:
-      - 12
+      - 13
       - 255
-      - 20
+      - 21
       xy_color:
       - 0.174
-      - 0.739
+      - 0.738
       friendly_name: Pool room lamp
-      supported_features: 0
+      supported_features: 36
       state: 'on'
     light.controller_rgb_c1f45a:
       effect_list:
@@ -1629,6 +1614,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 191
       hs_color:
@@ -1641,7 +1627,6 @@
       xy_color:
       - 0.176
       - 0.727
-      effect:
       ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
@@ -1674,6 +1659,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 189
       hs_color:
@@ -1686,7 +1672,6 @@
       xy_color:
       - 0.23
       - 0.692
-      effect:
       ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
@@ -1719,6 +1704,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 158
       hs_color:
@@ -1731,7 +1717,6 @@
       xy_color:
       - 0.186
       - 0.727
-      effect:
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -1764,6 +1749,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 184
       hs_color:
@@ -1776,7 +1762,6 @@
       xy_color:
       - 0.172
       - 0.747
-      effect:
       ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
@@ -1809,6 +1794,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -1821,7 +1807,6 @@
       xy_color:
       - 0.172
       - 0.747
-      effect:
       ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
@@ -1854,6 +1839,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 255
       hs_color:
@@ -1866,9 +1852,61 @@
       xy_color:
       - 0.185
       - 0.712
-      effect:
       ip_address: 10.0.11.168
       friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_194ae7_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.69
+      friendly_name: Controller RGB 194AE7 Effect speed
+      state: '100'
+    light.utility_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 120
+      - 87.451
+      rgb_color:
+      - 32
+      - 255
+      - 32
+      xy_color:
+      - 0.18
+      - 0.727
+      ip_address: 10.0.11.69
+      friendly_name: Utility Strip Light
       supported_features: 36
       state: 'on'
   icon: mdi:led-strip-variant
@@ -1904,52 +1942,14 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode:
       brightness:
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
-      supported_features: 36
-      state: 'off'
-    light.controller_rgb_c1f544:
-      effect_list:
-      - blue_fade
-      - blue_strobe
-      - colorjump
-      - colorloop
-      - colorstrobe
-      - cyan_fade
-      - cyan_strobe
-      - cycle_rgb
-      - cycle_seven_colors
-      - gb_cross_fade
-      - green_fade
-      - green_strobe
-      - purple_fade
-      - purple_strobe
-      - rb_cross_fade
-      - red_fade
-      - red_strobe
-      - rg_cross_fade
-      - rgb_cross_fade
-      - white_fade
-      - white_strobe
-      - yellow_fade
-      - yellow_strobe
-      - random
-      supported_color_modes:
-      - rgb
-      color_mode:
-      brightness:
-      hs_color:
-      rgb_color:
-      xy_color:
-      effect:
-      ip_address: 10.0.10.217
-      friendly_name: Utility Strip light
       supported_features: 36
       state: 'off'
     light.pool_room_lamp:
@@ -1957,11 +1957,14 @@
       max_color_temp_kelvin: 6500
       min_mireds: 153
       max_mireds: 400
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
       supported_color_modes:
-      - brightness
       - color_temp
       - hs
-      - onoff
+      effect:
       color_mode:
       brightness:
       color_temp_kelvin:
@@ -1970,7 +1973,7 @@
       rgb_color:
       xy_color:
       friendly_name: Pool room lamp
-      supported_features: 0
+      supported_features: 36
       state: 'off'
     light.controller_rgb_c1f45a:
       effect_list:
@@ -2000,12 +2003,12 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode:
       brightness:
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
@@ -2038,12 +2041,12 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode:
       brightness:
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
@@ -2076,12 +2079,12 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode:
       brightness:
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -2114,12 +2117,12 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode:
       brightness:
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
@@ -2152,12 +2155,12 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode:
       brightness:
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
@@ -2190,14 +2193,60 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode:
       brightness:
       hs_color:
       rgb_color:
       xy_color:
-      effect:
       ip_address: 10.0.11.168
       friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'off'
+    number.controller_rgb_194ae7_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.69
+      friendly_name: Controller RGB 194AE7 Effect speed
+      state: '100'
+    light.utility_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      ip_address: 10.0.11.69
+      friendly_name: Utility Strip Light
       supported_features: 36
       state: 'off'
   icon: mdi:led-strip-variant
@@ -2208,11 +2257,10 @@
     light.landing_light:
       supported_color_modes:
       - brightness
-      - onoff
       color_mode:
       brightness:
       friendly_name: Landing light
-      supported_features: 0
+      supported_features: 32
       state: 'off'
     light.controller_rgb_c1f45a:
       effect_list:
@@ -2242,6 +2290,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 8
       hs_color:
@@ -2254,54 +2303,8 @@
       xy_color:
       - 0.136
       - 0.04
-      effect:
       ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
-      supported_features: 36
-      state: 'on'
-    light.controller_rgb_c1f544:
-      effect_list:
-      - blue_fade
-      - blue_strobe
-      - colorjump
-      - colorloop
-      - colorstrobe
-      - cyan_fade
-      - cyan_strobe
-      - cycle_rgb
-      - cycle_seven_colors
-      - gb_cross_fade
-      - green_fade
-      - green_strobe
-      - purple_fade
-      - purple_strobe
-      - rb_cross_fade
-      - red_fade
-      - red_strobe
-      - rg_cross_fade
-      - rgb_cross_fade
-      - white_fade
-      - white_strobe
-      - yellow_fade
-      - yellow_strobe
-      - random
-      supported_color_modes:
-      - rgb
-      color_mode: rgb
-      brightness: 3
-      hs_color:
-      - 240
-      - 100
-      rgb_color:
-      - 0
-      - 0
-      - 255
-      xy_color:
-      - 0.136
-      - 0.04
-      effect:
-      ip_address: 10.0.10.217
-      friendly_name: Utility Strip light
       supported_features: 36
       state: 'on'
     light.controller_rgb_c1f2c0:
@@ -2332,6 +2335,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 3
       hs_color:
@@ -2344,7 +2348,6 @@
       xy_color:
       - 0.173
       - 0.098
-      effect:
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
@@ -2354,11 +2357,14 @@
       max_color_temp_kelvin: 6500
       min_mireds: 153
       max_mireds: 400
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
       supported_color_modes:
-      - brightness
       - color_temp
       - hs
-      - onoff
+      effect:
       color_mode:
       brightness:
       color_temp_kelvin:
@@ -2367,16 +2373,15 @@
       rgb_color:
       xy_color:
       friendly_name: Pool room lamp
-      supported_features: 0
+      supported_features: 36
       state: 'off'
     light.extension_lamp:
       supported_color_modes:
       - brightness
-      - onoff
       color_mode:
       brightness:
       friendly_name: Extension lamp
-      supported_features: 0
+      supported_features: 32
       state: 'off'
     light.fish_tank_striplight:
       effect_list:
@@ -2406,6 +2411,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 10
       hs_color:
@@ -2418,7 +2424,6 @@
       xy_color:
       - 0.136
       - 0.057
-      effect:
       ip_address: 10.0.11.252
       friendly_name: Fish Tank Striplight
       supported_features: 36
@@ -2451,6 +2456,7 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 13
       hs_color:
@@ -2463,7 +2469,6 @@
       xy_color:
       - 0.158
       - 0.185
-      effect:
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -2496,19 +2501,19 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 13
       hs_color:
-      - 225.191
+      - 230.043
       - 92.157
       rgb_color:
       - 20
-      - 78
+      - 59
       - 255
       xy_color:
       - 0.14
-      - 0.079
-      effect:
+      - 0.064
       ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
@@ -2541,19 +2546,19 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 13
       hs_color:
-      - 225.191
+      - 230.043
       - 92.157
       rgb_color:
       - 20
-      - 78
+      - 59
       - 255
       xy_color:
       - 0.14
-      - 0.079
-      effect:
+      - 0.064
       ip_address: 10.0.11.143
       friendly_name: Sofa strip Light
       supported_features: 36
@@ -2586,21 +2591,74 @@
       - random
       supported_color_modes:
       - rgb
+      effect:
       color_mode: rgb
       brightness: 5
       hs_color:
-      - 220
+      - 240
       - 60
       rgb_color:
       - 102
+      - 102
+      - 255
+      xy_color:
+      - 0.188
+      - 0.121
+      ip_address: 10.0.11.168
+      friendly_name: Kitchen Floor strip light
+      supported_features: 36
+      state: 'on'
+    number.controller_rgb_194ae7_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.69
+      friendly_name: Controller RGB 194AE7 Effect speed
+      state: '100'
+    light.utility_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 5
+      hs_color:
+      - 210
+      - 80
+      rgb_color:
+      - 51
       - 153
       - 255
       xy_color:
-      - 0.186
-      - 0.186
-      effect:
-      ip_address: 10.0.11.168
-      friendly_name: Kitchen Floor strip light
+      - 0.154
+      - 0.179
+      ip_address: 10.0.11.69
+      friendly_name: Utility Strip Light
       supported_features: 36
       state: 'on'
   icon: mdi:shield-moon-outline
