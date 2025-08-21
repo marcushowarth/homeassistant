@@ -1179,7 +1179,8 @@
         id: motion_on
       sequence:
       - target:
-          entity_id: light.controller_rgb_c1f544
+          entity_id:
+          - light.utility_led_strip
         data:
           brightness_pct: 60
         action: light.turn_on
@@ -1192,7 +1193,8 @@
         entity_id: binary_sensor.motion_utility_occupancy
         state: 'off'
       - target:
-          entity_id: light.controller_rgb_c1f544
+          entity_id:
+          - light.utility_led_strip
         data:
           brightness_pct: 3
         action: light.turn_on
@@ -1314,7 +1316,8 @@
         id: motion_on
       sequence:
       - target:
-          entity_id: light.controller_rgb_c1f544
+          entity_id:
+          - light.utility_led_strip
         data:
           brightness_pct: 100
         action: light.turn_on
@@ -1327,7 +1330,8 @@
         entity_id: binary_sensor.motion_utility_occupancy
         state: 'off'
       - target:
-          entity_id: light.controller_rgb_c1f544
+          entity_id:
+          - light.utility_led_strip
         data:
           brightness_pct: 60
         action: light.turn_on
