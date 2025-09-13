@@ -1180,7 +1180,7 @@
       sequence:
       - target:
           entity_id:
-          - light.utility_led_strip
+          - light.controller_rgb_432e39
         data:
           brightness_pct: 60
         action: light.turn_on
@@ -1194,7 +1194,7 @@
         state: 'off'
       - target:
           entity_id:
-          - light.utility_led_strip
+          - light.controller_rgb_432e39
         data:
           brightness_pct: 3
         action: light.turn_on
@@ -1317,7 +1317,7 @@
       sequence:
       - target:
           entity_id:
-          - light.utility_led_strip
+          - light.controller_rgb_432e39
         data:
           brightness_pct: 100
         action: light.turn_on
@@ -1331,7 +1331,7 @@
         state: 'off'
       - target:
           entity_id:
-          - light.utility_led_strip
+          - light.controller_rgb_432e39
         data:
           brightness_pct: 60
         action: light.turn_on
@@ -1362,6 +1362,10 @@
     entity_id:
     - binary_sensor.pool_room_person
     to: 'on'
+  - trigger: state
+    entity_id:
+    - input_boolean.workshop_crosstrainer_fan_override_on
+    to: 'on'
   conditions:
   - condition: numeric_state
     entity_id: sensor.workshop_temperature
@@ -1384,7 +1388,10 @@
       hours: 0
       minutes: 15
       seconds: 0
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.workshop_crosstrainer_fan_override_on
+    state: 'off'
   actions:
   - type: turn_off
     device_id: c2538969a005b978a1aeeb0549ff0b1d

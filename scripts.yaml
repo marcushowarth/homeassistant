@@ -507,3 +507,22 @@ update_octopus_energy_tariffs_with_change_detection:
         action: ifttt.trigger
   mode: single
   description: ''
+cross_trainer_fan_45min_override:
+  sequence:
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.workshop_crosstrainer_fan_override_on
+  - delay:
+      hours: 0
+      minutes: 45
+      seconds: 0
+      milliseconds: 0
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.workshop_crosstrainer_fan_override_on
+  alias: Cross Trainer Fan 45min override
+  description: ''

@@ -992,15 +992,15 @@
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 295.765
+      - 294.118
       - 100
       rgb_color:
-      - 237
+      - 230
       - 0
       - 255
       xy_color:
-      - 0.363
-      - 0.144
+      - 0.353
+      - 0.14
       ip_address: 10.0.10.231
       friendly_name: Kitchen Fridge light strip
       supported_features: 36
@@ -1037,28 +1037,20 @@
       color_mode: rgb
       brightness: 107
       hs_color:
-      - 314.588
+      - 315.059
       - 100
       rgb_color:
       - 255
       - 0
-      - 193
+      - 191
       xy_color:
-      - 0.473
-      - 0.195
+      - 0.477
+      - 0.196
       ip_address: 10.0.11.168
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_194ae7_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.69
-      friendly_name: Controller RGB 194AE7 Effect speed
-      state: '100'
-    light.utility_led_strip:
+    light.controller_rgb_432e39:
       effect_list:
       - blue_fade
       - blue_strobe
@@ -1088,21 +1080,29 @@
       - rgb
       effect:
       color_mode: rgb
-      brightness: 176
+      brightness: 191
       hs_color:
-      - 276.449
-      - 41.961
+      - 287.556
+      - 52.941
       rgb_color:
-      - 213
-      - 148
+      - 227
+      - 120
       - 255
       xy_color:
-      - 0.311
-      - 0.208
-      ip_address: 10.0.11.69
-      friendly_name: Utility Strip Light
+      - 0.335
+      - 0.187
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip
       supported_features: 36
       state: 'on'
+    number.utility_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707217867570'
@@ -1305,15 +1305,15 @@
       color_mode: rgb
       brightness: 250
       hs_color:
-      - 218.367
-      - 57.647
+      - 218.658
+      - 58.431
       rgb_color:
-      - 108
-      - 161
+      - 106
+      - 159
       - 255
       xy_color:
-      - 0.191
-      - 0.198
+      - 0.19
+      - 0.195
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -1453,15 +1453,7 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_194ae7_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.69
-      friendly_name: Controller RGB 194AE7 Effect speed
-      state: '100'
-    light.utility_led_strip:
+    light.controller_rgb_432e39:
       effect_list:
       - blue_fade
       - blue_strobe
@@ -1491,21 +1483,29 @@
       - rgb
       effect:
       color_mode: rgb
-      brightness: 186
+      brightness: 255
       hs_color:
-      - 218.769
-      - 50.98
+      - 220.781
+      - 50.196
       rgb_color:
-      - 125
-      - 171
+      - 127
+      - 168
       - 255
       xy_color:
-      - 0.206
-      - 0.215
-      ip_address: 10.0.11.69
-      friendly_name: Utility Strip Light
+      - 0.208
+      - 0.212
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip
       supported_features: 36
       state: 'on'
+    number.utility_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707229963331'
@@ -1543,15 +1543,15 @@
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 124.163
+      - 123.673
       - 96.078
       rgb_color:
       - 10
       - 255
-      - 27
+      - 25
       xy_color:
       - 0.174
-      - 0.735
+      - 0.736
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
@@ -1856,15 +1856,7 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_194ae7_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.69
-      friendly_name: Controller RGB 194AE7 Effect speed
-      state: '100'
-    light.utility_led_strip:
+    light.controller_rgb_432e39:
       effect_list:
       - blue_fade
       - blue_strobe
@@ -1896,19 +1888,27 @@
       color_mode: rgb
       brightness: 255
       hs_color:
-      - 120
-      - 87.451
+      - 123.673
+      - 96.078
       rgb_color:
-      - 32
+      - 10
       - 255
-      - 32
+      - 25
       xy_color:
-      - 0.18
-      - 0.727
-      ip_address: 10.0.11.69
-      friendly_name: Utility Strip Light
+      - 0.174
+      - 0.736
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip
       supported_features: 36
       state: 'on'
+    number.utility_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707233428389'
@@ -2203,15 +2203,7 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'off'
-    number.controller_rgb_194ae7_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.69
-      friendly_name: Controller RGB 194AE7 Effect speed
-      state: '100'
-    light.utility_led_strip:
+    light.controller_rgb_432e39:
       effect_list:
       - blue_fade
       - blue_strobe
@@ -2245,10 +2237,18 @@
       hs_color:
       rgb_color:
       xy_color:
-      ip_address: 10.0.11.69
-      friendly_name: Utility Strip Light
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip
       supported_features: 36
       state: 'off'
+    number.utility_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.237
+      friendly_name: Utility LED Strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707322902788'
