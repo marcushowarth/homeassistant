@@ -16,7 +16,7 @@ Initially when setting up I couldn't see a way of configuring
   unit_of_measurement: GBP/kWh
 ```
 
-through the UI so I added these linked from [configuration.yaml](../../configuration.yaml) as 
+through the UI so I added these linked from [configuration.yaml](../configuration.yaml) as 
 
 ```aiignore
 # Example: How to load custom entities.
