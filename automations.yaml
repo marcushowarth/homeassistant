@@ -154,17 +154,17 @@
   description: Sets the work mode back to Feed-in First (from Force Discharge) once
     the target SoC acheived. - it 'polls' every 5 minutes during the 16th, 17th &
     18th hours to check condition
-  trigger:
-  - platform: time_pattern
-    hours: 16
+  triggers:
+  - hours: 16
     minutes: /5
-  - platform: time_pattern
-    hours: 17
+    trigger: time_pattern
+  - hours: 17
     minutes: /5
-  - platform: time_pattern
-    hours: 18
+    trigger: time_pattern
+  - hours: 18
     minutes: /5
-  condition:
+    trigger: time_pattern
+  conditions:
   - and:
     - condition: template
       value_template: '{{ states(''select.workshop_work_mode'') == ''Force Discharge''
@@ -172,14 +172,14 @@
     - condition: template
       value_template: '{{ states(''sensor.workshop_battery_soc'')|float(0) <= states(''input_number.target_soc_force_export'')|float(0)
         }}'
-  action:
+  actions:
   - variables:
       workmode: Feed-in First
-  - service: select.select_option
-    target:
+  - target:
       entity_id: select.workshop_work_mode
     data:
       option: '{{ workmode }}'
+    action: select.select_option
   mode: single
 - id: '1719987517277'
   alias: 'Energy: Battery: Enable 2nd charge period before Peak Tariff period'
@@ -899,17 +899,20 @@
     domain: switch
   mode: restart
 - id: '1742382554771'
-  alias: 'Energy: set flag to force peak export based on tomorrow''s PV forecast'
-  description: Sets the flag to force peak export based on tomorrow's PV forecast
+  alias: 'Energy: set flag to force peak export based on remaining PV forecast'
+  description: Sets the flag to force peak export based on the PV forecast for the
+    remainder of the day
   triggers:
-  - at: '22:20:00'
+  - at:
+      entity_id: input_datetime.peak_energy_start
+      offset: -00:05:00
     trigger: time
   conditions: []
   actions:
   - choose:
     - conditions:
       - condition: numeric_state
-        entity_id: sensor.solcast_pv_forecast_forecast_tomorrow
+        entity_id: sensor.solcast_pv_forecast_forecast_remaining_today
         above: input_number.input_number_pv_forecastpeak_export_threshold
       sequence:
       - action: input_boolean.turn_on
@@ -924,9 +927,14 @@
       target:
         entity_id: input_boolean.peak_tariff_export_enabled
   - data:
-      message: Tomorrow's forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
-        }} kWh so the flag to export during peak tariff set to {{ states('input_boolean.peak_tariff_export_enabled')
-        }} for tomorrow.
+      message: 'The remaining PV forecast for today = {{ states(''sensor.solcast_pv_forecast_forecast_remaining_today'')
+        }} kWh so the flag to export during peak tariff set to {{ states(''input_boolean.peak_tariff_export_enabled'')
+        }} today.
+
+        Current threshold set at {{ states(''input_number.input_number_pv_forecastpeak_export_threshold'')
+        }} kWh.
+
+        '
     action: notify.marcus_email
   mode: single
 - id: '1743575339217'
@@ -2308,4 +2316,68 @@
         target:
           entity_id: scene.garden_off
         data: {}
+  mode: single
+- id: '1762797611312'
+  alias: 'Switches: Pool Room Extractor – Vacate + Landing Motion'
+  description: Turns extractor on/off when pool room vacated and landing motion detected
+    within 3 minutes and Hallway motion must have occurred recently (tune this window)
+    Five seconds is typical, only between 17:00 and 21:00, with alert blinks.
+  triggers:
+  - entity_id: binary_sensor.motion_landing_occupancy
+    to: 'on'
+    trigger: state
+  conditions:
+  - condition: time
+    after: '17:00:00'
+    before: '21:00:00'
+  - condition: state
+    entity_id: binary_sensor.pool_room_person
+    state: 'off'
+  - condition: template
+    value_template: '{{ (now() - states.binary_sensor.pool_room_person.last_changed).total_seconds()
+      < 180 }}
+
+      '
+  - condition: template
+    value_template: '{{ (now() - states.binary_sensor.motion_hallway_occupancy.last_changed).total_seconds()
+      < 5 }}
+
+      '
+  actions:
+  - sequence:
+    - target:
+        entity_id: light.alert_bulb
+      data:
+        rgb_color:
+        - 128
+        - 0
+        - 255
+        brightness: 255
+      action: light.turn_on
+    - delay: 00:00:01
+    - target:
+        entity_id: light.alert_bulb
+      action: light.turn_off
+    - delay: 00:00:01
+    - target:
+        entity_id: light.alert_bulb
+      data:
+        rgb_color:
+        - 128
+        - 0
+        - 255
+        brightness: 255
+      action: light.turn_on
+    - delay: 00:00:01
+    - target:
+        entity_id: light.alert_bulb
+      action: light.turn_off
+  - sequence:
+    - target:
+        entity_id: switch.pool_room_extractor_fan
+      action: switch.turn_on
+    - delay: 00:00:05
+    - target:
+        entity_id: switch.pool_room_extractor_fan
+      action: switch.turn_off
   mode: single
