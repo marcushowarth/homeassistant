@@ -24,6 +24,9 @@ A categorized breakdown of key automations in this Home Assistant setup:
 
 - [💡 Switches Automations](README-switches-automations.md)  
   Motion-activated and context-aware control of lights, fans, and other smart switches throughout the home, often with dynamic brightness or temperature-based logic.
+- 
+- [💡 Scripts](README-scripts-automations.md)  
+  Making the most of Free Electricity sessions or handy tasks like turning off the garden lights at bedtime. 
 
 ## 🔗 Notes
 
