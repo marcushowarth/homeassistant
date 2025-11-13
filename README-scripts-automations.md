@@ -51,7 +51,9 @@ The point of documenting this was to highlight a couple of script ideas I use.
 
 ### Update Octopus Energy Tariffs with Change Detection
 
-**Description:**  Using the HACS Plugin [Octopus Energy](https://bottlecapdave.github.io/HomeAssistant-OctopusEnergy/) to monitor the tariff and update the helpers for tariff prices.
+**Description:** Using the HACS Plugin [Octopus Energy](https://bottlecapdave.github.io/HomeAssistant-OctopusEnergy/) to monitor the tariff and update the helpers for tariff prices.
+
+* If a change to the tariffs is detected, it will update the tariff helpers and email me.
 
 ---
 ### Cross Trainer Fan 45min override
