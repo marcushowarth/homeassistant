@@ -52,210 +52,210 @@ set_min_soc_to_10:
   alias: Free Electricity Day Tomorrow
   sequence:
   - wait_for_trigger:
-    - platform: time
-      at: 08:30:00
+    - at: 08:30:00
+      trigger: time
     continue_on_timeout: false
     timeout:
       hours: 24
       minutes: 0
       seconds: 0
       milliseconds: 0
-  - service: select.select_option
-    target:
+  - target:
       entity_id: select.workshop_work_mode
     data:
       option: Feed-in First
-  - service: foxess_modbus.update_charge_period
-    data:
+    action: select.select_option
+  - data:
       enable_force_charge: true
       enable_charge_from_grid: true
       start: '{{ states(''input_datetime.free_electricity_start'') }}'
       end: '{{ states(''input_datetime.free_electricity_end'') }}'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
-  - service: number.set_value
-    target:
+    action: foxess_modbus.update_charge_period
+  - target:
       entity_id: number.workshop_max_soc
     data:
       value: '100'
+    action: number.set_value
   - wait_for_trigger:
-    - platform: time
-      at: input_datetime.free_electricity_start
+    - at: input_datetime.free_electricity_start
+      trigger: time
     timeout:
-      hours: 6
+      hours: 12
       minutes: 0
       seconds: 0
       milliseconds: 0
     continue_on_timeout: false
-  - service: ifttt.trigger
-    data:
+  - data:
       event: HA_trigger_sheet
       value1: Free Electricity Log
       value2: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
       value3: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
         }} KWh
-  - service: notify.marcus_email
-    data:
+    action: ifttt.trigger
+  - data:
       message: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
         Grid Consumption so far today = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity START
+    action: notify.marcus_email
   - wait_for_trigger:
-    - platform: time
-      at: input_datetime.free_electricity_end
+    - at: input_datetime.free_electricity_end
+      trigger: time
     timeout:
-      hours: 2
+      hours: 12
       minutes: 0
       seconds: 0
       milliseconds: 0
     continue_on_timeout: true
-  - service: select.select_option
-    target:
+  - target:
       entity_id: select.workshop_work_mode
     data:
       option: Self Use
-  - service: foxess_modbus.update_charge_period
-    data:
+    action: select.select_option
+  - data:
       enable_force_charge: true
       enable_charge_from_grid: true
       start: '15:00:00'
       end: '15:55:00'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
+    action: foxess_modbus.update_charge_period
   - delay:
       hours: 0
       minutes: 0
       seconds: 10
       milliseconds: 0
-  - service: foxess_modbus.update_charge_period
-    data:
+  - data:
       enable_force_charge: false
       enable_charge_from_grid: true
       start: '15:00:00'
       end: '15:55:00'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
-  - service: number.set_value
-    target:
+    action: foxess_modbus.update_charge_period
+  - target:
       entity_id: number.workshop_max_soc
     data:
       value: '{{ states(''input_number.max_soc_day'') | float() }}'
-  - service: ifttt.trigger
-    data:
+    action: number.set_value
+  - data:
       event: HA_trigger_sheet
       value1: Free Electricity Log
       value2: 'Ending with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
       value3: Grid Consumption now = {{ states('sensor.workshop_grid_consumption_energy_today')
         }} KWh
-  - service: notify.marcus_email
-    data:
+    action: ifttt.trigger
+  - data:
       message: 'Ending with with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
         Grid Consumption now = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity END
+    action: notify.marcus_email
   mode: single
   icon: mdi:home-lightning-bolt
 '1729422205524':
   alias: Free Electricity Day Today
   sequence:
-  - service: select.select_option
-    target:
+  - target:
       entity_id: select.workshop_work_mode
     data:
       option: Force Discharge
-  - service: foxess_modbus.update_charge_period
-    data:
+    action: select.select_option
+  - data:
       enable_force_charge: true
       enable_charge_from_grid: true
       start: '{{ states(''input_datetime.free_electricity_start'') }}'
       end: '{{ states(''input_datetime.free_electricity_end'') }}'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
-  - service: number.set_value
-    target:
+    action: foxess_modbus.update_charge_period
+  - target:
       entity_id: number.workshop_max_soc
     data:
       value: '100'
+    action: number.set_value
   - wait_for_trigger:
-    - platform: time
-      at: input_datetime.free_electricity_start
+    - at: input_datetime.free_electricity_start
+      trigger: time
     timeout:
-      hours: 6
+      hours: 12
       minutes: 0
       seconds: 0
       milliseconds: 0
     continue_on_timeout: false
-  - service: select.select_option
-    target:
+  - target:
       entity_id: select.workshop_work_mode
     data:
       option: Self Use
-  - service: ifttt.trigger
-    data:
+    action: select.select_option
+  - data:
       event: HA_trigger_sheet
       value1: Free Electricity Log
       value2: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
       value3: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
         }} KWh
-  - service: notify.marcus_email
-    data:
+    action: ifttt.trigger
+  - data:
       message: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
         Grid Consumption so far today = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity START
+    action: notify.marcus_email
   - wait_for_trigger:
-    - platform: time
-      at: input_datetime.free_electricity_end
+    - at: input_datetime.free_electricity_end
+      trigger: time
     timeout:
-      hours: 2
+      hours: 12
       minutes: 0
       seconds: 0
       milliseconds: 0
     continue_on_timeout: true
-  - service: select.select_option
-    target:
+  - target:
       entity_id: select.workshop_work_mode
     data:
       option: Self Use
-  - service: foxess_modbus.update_charge_period
-    data:
+    action: select.select_option
+  - data:
       enable_force_charge: true
       enable_charge_from_grid: true
       start: '15:00:00'
       end: '15:55:00'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
+    action: foxess_modbus.update_charge_period
   - delay:
       hours: 0
       minutes: 0
       seconds: 10
       milliseconds: 0
-  - service: foxess_modbus.update_charge_period
-    data:
+  - data:
       enable_force_charge: false
       enable_charge_from_grid: true
       start: '15:00:00'
       end: '15:55:00'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
-  - service: number.set_value
-    target:
+    action: foxess_modbus.update_charge_period
+  - target:
       entity_id: number.workshop_max_soc
     data:
       value: '{{ states(''input_number.max_soc_day'') | float() }}'
-  - service: ifttt.trigger
-    data:
+    action: number.set_value
+  - data:
       event: HA_trigger_sheet
       value1: Free Electricity Log
       value2: 'Ending with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
       value3: Grid Consumption now = {{ states('sensor.workshop_grid_consumption_energy_today')
         }} KWh
-  - service: notify.marcus_email
-    data:
+    action: ifttt.trigger
+  - data:
       message: 'Ending with with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
         Grid Consumption now = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity END
+    action: notify.marcus_email
   mode: single
   icon: mdi:home-lightning-bolt
 heat_workshop_overnight:
