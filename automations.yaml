@@ -388,10 +388,12 @@
         "next_rising")) | timestamp_local }}. {%- endif %} '
     action: ifttt.trigger
   - data:
-      event: HA_trigger_calendar
-      value1: Batteries 100%
-      value2: 14 Farmington Ave, Sutton SM1 3PT
-    action: ifttt.trigger
+      entity_id: calendar.home_assistant
+      summary: Batteries 100%
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: 14 Farmington Ave, Sutton SM1 3PT
+    action: calendar.create_event
   - target:
       entity_id: input_boolean.battery_full_today
     data: {}
@@ -429,11 +431,14 @@
     trigger: device
   conditions: []
   actions:
-  - data:
-      event: HA_trigger_calendar
-      value1: Entered Recycle Centre Kimpton RRRC
-      value2: Kimpton Park Way Re-Use and Recycling Centre
-    action: ifttt.trigger
+  - action: calendar.create_event
+    metadata: {}
+    data:
+      entity_id: calendar.home_assistant
+      summary: Entered Recycle Centre Kimpton RRRC
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: Kimpton Park Way Re-Use and Recycling Centre
   mode: single
 - id: '1724261205032'
   alias: Calendar IFTTT Marcus enter Screwfix
@@ -447,12 +452,15 @@
     trigger: device
   conditions: []
   actions:
-  - data:
-      event: HA_trigger_calendar
-      value1: Entered Screwfix
-      value2: Unit 1, Sutton Trade Park, Off Kimpton Park Way, Oldfields Rd, Sutton
+  - action: calendar.create_event
+    metadata: {}
+    data:
+      entity_id: calendar.home_assistant
+      summary: Entered Screwfix
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: Unit 1, Sutton Trade Park, Off Kimpton Park Way, Oldfields Rd, Sutton
         SM3 9DA
-    action: ifttt.trigger
   mode: single
 - id: '1724261234584'
   alias: Calendar IFTTT Marcus enter Tesco
@@ -466,11 +474,14 @@
     trigger: device
   conditions: []
   actions:
-  - data:
-      event: HA_trigger_calendar
-      value1: Entered Tesco
-      value2: 55 Oldfields Rd, Sutton SM1 2NB
-    action: ifttt.trigger
+  - action: calendar.create_event
+    metadata: {}
+    data:
+      entity_id: calendar.home_assistant
+      summary: Entered Tesco
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: 55 Oldfields Rd, Sutton SM1 2NB
   mode: single
 - id: '1724261277522'
   alias: Calendar IFTTT Marcus enter The Hope
@@ -484,45 +495,54 @@
     trigger: device
   conditions: []
   actions:
-  - data:
-      event: HA_trigger_calendar
-      value1: Entered The Hope
-      value2: 48 West St, Carshalton SM5 2PR
-    action: ifttt.trigger
+  - action: calendar.create_event
+    metadata: {}
+    data:
+      entity_id: calendar.home_assistant
+      summary: Entered The Hope
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: 48 West St, Carshalton SM5 2PR
   mode: single
 - id: '1724261342636'
   alias: Calendar IFTTT Marcus leaves The Hope
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: leaves
     zone: zone.the_hope
-  condition: []
-  action:
-  - service: ifttt.trigger
+    trigger: device
+  conditions: []
+  actions:
+  - action: calendar.create_event
+    metadata: {}
     data:
-      event: HA_trigger_calendar
-      value1: Left The Hope
+      entity_id: calendar.home_assistant
+      summary: Left The Hope
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
   mode: single
 - id: '1724261461321'
   alias: Calendar IFTTT Marcus leaves Tesco
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: leaves
     zone: zone.tesco
-  condition: []
-  action:
-  - service: ifttt.trigger
+    trigger: device
+  conditions: []
+  actions:
+  - action: calendar.create_event
+    metadata: {}
     data:
-      event: HA_trigger_calendar
-      value1: Left Tesco
+      entity_id: calendar.home_assistant
+      summary: Left Tesco
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
   mode: single
 - id: '1724261571070'
   alias: Calendar IFTTT Marcus returns Home
@@ -536,28 +556,34 @@
     trigger: device
   conditions: []
   actions:
-  - data:
-      event: HA_trigger_calendar
-      value1: Returned Home
-      value2: 14 Farmington Ave, Sutton SM1 3PT
-    action: ifttt.trigger
+  - action: calendar.create_event
+    metadata: {}
+    data:
+      entity_id: calendar.home_assistant
+      summary: Returned Home
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: 14 Farmington Ave, Sutton SM1 3PT
   mode: single
 - id: '1724261610598'
   alias: Calendar IFTTT Marcus leaves Home
   description: ''
-  trigger:
-  - platform: device
-    device_id: 324998ffb948ed02379e230c280bc738
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
     domain: device_tracker
     entity_id: 98354a31bf3665ee1d1caba68923e38f
     type: leaves
     zone: zone.home
-  condition: []
-  action:
-  - service: ifttt.trigger
+    trigger: device
+  conditions: []
+  actions:
+  - action: calendar.create_event
+    metadata: {}
     data:
-      event: HA_trigger_calendar
-      value1: Leaves Home
+      entity_id: calendar.home_assistant
+      summary: Leaves Home
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
   mode: single
 - id: '1727682293238'
   alias: 'Energy: Battery: Charge Reduction'
@@ -824,10 +850,13 @@
         name: Max SoC ECO
       action: logbook.log
   - data:
-      event: HA_trigger_calendar
-      value1: Forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
+      entity_id: calendar.home_assistant
+      summary: Forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
         }}kWh Max SoC ECO = {{ states('input_number.max_soc_eco') }}%
-    action: ifttt.trigger
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: 14 Farmington Ave, Sutton SM1 3PT
+    action: calendar.create_event
   - data:
       event: HA_trigger_sheet
       value1: PV Forecasts setting Max SoC ECO
@@ -901,7 +930,7 @@
 - id: '1742382554771'
   alias: 'Energy: set flag to force peak export based on remaining PV forecast'
   description: Sets the flag to force peak export based on the PV forecast for the
-    remainder of the day
+    remainder of the day and notifies by email if enabled
   triggers:
   - at:
       entity_id: input_datetime.peak_energy_start
@@ -920,22 +949,22 @@
         data: {}
         target:
           entity_id: input_boolean.peak_tariff_export_enabled
+      - data:
+          message: 'The remaining PV forecast for today = {{ states(''sensor.solcast_pv_forecast_forecast_remaining_today'')
+            }} kWh so the flag to export during peak tariff set to {{ states(''input_boolean.peak_tariff_export_enabled'')
+            }} today.
+
+            Current threshold set at {{ states(''input_number.input_number_pv_forecastpeak_export_threshold'')
+            }} kWh.
+
+            '
+        action: notify.marcus_email
     default:
     - action: input_boolean.turn_off
       metadata: {}
       data: {}
       target:
         entity_id: input_boolean.peak_tariff_export_enabled
-  - data:
-      message: 'The remaining PV forecast for today = {{ states(''sensor.solcast_pv_forecast_forecast_remaining_today'')
-        }} kWh so the flag to export during peak tariff set to {{ states(''input_boolean.peak_tariff_export_enabled'')
-        }} today.
-
-        Current threshold set at {{ states(''input_number.input_number_pv_forecastpeak_export_threshold'')
-        }} kWh.
-
-        '
-    action: notify.marcus_email
   mode: single
 - id: '1743575339217'
   alias: 'Switches: Pool room: Auto Control TV based on Presence'
@@ -1042,10 +1071,12 @@
     action: scene.turn_on
     data: {}
   - data:
-      event: HA_trigger_calendar
-      value1: '[Garden] has detected a person at {{ now().strftime(''%H:%M'') }}'
-      value2: 14 Farmington Ave, Sutton SM1 3PT
-    action: ifttt.trigger
+      entity_id: calendar.home_assistant
+      summary: '[Garden] has detected a person at {{ now().strftime(''%H:%M'') }}'
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: 14 Farmington Ave, Sutton SM1 3PT
+    action: calendar.create_event
   mode: restart
 - id: '1744037903514'
   alias: Morning Reset
@@ -1356,11 +1387,14 @@
     trigger: device
   conditions: []
   actions:
-  - data:
-      event: HA_trigger_calendar
-      value1: Entered Royston Park
-      value2: Royston Park, Sutton SM1 3PW
-    action: ifttt.trigger
+  - action: calendar.create_event
+    metadata: {}
+    data:
+      entity_id: calendar.home_assistant
+      summary: Entered Royston Park
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: Royston Park, Sutton SM1 3PW
   mode: single
 - id: '1746030803787'
   alias: 'Switches: Pool room: Turn on cross trainer fans if hot and motion detected'
@@ -1934,42 +1968,44 @@
   triggers:
   - event: sunset
     trigger: sun
+    id: sunset
   - at: '23:20:00'
     trigger: time
+    id: night_off
   - event: sunrise
     trigger: sun
-  conditions:
-  - condition: template
-    value_template: '{{ (now().month == 12 and now().day >= 1) or (now().month ==
-      1 and now().day == 1) }}'
+    id: sunrise
   actions:
   - choose:
     - conditions:
-      - condition: sun
-        after: sunset
+      - condition: trigger
+        id: sunset
+      - condition: template
+        value_template: '{{ (now().month == 12 and now().day >= 1) or (now().month
+          == 1 and now().day == 1) }}'
       sequence:
-      - target:
+      - action: switch.turn_on
+        target:
           entity_id: switch.christmas_lights
-        action: switch.turn_on
     - conditions:
+      - condition: trigger
+        id: night_off
       - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''23:20'' }}'
-      - condition: template
-        value_template: '{{ now().day not in [24, 25, 31] }}'
+        value_template: '{{ now().month == 12 and now().day not in [24, 25, 31] }}'
       sequence:
-      - target:
+      - action: switch.turn_off
+        target:
           entity_id: switch.christmas_lights
-        action: switch.turn_off
     - conditions:
-      - condition: sun
-        after: sunrise
+      - condition: trigger
+        id: sunrise
       - condition: template
-        value_template: '{{ now().day in [24, 25, 31] or (now().month == 1 and now().day
-          == 1) }}'
+        value_template: '{{ (now().month == 12 and now().day in [25, 31]) or (now().month
+          == 1 and now().day == 1) }}'
       sequence:
-      - target:
+      - action: switch.turn_off
+        target:
           entity_id: switch.christmas_lights
-        action: switch.turn_off
   mode: single
 - id: '1748967031460'
   alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
