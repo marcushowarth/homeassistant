@@ -526,3 +526,22 @@ cross_trainer_fan_45min_override:
       entity_id: input_boolean.workshop_crosstrainer_fan_override_on
   alias: Cross Trainer Fan 45min override
   description: ''
+restart_amazon_firestick_extension:
+  sequence:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.amazon_firestick_tv
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.amazon_firestick_tv
+  alias: Restart Amazon Firestick Extension
+  description: ''
