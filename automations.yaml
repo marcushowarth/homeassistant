@@ -183,13 +183,16 @@
   mode: single
 - id: '1719987517277'
   alias: 'Energy: Battery: Enable 2nd charge period before Peak Tariff period'
-  description: Sets the 2nd charge period to enable in the hour before the peak tariff
+  description: Sets the 2nd charge period to enable in the hours before the peak tariff
     if SoC below Max SoC minus Daytime Charge Offset %
-  trigger:
-  - platform: time_pattern
-    hours: 15
+  triggers:
+  - hours: 14
     minutes: /5
-  condition:
+    trigger: time_pattern
+  - hours: 15
+    minutes: /5
+    trigger: time_pattern
+  conditions:
   - and:
     - condition: template
       value_template: '{{ states(''binary_sensor.workshop_time_period_2_enable_force_charge'')
@@ -197,22 +200,22 @@
     - condition: template
       value_template: "{{ states('sensor.workshop_battery_soc')|float(0) <=\n   states('number.workshop_max_soc')|float(0)
         -\n   states('input_number.daytime_charge_offset')|float(0) }}"
-  action:
-  - service: foxess_modbus.update_charge_period
-    data:
+  actions:
+  - data:
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
       enable_charge_from_grid: true
       enable_force_charge: true
-      start: '15:00:00'
+      start: '14:00:00'
       end: '15:55:00'
-  - service: ifttt.trigger
-    data:
+    action: foxess_modbus.update_charge_period
+  - data:
       event: HA_trigger_sheet
       value1: Daytime pre-PEAK charge log
       value2: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
         }} KWh
       value3: Enabled at {{ states('sensor.workshop_battery_soc') }}%
+    action: ifttt.trigger
   mode: single
 - id: '1719987790324'
   alias: 'Energy: Battery: Disable 2nd charge period before the Peak Tarriff'
@@ -2433,7 +2436,7 @@
   mode: single
 - id: '1767545494442'
   alias: 'Switches: Office lamp on when motion detected'
-  description: Turn on then off after sensor clears with a small delay.
+  description: Turn on then off after sensor clears for 5 mins.
   triggers:
   - entity_id:
     - binary_sensor.motion_office_occupancy
@@ -2443,14 +2446,9 @@
   - entity_id:
     - binary_sensor.motion_office_occupancy
     to: 'off'
+    for: 00:05:00
     id: motion_off
     trigger: state
-  conditions:
-  - condition: state
-    entity_id: input_boolean.overnight_dim_active
-    state: 'off'
-  - condition: sun
-    after: sunset
   actions:
   - choose:
     - conditions:
@@ -2459,15 +2457,14 @@
       sequence:
       - target:
           entity_id: switch.office_lamp
-        action: scene.turn_on
+        action: switch.turn_on
     - conditions:
       - condition: trigger
         id: motion_off
       sequence:
-      - delay: 00:00:10
       - target:
           entity_id: switch.office_lamp
-        action: scene.turn_off
+        action: switch.turn_off
   mode: restart
 - id: '1767546442817'
   alias: 'Switches: Front room: Auto Control TV based on Presence'
