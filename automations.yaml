@@ -2417,3 +2417,96 @@
         entity_id: switch.pool_room_extractor_fan
       action: switch.turn_off
   mode: single
+- id: '1765709092082'
+  alias: test spreadsheet
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - action: google_sheets.append_sheet
+    data:
+      config_entry: 01KBJJCDTRY5YY93PQM4F90J6B
+      data:
+        “hello”: world
+        “cool”: true
+        “count”: 5
+  mode: single
+- id: '1767545494442'
+  alias: 'Switches: Office lamp on when motion detected'
+  description: Turn on then off after sensor clears with a small delay.
+  triggers:
+  - entity_id:
+    - binary_sensor.motion_office_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id:
+    - binary_sensor.motion_office_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'off'
+  - condition: sun
+    after: sunset
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id: switch.office_lamp
+        action: scene.turn_on
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:10
+      - target:
+          entity_id: switch.office_lamp
+        action: scene.turn_off
+  mode: restart
+- id: '1767546442817'
+  alias: 'Switches: Front room: Auto Control TV based on Presence'
+  description: Turns the front room TV on when a person is detected, and off if no
+    motion for 45 mins and the TV has been on for 30 mins.
+  triggers:
+  - entity_id: binary_sensor.motion_front_room_occupancy
+    to: 'on'
+    id: motion_detected
+    trigger: state
+  - entity_id: binary_sensor.motion_front_room_occupancy
+    to: 'off'
+    for:
+      minutes: 45
+    id: no_motion
+    trigger: state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_detected
+      - condition: state
+        entity_id: switch.tvs
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.tvs
+        action: switch.turn_on
+    - conditions:
+      - condition: trigger
+        id: no_motion
+      - condition: state
+        entity_id: switch.tvs
+        state: 'on'
+        for:
+          minutes: 30
+      sequence:
+      - target:
+          entity_id: switch.tvs
+        action: switch.turn_off
+  mode: single
