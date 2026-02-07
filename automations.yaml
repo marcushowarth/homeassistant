@@ -1052,7 +1052,7 @@
   alias: 'Switches: Garden: Turn on corridor (add to calendar) if dark and person
     detected (CCTV)'
   description: Activates scene to light corridor if person detected before sunrise
-    and it's currently off. It then uses the IFTTT applet to make calender entry.
+    and it's currently off. It then makes calender entry.
   triggers:
   - entity_id: binary_sensor.garden_person
     to: 'on'
@@ -1114,32 +1114,14 @@
     id: motion_off
     trigger: state
   conditions:
-  - condition: sun
-    before: sunrise
-    after: sunset
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'on'
   actions:
   - choose:
     - conditions:
       - condition: trigger
         id: motion_on
-      - condition: state
-        entity_id: input_boolean.overnight_dim_active
-        state: 'on'
-      sequence:
-      - target:
-          entity_id: scene.landing_hall_on
-        action: scene.turn_on
-      - target:
-          entity_id: light.controller_rgb_c1f45a
-        data:
-          brightness_pct: 3
-        action: light.turn_on
-    - conditions:
-      - condition: trigger
-        id: motion_on
-      - condition: state
-        entity_id: input_boolean.overnight_dim_active
-        state: 'off'
       sequence:
       - target:
           entity_id: scene.landing_hall_on
@@ -2525,3 +2507,55 @@
           entity_id: switch.tvs
         action: switch.turn_off
   mode: single
+- id: '1770458478076'
+  alias: 'Switches: Landing: dynamic morning before sunrise'
+  description: Increase brightness on motion after overnight dim but before sunrise.
+  triggers:
+  - entity_id:
+    - binary_sensor.motion_hallway_occupancy
+    - binary_sensor.motion_landing_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id:
+    - binary_sensor.motion_hallway_occupancy
+    - binary_sensor.motion_landing_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'off'
+  - condition: sun
+    before: sunrise
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id:
+          - scene.landing_on_bright
+        action: scene.turn_on
+        data: {}
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: binary_sensor.motion_hallway_occupancy
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.motion_landing_occupancy
+          state: 'off'
+      - target:
+          entity_id:
+          - scene.landing_off
+        action: scene.turn_on
+        data: {}
+  mode: restart
