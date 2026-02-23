@@ -2508,7 +2508,7 @@
         action: switch.turn_off
   mode: single
 - id: '1770458478076'
-  alias: 'Switches: Landing: dynamic morning before sunrise'
+  alias: 'Switches: Landing: dynamic morning before sunrise on weekdays'
   description: Increase brightness on motion after overnight dim but before sunrise.
   triggers:
   - entity_id:
@@ -2529,6 +2529,13 @@
     state: 'off'
   - condition: sun
     before: sunrise
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
   actions:
   - choose:
     - conditions:
