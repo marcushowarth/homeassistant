@@ -366,8 +366,8 @@
       option: '{{ workmode }}'
   mode: single
 - id: '1723828018073'
-  alias: IFTTT adds row to spreadsheet and calender when batteries fully charged
-  description: using IFTTT
+  alias: Adds row to spreadsheet and calender when batteries fully charged
+  description: using IFTTT for speadsheet (for now, see https://marcushowarth.com/?controller=TaskViewController&action=show&task_id=836)
   triggers:
   - minutes: /5
     trigger: time_pattern
@@ -423,7 +423,7 @@
     action: input_boolean.turn_off
   mode: single
 - id: '1724261138857'
-  alias: Calendar IFTTT Marcus enter RRRC
+  alias: Calendar Marcus enter RRRC
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -444,7 +444,7 @@
       location: Kimpton Park Way Re-Use and Recycling Centre
   mode: single
 - id: '1724261205032'
-  alias: Calendar IFTTT Marcus enter Screwfix
+  alias: Calendar Marcus enter Screwfix
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -466,7 +466,7 @@
         SM3 9DA
   mode: single
 - id: '1724261234584'
-  alias: Calendar IFTTT Marcus enter Tesco
+  alias: Calendar Marcus enter Tesco
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -487,7 +487,7 @@
       location: 55 Oldfields Rd, Sutton SM1 2NB
   mode: single
 - id: '1724261277522'
-  alias: Calendar IFTTT Marcus enter The Hope
+  alias: Calendar Marcus enter The Hope
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -508,7 +508,7 @@
       location: 48 West St, Carshalton SM5 2PR
   mode: single
 - id: '1724261342636'
-  alias: Calendar IFTTT Marcus leaves The Hope
+  alias: Calendar Marcus leaves The Hope
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -528,7 +528,7 @@
       end_date_time: '{{ now() + timedelta(minutes=10) }}'
   mode: single
 - id: '1724261461321'
-  alias: Calendar IFTTT Marcus leaves Tesco
+  alias: Calendar Marcus leaves Tesco
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -548,7 +548,7 @@
       end_date_time: '{{ now() + timedelta(minutes=10) }}'
   mode: single
 - id: '1724261571070'
-  alias: Calendar IFTTT Marcus returns Home
+  alias: Calendar Marcus returns Home
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -569,7 +569,7 @@
       location: 14 Farmington Ave, Sutton SM1 3PT
   mode: single
 - id: '1724261610598'
-  alias: Calendar IFTTT Marcus leaves Home
+  alias: Calendar Marcus leaves Home
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -1379,7 +1379,7 @@
         action: light.turn_on
   mode: restart
 - id: '1745249419330'
-  alias: Calendar IFTTT Marcus enter Royston Park
+  alias: Calendar Marcus enter Royston Park
   description: ''
   triggers:
   - device_id: 324998ffb948ed02379e230c280bc738
@@ -2566,3 +2566,25 @@
         action: scene.turn_on
         data: {}
   mode: restart
+- id: '1772366955997'
+  alias: Calendar Marcus Entered Wrythe Recreation Ground
+  description: ''
+  triggers:
+  - device_id: 324998ffb948ed02379e230c280bc738
+    domain: device_tracker
+    entity_id: 98354a31bf3665ee1d1caba68923e38f
+    type: enters
+    zone: zone.wrythe_recreation_ground
+    trigger: device
+  conditions: []
+  actions:
+  - action: calendar.create_event
+    metadata: {}
+    data:
+      summary: Entered Wrythe Recreation Ground
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ now() + timedelta(minutes=10) }}'
+      location: Wrythe Ln, Carshalton, Sutton SM5 2RB
+    target:
+      entity_id: calendar.home_assistant
+  mode: single
