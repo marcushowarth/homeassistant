@@ -733,29 +733,27 @@
     action: notify.marcus_email
   mode: single
 - id: '1737056136655'
-  alias: Email warning - Breville
-  description: ''
+  alias: Email warning - Breville left on unattended
+  description: Alert when Breville is drawing power and kitchen is unoccupied
   triggers:
-  - entity_id:
-    - sensor.breville_current_consumption
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
+  - trigger: numeric_state
+    entity_id: sensor.breville_current_consumption
     above: 500
-    trigger: numeric_state
-  - entity_id:
-    - sensor.breville_today_energy
-    above: 1
-    trigger: numeric_state
-  conditions: []
+    for:
+      seconds: 30
+  conditions:
+  - condition: state
+    entity_id: binary_sensor.motion_kitchen_occupancy
+    state: clear
+    for:
+      seconds: 30
   actions:
-  - data:
-      message: It's current power = {{ states('sensor.breville_current_consumption')
-        }}W,  So far today it's used {{states('sensor.breville_today_s_consumption')
-        }}kWh
-      title: Check kitchen and make sure Breville not left on by mistake
-    action: notify.marcus_email
+  - action: notify.marcus_email
+    data:
+      title: Check kitchen — Breville may have been left on
+      message: 'No motion detected in kitchen for at least 30 seconds. Breville current
+        draw: {{ states(''sensor.breville_current_consumption'') }}W. Energy used
+        today: {{ states(''sensor.breville_today_s_consumption'') }} kWh.'
   mode: single
 - id: '1738323900814'
   alias: Email warning - workshop hot water heater
