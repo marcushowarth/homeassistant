@@ -2465,9 +2465,10 @@
         action: switch.turn_off
   mode: restart
 - id: '1767546442817'
-  alias: 'Switches: Front room: Auto Control TV based on Presence'
-  description: Turns the front room TV on when a person is detected, and off if no
-    motion for 45 mins and the TV has been on for 30 mins.
+  alias: 'Switches: Front room: Auto Control plug based on Presence'
+  description: Turns the front room spot lamp on when motion is detected and sun is
+    within 15 minutes of setting or has set (until 15 mins after sunrise). Turns off
+    after 4 mins no motion.
   triggers:
   - entity_id: binary_sensor.motion_front_room_occupancy
     to: 'on'
@@ -2476,8 +2477,8 @@
   - entity_id: binary_sensor.motion_front_room_occupancy
     to: 'off'
     for:
-      minutes: 45
-    id: no_motion
+      minutes: 4
+    id: no_motion_4
     trigger: state
   conditions: []
   actions:
@@ -2488,18 +2489,21 @@
       - condition: state
         entity_id: switch.tvs
         state: 'off'
+      - condition: sun
+        after: sunset
+        after_offset: -0:15:00
+        before: sunrise
+        before_offset: 0:15:00
       sequence:
       - target:
           entity_id: switch.tvs
         action: switch.turn_on
     - conditions:
       - condition: trigger
-        id: no_motion
+        id: no_motion_4
       - condition: state
         entity_id: switch.tvs
         state: 'on'
-        for:
-          minutes: 30
       sequence:
       - target:
           entity_id: switch.tvs
