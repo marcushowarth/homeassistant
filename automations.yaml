@@ -2546,7 +2546,7 @@
       sequence:
       - target:
           entity_id:
-          - scene.landing_on_bright
+          - scene.landing_on_50
         action: scene.turn_on
         data: {}
     - conditions:
@@ -2590,3 +2590,118 @@
     target:
       entity_id: calendar.home_assistant
   mode: single
+- id: '1774972917678'
+  alias: 'Switches: Atrium overnight dim on motion'
+  description: 'Turn on Atrium Blue 10% scene on motion from any sensor. Dim off only
+    when ALL three sensors are clear.
+
+    '
+  triggers:
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  - entity_id: binary_sensor.motion_hallway_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id: binary_sensor.motion_hallway_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  - entity_id: binary_sensor.motion_utility_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id: binary_sensor.motion_utility_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - action: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.atrium_blue_10
+        data:
+          transition: 3
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: binary_sensor.motion_kitchen_occupancy
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.motion_hallway_occupancy
+          state: 'off'
+        - condition: state
+          entity_id: binary_sensor.motion_utility_occupancy
+          state: 'off'
+      - action: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.atrium_off
+        data:
+          transition: 3
+  mode: restart
+- id: '1774972921061'
+  alias: Atrium overnight dim on motion
+  description: Turn on scene Atrium Blue on motion, dim after clear with small delay.
+  triggers:
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'on'
+    id: motion_on
+    trigger: state
+  - entity_id: binary_sensor.motion_kitchen_occupancy
+    to: 'off'
+    id: motion_off
+    trigger: state
+  conditions:
+  - condition: state
+    entity_id: input_boolean.overnight_dim_active
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: motion_on
+      sequence:
+      - target:
+          entity_id:
+          - light.kitchen_floor_strip_light
+          - light.kitchen_fridge_light_strip
+        data:
+          brightness_pct: 100
+        action: light.turn_on
+    - conditions:
+      - condition: trigger
+        id: motion_off
+      sequence:
+      - delay: 00:00:05
+      - condition: state
+        entity_id: binary_sensor.motion_kitchen_occupancy
+        state: 'off'
+      - target:
+          entity_id:
+          - light.kitchen_floor_strip_light
+          - light.kitchen_fridge_light_strip
+        data:
+          brightness_pct: 3
+        action: light.turn_on
+  mode: restart

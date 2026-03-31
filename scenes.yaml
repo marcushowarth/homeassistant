@@ -3161,3 +3161,179 @@
       state: 'off'
   metadata: {}
   icon: mdi:ceiling-light
+- id: '1774972172323'
+  name: Landing on (50%)
+  entities:
+    light.landing_light:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 128
+      friendly_name: Landing light
+      supported_features: 32
+      state: 'on'
+  metadata: {}
+  icon: mdi:ceiling-light-outline
+- id: '1774972611999'
+  name: Atrium Blue 10%
+  entities:
+    light.atrium_light_ne:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: 'off'
+      color_mode: hs
+      brightness: 26
+      color_temp_kelvin:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 128
+      - 174
+      - 255
+      xy_color:
+      - 0.208
+      - 0.22
+      friendly_name: Atrium Light NE
+      supported_features: 36
+      state: 'on'
+    light.atrium_light_nw:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: 'off'
+      color_mode: hs
+      brightness: 26
+      color_temp_kelvin:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 128
+      - 174
+      - 255
+      xy_color:
+      - 0.208
+      - 0.22
+      friendly_name: Atrium Light NW
+      supported_features: 36
+      state: 'on'
+    light.atrium_light_sw:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: 'off'
+      color_mode: hs
+      brightness: 26
+      color_temp_kelvin:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 128
+      - 174
+      - 255
+      xy_color:
+      - 0.208
+      - 0.22
+      friendly_name: Atrium Light SW
+      supported_features: 36
+      state: 'on'
+  metadata:
+    light.atrium_light_ne:
+      entity_only: true
+    light.atrium_light_nw:
+      entity_only: true
+    light.atrium_light_sw:
+      entity_only: true
+  icon: mdi:weather-night
+- id: '1774973596877'
+  name: Atrium Off
+  entities:
+    light.atrium_light_ne:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Atrium Light NE
+      supported_features: 36
+      state: 'off'
+    light.atrium_light_nw:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Atrium Light NW
+      supported_features: 36
+      state: 'off'
+    light.atrium_light_sw:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Atrium Light SW
+      supported_features: 36
+      state: 'off'
+  metadata:
+    light.atrium_light_ne:
+      entity_only: true
+    light.atrium_light_nw:
+      entity_only: true
+    light.atrium_light_sw:
+      entity_only: true
+  icon: mdi:lightbulb-night-outline
