@@ -1898,27 +1898,29 @@
   alias: 'Schedules: eBike Charger Availability'
   description: Ensures switch.ebike_charger is ON from sunrise until 20:00 every day.
   triggers:
-  - event: sunrise
+  - id: sunrise
     trigger: sun
-  - at: '20:00:00'
+    event: sunrise
+  - id: turn_off_time
     trigger: time
+    at: '20:00:00'
   conditions: []
   actions:
   - choose:
     - conditions:
-      - condition: sun
-        after: sunrise
+      - condition: trigger
+        id: sunrise
       sequence:
-      - target:
+      - action: switch.turn_on
+        target:
           entity_id: switch.ebike_charger
-        action: switch.turn_on
     - conditions:
-      - condition: template
-        value_template: '{{ now().strftime(''%H:%M'') == ''20:00'' }}'
+      - condition: trigger
+        id: turn_off_time
       sequence:
-      - target:
+      - action: switch.turn_off
+        target:
           entity_id: switch.ebike_charger
-        action: switch.turn_off
   mode: single
 - id: '1748964712322'
   alias: 'Schedules: Firestick Reboot (Weekly)'
@@ -2634,7 +2636,7 @@
       - action: scene.turn_on
         metadata: {}
         target:
-          entity_id: scene.atrium_blue_10
+          entity_id: scene.atrium_blue_5
         data:
           transition: 3
     - conditions:
@@ -2659,49 +2661,4 @@
           entity_id: scene.atrium_off
         data:
           transition: 3
-  mode: restart
-- id: '1774972921061'
-  alias: Atrium overnight dim on motion
-  description: Turn on scene Atrium Blue on motion, dim after clear with small delay.
-  triggers:
-  - entity_id: binary_sensor.motion_kitchen_occupancy
-    to: 'on'
-    id: motion_on
-    trigger: state
-  - entity_id: binary_sensor.motion_kitchen_occupancy
-    to: 'off'
-    id: motion_off
-    trigger: state
-  conditions:
-  - condition: state
-    entity_id: input_boolean.overnight_dim_active
-    state: 'on'
-  actions:
-  - choose:
-    - conditions:
-      - condition: trigger
-        id: motion_on
-      sequence:
-      - target:
-          entity_id:
-          - light.kitchen_floor_strip_light
-          - light.kitchen_fridge_light_strip
-        data:
-          brightness_pct: 100
-        action: light.turn_on
-    - conditions:
-      - condition: trigger
-        id: motion_off
-      sequence:
-      - delay: 00:00:05
-      - condition: state
-        entity_id: binary_sensor.motion_kitchen_occupancy
-        state: 'off'
-      - target:
-          entity_id:
-          - light.kitchen_floor_strip_light
-          - light.kitchen_fridge_light_strip
-        data:
-          brightness_pct: 3
-        action: light.turn_on
   mode: restart

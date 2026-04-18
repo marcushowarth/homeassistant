@@ -753,8 +753,6 @@
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 400
       effect_list:
       - 'Off'
       - Party
@@ -766,7 +764,6 @@
       color_mode: hs
       brightness: 128
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 288
       - 52
@@ -1080,17 +1077,17 @@
       - rgb
       effect:
       color_mode: rgb
-      brightness: 191
+      brightness: 117
       hs_color:
-      - 287.556
-      - 52.941
+      - 307.959
+      - 38.431
       rgb_color:
-      - 227
-      - 120
       - 255
+      - 157
+      - 242
       xy_color:
-      - 0.335
-      - 0.187
+      - 0.372
+      - 0.239
       ip_address: 10.0.11.237
       friendly_name: Utility LED Strip
       supported_features: 36
@@ -1102,6 +1099,59 @@
       mode: slider
       ip_address: 10.0.11.237
       friendly_name: Utility LED Strip Effect speed
+      state: '100'
+    light.front_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 104
+      hs_color:
+      - 307.347
+      - 38.431
+      rgb_color:
+      - 255
+      - 157
+      - 243
+      xy_color:
+      - 0.371
+      - 0.238
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip
+      supported_features: 36
+      state: 'on'
+    number.front_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -1156,8 +1206,6 @@
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 400
       effect_list:
       - 'Off'
       - Party
@@ -1169,7 +1217,6 @@
       color_mode: hs
       brightness: 255
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 218
       - 50
@@ -1305,15 +1352,15 @@
       color_mode: rgb
       brightness: 250
       hs_color:
-      - 218.658
-      - 58.431
+      - 218.8
+      - 58.824
       rgb_color:
-      - 106
-      - 159
+      - 105
+      - 158
       - 255
       xy_color:
-      - 0.19
-      - 0.195
+      - 0.189
+      - 0.193
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -1506,6 +1553,59 @@
       ip_address: 10.0.11.237
       friendly_name: Utility LED Strip Effect speed
       state: '100'
+    light.front_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 220.781
+      - 50.196
+      rgb_color:
+      - 127
+      - 168
+      - 255
+      xy_color:
+      - 0.208
+      - 0.212
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip
+      supported_features: 36
+      state: 'on'
+    number.front_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707229963331'
@@ -1543,15 +1643,15 @@
       color_mode: rgb
       brightness: 130
       hs_color:
-      - 123.673
+      - 123.429
       - 96.078
       rgb_color:
       - 10
       - 255
-      - 25
+      - 24
       xy_color:
       - 0.174
-      - 0.736
+      - 0.737
       ip_address: 10.0.10.44
       friendly_name: Bar strip light
       supported_features: 36
@@ -1559,8 +1659,6 @@
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 400
       effect_list:
       - 'Off'
       - Party
@@ -1572,7 +1670,6 @@
       color_mode: hs
       brightness: 196
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 122
       - 95
@@ -1888,15 +1985,15 @@
       color_mode: rgb
       brightness: 255
       hs_color:
-      - 123.673
-      - 96.078
+      - 123.659
+      - 96.471
       rgb_color:
-      - 10
+      - 9
       - 255
-      - 25
+      - 24
       xy_color:
-      - 0.174
-      - 0.736
+      - 0.173
+      - 0.737
       ip_address: 10.0.11.237
       friendly_name: Utility LED Strip
       supported_features: 36
@@ -1908,6 +2005,59 @@
       mode: slider
       ip_address: 10.0.11.237
       friendly_name: Utility LED Strip Effect speed
+      state: '100'
+    light.front_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 123.659
+      - 96.471
+      rgb_color:
+      - 9
+      - 255
+      - 24
+      xy_color:
+      - 0.173
+      - 0.737
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip
+      supported_features: 36
+      state: 'on'
+    number.front_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -1955,8 +2105,6 @@
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 400
       effect_list:
       - 'Off'
       - Party
@@ -1968,7 +2116,6 @@
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
@@ -2249,6 +2396,52 @@
       ip_address: 10.0.11.237
       friendly_name: Utility LED Strip Effect speed
       state: '100'
+    light.front_led_strip:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip
+      supported_features: 36
+      state: 'off'
+    number.front_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip Effect speed
+      state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
 - id: '1707322902788'
@@ -2355,8 +2548,6 @@
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 400
       effect_list:
       - 'Off'
       - Party
@@ -2368,7 +2559,6 @@
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
@@ -2608,15 +2798,7 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_194ae7_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.69
-      friendly_name: Controller RGB 194AE7 Effect speed
-      state: '100'
-    light.utility_led_strip:
+    light.front_led_strip:
       effect_list:
       - blue_fade
       - blue_strobe
@@ -2646,21 +2828,29 @@
       - rgb
       effect:
       color_mode: rgb
-      brightness: 5
+      brightness: 2
       hs_color:
-      - 210
-      - 80
+      - 240
+      - 49.804
       rgb_color:
-      - 51
-      - 153
+      - 128
+      - 128
       - 255
       xy_color:
-      - 0.154
-      - 0.179
-      ip_address: 10.0.11.69
-      friendly_name: Utility Strip Light
+      - 0.213
+      - 0.159
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip
       supported_features: 36
       state: 'on'
+    number.front_led_strip_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.11.162
+      friendly_name: Front LED Strip Effect speed
+      state: '100'
   icon: mdi:shield-moon-outline
   metadata: {}
 - id: '1707495233920'
@@ -3337,3 +3527,95 @@
     light.atrium_light_sw:
       entity_only: true
   icon: mdi:lightbulb-night-outline
+- id: '1775127003839'
+  name: Atrium Blue 5%
+  entities:
+    light.atrium_light_ne:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: 'off'
+      color_mode: hs
+      brightness: 13
+      color_temp_kelvin:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 128
+      - 174
+      - 255
+      xy_color:
+      - 0.208
+      - 0.22
+      friendly_name: Atrium Light NE
+      supported_features: 36
+      state: 'on'
+    light.atrium_light_nw:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: 'off'
+      color_mode: hs
+      brightness: 13
+      color_temp_kelvin:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 128
+      - 174
+      - 255
+      xy_color:
+      - 0.208
+      - 0.22
+      friendly_name: Atrium Light NW
+      supported_features: 36
+      state: 'on'
+    light.atrium_light_sw:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - 'Off'
+      - Party
+      - Relax
+      supported_color_modes:
+      - color_temp
+      - hs
+      effect: 'off'
+      color_mode: hs
+      brightness: 13
+      color_temp_kelvin:
+      hs_color:
+      - 218
+      - 50
+      rgb_color:
+      - 128
+      - 174
+      - 255
+      xy_color:
+      - 0.208
+      - 0.22
+      friendly_name: Atrium Light SW
+      supported_features: 36
+      state: 'on'
+  metadata:
+    light.atrium_light_ne:
+      entity_only: true
+    light.atrium_light_nw:
+      entity_only: true
+    light.atrium_light_sw:
+      entity_only: true
+  icon: mdi:weather-night
