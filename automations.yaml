@@ -976,8 +976,22 @@
             {%- set export_rate = states(''input_number.feed_in_rate_peak'') | float(0)
             -%}
 
-            {%- set est_at_peak = [bms_kwh + pv_remaining, capacity] | min | round(2)
-            -%}
+            {%- set load_kw = states(''sensor.workshop_load_power'') | float(0) -%}
+
+            {%- set peak_start = states(''input_datetime.peak_energy_start'') -%}
+
+            {%- set peak_end = states(''input_datetime.peak_energy_end'') -%}
+
+            {%- set hours_of_peak = (peak_end[0:2]|int + peak_end[3:5]|int/60) - (peak_start[0:2]|int
+            + peak_start[3:5]|int/60) -%}
+
+            {%- set house_during_peak = (load_kw * hours_of_peak) | round(2) -%}
+
+            {%- set net_pv_during_peak = [pv_remaining - house_during_peak, 0] | max
+            | round(2) -%}
+
+            {%- set est_at_peak = [[bms_kwh + net_pv_during_peak, 0] | max, capacity]
+            | min | round(2) -%}
 
             {%- set exportable = [est_at_peak - target_kwh, 0] | max | round(2) -%}
 
@@ -986,8 +1000,19 @@
             Export flag: ON — PV forecast meets threshold, exporting during peak tariff.
 
 
+            Peak window:        {{ peak_start[0:5] }} – {{ peak_end[0:5] }}
+
+
             PV remaining today: {{ pv_remaining }} kWh  (threshold: {{ threshold }}
             kWh)
+
+            House load now:     {{ load_kw | round(2) }} kW
+
+            House draw (peak):  ~{{ house_during_peak }} kWh over {{ hours_of_peak
+            | int }}h
+
+            Net during peak:    ~{{ net_pv_during_peak }} kWh  (PV remaining extends
+            past {{ peak_end[0:5] }})
 
 
             Battery now:        {{ bms_kwh }} kWh ({{ soc }}%)
@@ -1003,11 +1028,7 @@
 
             Export rate:        £{{ export_rate }}/kWh
 
-            Estimated value:    ~£{{ value }}
-
-
-            Peak window: {{ states(''input_datetime.peak_energy_start'')[0:5] }} –
-            {{ states(''input_datetime.peak_energy_end'')[0:5] }}'
+            Estimated value:    ~£{{ value }}'
     default:
     - action: input_boolean.turn_off
       metadata: {}
