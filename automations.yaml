@@ -2105,77 +2105,6 @@
         target:
           entity_id: switch.christmas_lights
   mode: single
-- id: '1748967031460'
-  alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
-  description: 'Controls the bedroom fans based on temperature and time windows. -
-    Weekdays (Sun–Thu): 21:00–08:00 - Weekends (Fri–Sat): 22:15–10:00 - Respects overrides:
-    ''override_off'' disables control, ''override_on'' forces ON.
-
-    '
-  triggers:
-  - entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
-    trigger: state
-  - minutes: /5
-    trigger: time_pattern
-  conditions: []
-  actions:
-  - choose:
-    - conditions:
-      - condition: state
-        entity_id: input_boolean.bedroom_fan_override_off
-        state: 'on'
-      sequence:
-      - target:
-          entity_id: switch.bedroom_fans
-        action: switch.turn_off
-    - conditions:
-      - condition: state
-        entity_id: input_boolean.bedroom_fan_override_on
-        state: 'on'
-      sequence:
-      - target:
-          entity_id: switch.bedroom_fans
-        action: switch.turn_on
-    - conditions:
-      - condition: state
-        entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
-        state: 'on'
-      - condition: or
-        conditions:
-        - condition: and
-          conditions:
-          - condition: time
-            after: '21:00:00'
-          - condition: template
-            value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
-        - condition: and
-          conditions:
-          - condition: time
-            before: 08:00:00
-          - condition: template
-            value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
-        - condition: and
-          conditions:
-          - condition: time
-            after: '22:15:00'
-          - condition: template
-            value_template: '{{ now().weekday() in [4, 5] }}'
-        - condition: and
-          conditions:
-          - condition: time
-            before: '10:00:00'
-          - condition: template
-            value_template: '{{ now().weekday() in [5, 6] }}'
-      sequence:
-      - target:
-          entity_id: switch.bedroom_fans
-        action: switch.turn_on
-    - conditions: []
-      sequence:
-      - target:
-          entity_id: switch.bedroom_fans
-        action: switch.turn_off
-  mode: single
 - id: '1748968592567'
   alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
   description: 'Controls the office fan Mon–Fri based on temperature and schedule.
@@ -2757,3 +2686,76 @@
         data:
           transition: 3
   mode: restart
+- id: '1785060262632'
+  alias: 'Schedules: Bedroom Fans (Temp + Time Windows)'
+  description: 'Controls the bedroom fans based on temperature and time windows. -
+    Weekdays (Sun–Thu): input_datetime.bedroom_fan_weekday_start–input_datetime.bedroom_fan_weekday_end
+    - Weekends (Fri–Sat): input_datetime.bedroom_fan_weekend_start–input_datetime.bedroom_fan_weekend_end
+    - Respects overrides: ''override_off'' disables control, ''override_on'' forces
+    ON.
+
+    '
+  triggers:
+  - entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
+    trigger: state
+  - minutes: /5
+    trigger: time_pattern
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.bedroom_fan_override_off
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_off
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.bedroom_fan_override_on
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.min_temp_fans_bedroom_exceeded
+        state: 'on'
+      - condition: or
+        conditions:
+        - condition: and
+          conditions:
+          - condition: time
+            after: input_datetime.bedroom_fan_weekday_start
+          - condition: template
+            value_template: '{{ now().weekday() in [6, 0, 1, 2, 3] }}'
+        - condition: and
+          conditions:
+          - condition: time
+            before: input_datetime.bedroom_fan_weekday_end
+          - condition: template
+            value_template: '{{ now().weekday() in [0, 1, 2, 3, 4] }}'
+        - condition: and
+          conditions:
+          - condition: time
+            after: input_datetime.bedroom_fan_weekend_start
+          - condition: template
+            value_template: '{{ now().weekday() in [4, 5] }}'
+        - condition: and
+          conditions:
+          - condition: time
+            before: input_datetime.bedroom_fan_weekend_end
+          - condition: template
+            value_template: '{{ now().weekday() in [5, 6] }}'
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_on
+    - conditions: []
+      sequence:
+      - target:
+          entity_id: switch.bedroom_fans
+        action: switch.turn_off
+  mode: single
