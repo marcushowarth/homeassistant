@@ -350,8 +350,6 @@
     light.pool_room_lamp:
       min_color_temp_kelvin: 2500
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 400
       effect_list:
       - 'Off'
       - Party
@@ -363,7 +361,6 @@
       color_mode: hs
       brightness: 255
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 277
       - 41
@@ -406,22 +403,15 @@
       supported_color_modes:
       - rgb
       effect:
-      color_mode: rgb
-      brightness: 76
+      color_mode:
+      brightness:
       hs_color:
-      - 300
-      - 89.412
       rgb_color:
-      - 255
-      - 27
-      - 255
       xy_color:
-      - 0.385
-      - 0.157
       ip_address: 10.0.10.140
       friendly_name: Hallway Strip Light
       supported_features: 36
-      state: 'on'
+      state: 'off'
     light.fish_tank_striplight:
       effect_list:
       - blue_fade
@@ -647,15 +637,7 @@
       friendly_name: Kitchen Floor strip light
       supported_features: 36
       state: 'on'
-    number.controller_rgb_194ae7_effect_speed:
-      min: 1
-      max: 100
-      step: 1
-      mode: slider
-      ip_address: 10.0.11.69
-      friendly_name: Controller RGB 194AE7 Effect speed
-      state: '100'
-    light.utility_led_strip:
+    light.pool_room_workshop_bar_2_strip_light:
       effect_list:
       - blue_fade
       - blue_strobe
@@ -685,21 +667,29 @@
       - rgb
       effect:
       color_mode: rgb
-      brightness: 249
+      brightness: 255
       hs_color:
-      - 0
-      - 100
+      - 350.435
+      - 81.176
       rgb_color:
       - 255
-      - 0
-      - 0
+      - 48
+      - 81
       xy_color:
-      - 0.701
-      - 0.299
-      ip_address: 10.0.11.69
-      friendly_name: Utility Strip Light
+      - 0.636
+      - 0.287
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light
       supported_features: 36
       state: 'on'
+    number.pool_room_workshop_bar_2_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light Effect speed
+      state: '100'
   icon: mdi:amplifier
   metadata: {}
 - id: '1707217791586'
@@ -1077,7 +1067,7 @@
       - rgb
       effect:
       color_mode: rgb
-      brightness: 117
+      brightness: 114
       hs_color:
       - 307.959
       - 38.431
@@ -1152,6 +1142,59 @@
       mode: slider
       ip_address: 10.0.11.162
       friendly_name: Front LED Strip Effect speed
+      state: '100'
+    light.pool_room_workshop_bar_2_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 191
+      hs_color:
+      - 307.423
+      - 38.039
+      rgb_color:
+      - 255
+      - 158
+      - 243
+      xy_color:
+      - 0.371
+      - 0.239
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light
+      supported_features: 36
+      state: 'on'
+    number.pool_room_workshop_bar_2_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -1352,15 +1395,15 @@
       color_mode: rgb
       brightness: 250
       hs_color:
-      - 218.8
-      - 58.824
+      - 218.94
+      - 59.216
       rgb_color:
-      - 105
-      - 158
+      - 104
+      - 157
       - 255
       xy_color:
-      - 0.189
-      - 0.193
+      - 0.188
+      - 0.192
       ip_address: 10.0.11.133
       friendly_name: Worktop Light Strip
       supported_features: 36
@@ -1605,6 +1648,59 @@
       mode: slider
       ip_address: 10.0.11.162
       friendly_name: Front LED Strip Effect speed
+      state: '100'
+    light.pool_room_workshop_bar_2_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 218.906
+      - 50.196
+      rgb_color:
+      - 127
+      - 172
+      - 255
+      xy_color:
+      - 0.208
+      - 0.217
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light
+      supported_features: 36
+      state: 'on'
+    number.pool_room_workshop_bar_2_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -1985,10 +2081,10 @@
       color_mode: rgb
       brightness: 255
       hs_color:
-      - 123.659
-      - 96.471
+      - 123.887
+      - 96.863
       rgb_color:
-      - 9
+      - 8
       - 255
       - 24
       xy_color:
@@ -2038,10 +2134,10 @@
       color_mode: rgb
       brightness: 255
       hs_color:
-      - 123.659
-      - 96.471
+      - 123.887
+      - 96.863
       rgb_color:
-      - 9
+      - 8
       - 255
       - 24
       xy_color:
@@ -2058,6 +2154,59 @@
       mode: slider
       ip_address: 10.0.11.162
       friendly_name: Front LED Strip Effect speed
+      state: '100'
+    light.pool_room_workshop_bar_2_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 126.234
+      - 90.588
+      rgb_color:
+      - 24
+      - 255
+      - 48
+      xy_color:
+      - 0.176
+      - 0.716
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light
+      supported_features: 36
+      state: 'on'
+    number.pool_room_workshop_bar_2_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -2441,6 +2590,52 @@
       mode: slider
       ip_address: 10.0.11.162
       friendly_name: Front LED Strip Effect speed
+      state: '100'
+    light.pool_room_workshop_bar_2_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light
+      supported_features: 36
+      state: 'off'
+    number.pool_room_workshop_bar_2_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light Effect speed
       state: '100'
   icon: mdi:led-strip-variant
   metadata: {}
@@ -2850,6 +3045,59 @@
       mode: slider
       ip_address: 10.0.11.162
       friendly_name: Front LED Strip Effect speed
+      state: '100'
+    light.pool_room_workshop_bar_2_strip_light:
+      effect_list:
+      - blue_fade
+      - blue_strobe
+      - colorjump
+      - colorloop
+      - colorstrobe
+      - cyan_fade
+      - cyan_strobe
+      - cycle_rgb
+      - cycle_seven_colors
+      - gb_cross_fade
+      - green_fade
+      - green_strobe
+      - purple_fade
+      - purple_strobe
+      - rb_cross_fade
+      - red_fade
+      - red_strobe
+      - rg_cross_fade
+      - rgb_cross_fade
+      - white_fade
+      - white_strobe
+      - yellow_fade
+      - yellow_strobe
+      - random
+      supported_color_modes:
+      - rgb
+      effect:
+      color_mode: rgb
+      brightness: 5
+      hs_color:
+      - 240
+      - 80
+      rgb_color:
+      - 51
+      - 51
+      - 255
+      xy_color:
+      - 0.15
+      - 0.063
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light
+      supported_features: 36
+      state: 'on'
+    number.pool_room_workshop_bar_2_strip_light_effect_speed:
+      min: 1
+      max: 100
+      step: 1
+      mode: slider
+      ip_address: 10.0.10.97
+      friendly_name: Bar 2 Strip Light Effect speed
       state: '100'
   icon: mdi:shield-moon-outline
   metadata: {}
