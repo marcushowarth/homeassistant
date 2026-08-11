@@ -1509,10 +1509,21 @@
     entity_id: sensor.workshop_temperature
     above: input_number.min_temp_fans_workshop
   actions:
-  - type: turn_on
-    device_id: c2538969a005b978a1aeeb0549ff0b1d
-    entity_id: edfe00f0a39b383316df59be5cc6edd7
-    domain: switch
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.pool_room_workshop_cross_trainer_fans
+    data: {}
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.fan_heater
+    data: {}
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.bar_2_fan
+    data: {}
   mode: single
 - id: '1746030947407'
   alias: 'Switches: Pool room: Turn off cross trainer fans if no motion detected'
@@ -1531,10 +1542,21 @@
     entity_id: input_boolean.workshop_crosstrainer_fan_override_on
     state: 'off'
   actions:
-  - type: turn_off
-    device_id: c2538969a005b978a1aeeb0549ff0b1d
-    entity_id: edfe00f0a39b383316df59be5cc6edd7
-    domain: switch
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.pool_room_workshop_cross_trainer_fans
+    data: {}
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.fan_heater
+    data: {}
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.bar_2_fan
+    data: {}
   mode: single
 - id: '1748793771021'
   alias: 'Schedules: Bedroom Lamp - Gradual Wake-up Schedule'
@@ -2105,16 +2127,23 @@
         target:
           entity_id: switch.christmas_lights
   mode: single
-- id: '1748968592567'
-  alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
-  description: 'Controls the office fan Mon–Fri based on temperature and schedule.
-    Respects overrides: `override_off` disables auto-control, `override_on` forces
-    fan ON.'
+- alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
+  description: 'Controls the office fan Mon–Fri based on temperature and schedule,
+    and outside those hours when motion is detected with temp still above threshold
+    (stays on for 5 min after motion clears). Respects overrides: `override_off` disables
+    auto-control, `override_on` forces fan ON.'
   triggers:
   - entity_id: binary_sensor.min_temp_fans_office_exceeded
     trigger: state
   - minutes: /5
     trigger: time_pattern
+  - entity_id: binary_sensor.motion_office_occupancy
+    trigger: state
+    to: 'on'
+  - entity_id: binary_sensor.motion_office_occupancy
+    trigger: state
+    to: 'off'
+    for: 00:05:00
   conditions: []
   actions:
   - choose:
@@ -2147,12 +2176,25 @@
       - target:
           entity_id: switch.switch_office_light
         action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.min_temp_fans_office_exceeded
+        state: 'on'
+      - condition: template
+        value_template: '{{ is_state(''binary_sensor.motion_office_occupancy'', ''on'')
+          or (as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_office_occupancy.last_changed)
+          < 300) }}'
+      sequence:
+      - target:
+          entity_id: switch.switch_office_light
+        action: switch.turn_on
     - conditions: []
       sequence:
       - target:
           entity_id: switch.switch_office_light
         action: switch.turn_off
   mode: single
+  id: '1748968592567'
 - id: '1749827413674'
   alias: 'Switches: Workshop: Blink bulb Green if Door Bell Visitor'
   description: Blinks the workshop alert bulb GREEN for 1 minute when the doorbell
