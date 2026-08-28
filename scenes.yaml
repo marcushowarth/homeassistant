@@ -3449,16 +3449,16 @@
   icon: mdi:lamp-outline
   metadata: {}
 - id: '1740869651066'
-  name: Landing & Hall on
+  name: Landing on
   entities:
     light.extension_lamp:
       supported_color_modes:
       - brightness
-      color_mode: brightness
-      brightness: 3
+      color_mode:
+      brightness:
       friendly_name: Extension lamp
       supported_features: 32
-      state: 'on'
+      state: 'off'
     light.landing_light:
       supported_color_modes:
       - brightness
