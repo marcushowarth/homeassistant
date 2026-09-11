@@ -365,8 +365,7 @@
     data:
       option: '{{ workmode }}'
   mode: single
-- id: '1723828018073'
-  alias: Adds row to spreadsheet and calender when batteries fully charged
+- alias: Adds row to spreadsheet and calender when batteries fully charged
   description: using IFTTT for speadsheet (for now, see https://marcushowarth.com/?controller=TaskViewController&action=show&task_id=836)
   triggers:
   - minutes: /5
@@ -404,8 +403,11 @@
   - data:
       title: Batteries charged
       message: Batteries reached 100%
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
+  id: '1723828018073'
 - id: '1723995992121'
   alias: Energy - Reset Battery Full Flag
   description: ''
@@ -648,8 +650,7 @@
             message: Setting Max Charge to 35A
             name: Max Charge
   mode: single
-- id: '1731914318980'
-  alias: Email warning - workshop heater
+- alias: Email warning - workshop heater
   description: ''
   triggers:
   - entity_id:
@@ -667,10 +668,12 @@
         }}W,  So far today it's used {{states('sensor.heater_today_s_consumption')
         }} KWh
       title: Check heater in workshop
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
-- id: '1731915273289'
-  alias: Email warning - Iris' room
+  id: '1731914318980'
+- alias: Email warning - Iris' room
   description: ''
   triggers:
   - entity_id:
@@ -692,10 +695,12 @@
         }}W,  So far today it's used {{states('sensor.iriss_room_today_s_consumption')
         }}kWh
       title: Check Iris' room for anything left on
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
-- id: '1733254185943'
-  alias: 'Energy: Battery: Max SoC according to the alternative cooking value'
+  id: '1731915273289'
+- alias: 'Energy: Battery: Max SoC according to the alternative cooking value'
   description: Sets the Max SoC according to the alternative cooking value
   triggers:
   - at: '14:55:00'
@@ -730,10 +735,12 @@
         the target Max SoC — a top-up is likely needed before 4 pm peak begins.\n{%
         endif %}"
       title: Bumped up Max SoC Day as looks like we're cooking or using heater
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
-- id: '1737056136655'
-  alias: Email warning - Breville left on unattended
+  id: '1733254185943'
+- alias: Email warning - Breville left on unattended
   description: Alert when Breville is drawing power and kitchen is unoccupied
   triggers:
   - trigger: numeric_state
@@ -748,15 +755,17 @@
     for:
       seconds: 30
   actions:
-  - action: notify.marcus_email
+  - action: notify.send_message
     data:
       title: Check kitchen — Breville may have been left on
       message: 'No motion detected in kitchen for at least 30 seconds. Breville current
         draw: {{ states(''sensor.breville_current_consumption'') }}W. Energy used
         today: {{ states(''sensor.breville_today_s_consumption'') }} kWh.'
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
-- id: '1738323900814'
-  alias: Email warning - workshop hot water heater
+  id: '1737056136655'
+- alias: Email warning - workshop hot water heater
   description: ''
   triggers:
   - entity_id:
@@ -779,10 +788,12 @@
         }} W,  So far today it's used {{states('sensor.water_heater_today_s_consumptiony')
         }} kWh
       title: Check workshop hot water
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
-- id: '1740657511428'
-  alias: 'Energy: set Max SoC ECO based on tomorrow''s PV forecast'
+  id: '1738323900814'
+- alias: 'Energy: set Max SoC ECO based on tomorrow''s PV forecast'
   description: Sets the Max SoC ECO according to the forecast for tomorrow
   triggers:
   - at: '22:15:00'
@@ -869,8 +880,11 @@
       message: Tomorrow's forecast PV = {{ states('sensor.solcast_pv_forecast_forecast_tomorrow')
         }} kWh Max SoC ECO set to {{ states('input_number.max_soc_eco') }}% for the
         overnight charge.
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
+  id: '1740657511428'
 - id: '1740673832275'
   alias: 'Energy: Reset the Max SoC ECO to default'
   description: ''
@@ -928,8 +942,7 @@
     entity_id: 99400218b452ec07c16b3ce86b18ed6a
     domain: switch
   mode: restart
-- id: '1742382554771'
-  alias: 'Energy: set flag to force peak export based on remaining PV forecast'
+- alias: 'Energy: set flag to force peak export based on remaining PV forecast'
   description: Sets the flag to force peak export based on the PV forecast for the
     remainder of the day and notifies by email
   triggers:
@@ -950,7 +963,7 @@
         data: {}
         target:
           entity_id: input_boolean.peak_tariff_export_enabled
-      - action: notify.marcus_email
+      - action: notify.send_message
         data:
           title: 'Energy: Peak export ON'
           message: '{%- set soc = states(''sensor.workshop_battery_soc'') | float(0)
@@ -1029,13 +1042,15 @@
             Export rate:        £{{ export_rate }}/kWh
 
             Estimated value:    ~£{{ value }}'
+        target:
+          entity_id: notify.marcus_email_marcus_howarth_eu
     default:
     - action: input_boolean.turn_off
       metadata: {}
       data: {}
       target:
         entity_id: input_boolean.peak_tariff_export_enabled
-    - action: notify.marcus_email
+    - action: notify.send_message
       data:
         title: 'Energy: Peak export OFF'
         message: '{%- set soc = states(''sensor.workshop_battery_soc'') | float(0)
@@ -1061,7 +1076,10 @@
 
           Peak window: {{ states(''input_datetime.peak_energy_start'')[0:5] }} – {{
           states(''input_datetime.peak_energy_end'')[0:5] }}'
+      target:
+        entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
+  id: '1742382554771'
 - id: '1743575339217'
   alias: 'Switches: Pool room: Auto Control TV based on Presence'
   description: Turns the pool room TV on when a person is detected, and off if no
@@ -1334,8 +1352,7 @@
           brightness_pct: 3
         action: light.turn_on
   mode: restart
-- id: '1744040652495'
-  alias: 'Safety: Breville turn off if no kitchen occupancy'
+- alias: 'Safety: Breville turn off if no kitchen occupancy'
   description: Turn off Breville if kitchen empty for 5 mins while in use.
   triggers:
   - entity_id:
@@ -1358,8 +1375,11 @@
       message: 'The Breville was turned off automatically after 5 minutes of no kitchen
         activity. Current power before shutdown: {{ states(''sensor.breville_current_power'')
         }}W.'
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
+  id: '1744040652495'
 - id: '1744108621901'
   alias: 'Energy: Daily: Update Octopus Energy Tariffs'
   description: Run daily at 7am to update import/export rates from Octopus Energy.

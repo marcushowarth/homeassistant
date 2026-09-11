@@ -99,7 +99,9 @@ set_min_soc_to_10:
         Grid Consumption so far today = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity START
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   - wait_for_trigger:
     - at: input_datetime.free_electricity_end
       trigger: time
@@ -152,7 +154,9 @@ set_min_soc_to_10:
         Grid Consumption now = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity END
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
   icon: mdi:home-lightning-bolt
 '1729422205524':
@@ -202,7 +206,9 @@ set_min_soc_to_10:
         Grid Consumption so far today = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity START
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   - wait_for_trigger:
     - at: input_datetime.free_electricity_end
       trigger: time
@@ -255,7 +261,9 @@ set_min_soc_to_10:
         Grid Consumption now = {{states(''sensor.workshop_grid_consumption_energy_today'')
         }} KWh'
       title: Free Electricity END
-    action: notify.marcus_email
+    action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
   icon: mdi:home-lightning-bolt
 heat_workshop_overnight:
@@ -277,7 +285,7 @@ heat_workshop_overnight:
       value2: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
       value3: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
         }} KWh
-  - service: notify.marcus_email
+  - service: notify.send_message
     data:
       message: 'Starting with energy used, Heater: {{ states(''sensor.heater_today_energy'')
         }} kWh and Fan Heater: {{ states(''sensor.fan_heater_today_energy'') }} kWh
@@ -285,6 +293,8 @@ heat_workshop_overnight:
         }} kWh. Fan Heater will be {{ states(''input_boolean.heat_workshop_overnight_include_fan'')
         }}'
       title: Workshop Heater START
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   - service: switch.turn_on
     target:
       entity_id:
@@ -334,7 +344,7 @@ heat_workshop_overnight:
       value3: Grid Consumption now = {{ states('sensor.workshop_grid_consumption_energy_today')
         }} KWh | Heater used {{ states('sensor.heater_today_energy') }} kWh | Fan
         Heater used {{ states('sensor.fan_heater_today_energy') }} kWh
-  - service: notify.marcus_email
+  - service: notify.send_message
     data:
       message: 'Ending with energy used, Heater: {{ states(''sensor.heater_today_energy'')
         }} kWh and Fan Heater: {{ states(''sensor.fan_heater_today_energy'') }} kWh
@@ -342,6 +352,8 @@ heat_workshop_overnight:
         }} kWh. Fan Heater was {{ states(''input_boolean.heat_workshop_overnight_include_fan'')
         }}'
       title: Heater Workshop END
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
   mode: single
   icon: mdi:radiator
 stop_using_battery_set_min_soc_to_current_level:
@@ -418,8 +430,10 @@ update_octopus_energy_tariffs_with_change_detection:
         entity_id: input_number.import_rate_eco
         value: '{{ import_previous }}'
     - variables:
-        changed_tariffs: '{{ changed_tariffs + ''\nImport Eco: '' ~ old_val ~ ''p
-          → '' ~ import_previous ~ ''p ('' ~ (''▲'' if import_previous > old_val else                                                                                     ''▼'')
+        changed_tariffs: '{{ changed_tariffs + ''
+
+          Import Eco: '' ~ old_val ~ ''p → '' ~ import_previous ~ ''p ('' ~ (''▲''
+          if import_previous > old_val else                                                                                     ''▼'')
           ~ '')'' }}'
   - if:
     - condition: template
@@ -433,8 +447,10 @@ update_octopus_energy_tariffs_with_change_detection:
         entity_id: input_number.import_rate_day
         value: '{{ import_current }}'
     - variables:
-        changed_tariffs: '{{ changed_tariffs + ''\nImport Day: '' ~ old_val ~ ''p
-          → '' ~ import_current ~ ''p ('' ~ (''▲'' if import_current > old_val else                                                                                       ''▼'')
+        changed_tariffs: '{{ changed_tariffs + ''
+
+          Import Day: '' ~ old_val ~ ''p → '' ~ import_current ~ ''p ('' ~ (''▲''
+          if import_current > old_val else                                                                                       ''▼'')
           ~ '')'' }}'
   - if:
     - condition: template
@@ -448,8 +464,9 @@ update_octopus_energy_tariffs_with_change_detection:
         entity_id: input_number.import_rate_peak
         value: '{{ import_next }}'
     - variables:
-        changed_tariffs: '{{ changed_tariffs + ''\nImport Peak: '' ~ old_val ~ ''p
-          →                                                                                    ''
+        changed_tariffs: '{{ changed_tariffs + ''
+
+          Import Peak: '' ~ old_val ~ ''p →                                                                                    ''
           ~ import_next ~ ''p ('' ~ (''▲'' if import_next > old_val else ''▼'')                                                                                      ~
           '')'' }}'
   - if:
@@ -464,8 +481,9 @@ update_octopus_energy_tariffs_with_change_detection:
         entity_id: input_number.feed_in_rate_eco
         value: '{{ export_previous }}'
     - variables:
-        changed_tariffs: '{{ changed_tariffs + ''\nExport Eco: '' ~ old_val ~ ''p
-          →                                                                                     ''
+        changed_tariffs: '{{ changed_tariffs + ''
+
+          Export Eco: '' ~ old_val ~ ''p →                                                                                     ''
           ~ export_previous ~ ''p ('' ~ (''▲'' if export_previous > old_val else ''▼'')
           ~ '')'' }}'
   - if:
@@ -480,8 +498,10 @@ update_octopus_energy_tariffs_with_change_detection:
         entity_id: input_number.feed_in_rate_day
         value: '{{ export_current }}'
     - variables:
-        changed_tariffs: '{{ changed_tariffs + ''\nExport Day: '' ~ old_val ~ ''p
-          → '' ~ export_current ~ ''p ('' ~ (''▲'' if export_current > old_val else                                                                                       ''▼'')
+        changed_tariffs: '{{ changed_tariffs + ''
+
+          Export Day: '' ~ old_val ~ ''p → '' ~ export_current ~ ''p ('' ~ (''▲''
+          if export_current > old_val else                                                                                       ''▼'')
           ~ '')'' }}'
   - if:
     - condition: template
@@ -495,8 +515,10 @@ update_octopus_energy_tariffs_with_change_detection:
         entity_id: input_number.feed_in_rate_peak
         value: '{{ export_next }}'
     - variables:
-        changed_tariffs: '{{ changed_tariffs + ''\nExport Peak: '' ~ old_val ~ ''p
-          → '' ~ export_next ~ ''p ('' ~ (''▲'' if export_next > old_val else ''▼'')                                                                                      ~
+        changed_tariffs: '{{ changed_tariffs + ''
+
+          Export Peak: '' ~ old_val ~ ''p → '' ~ export_next ~ ''p ('' ~ (''▲'' if
+          export_next > old_val else ''▼'')                                                                                      ~
           '')'' }}'
   - if:
     - condition: template
@@ -510,17 +532,21 @@ update_octopus_energy_tariffs_with_change_detection:
         entity_id: input_number.gas_rate
         value: '{{ gas_today }}'
     - variables:
-        changed_tariffs: '{{ changed_tariffs + ''\nGas Rate: '' ~ old_val ~ ''p →
-          '' ~ gas_today ~ ''p ('' ~ (''▲'' if gas_today > old_val else ''▼'') ~                                                                                        '')''
+        changed_tariffs: '{{ changed_tariffs + ''
+
+          Gas Rate: '' ~ old_val ~ ''p → '' ~ gas_today ~ ''p ('' ~ (''▲'' if gas_today
+          > old_val else ''▼'') ~                                                                                        '')''
           }}'
   - if:
     - condition: template
       value_template: '{{ changed_tariffs | length > 0 }}'
     then:
-    - action: notify.marcus_email
+    - action: notify.send_message
       data:
         title: Octopus Tariff Update
         message: 'The following tariffs were updated: {{ changed_tariffs }}'
+      target:
+        entity_id: notify.marcus_email_marcus_howarth_eu
     - action: ifttt.trigger
       data:
         event: HA_trigger_sheet
