@@ -899,8 +899,7 @@
       value: '{{ states(''input_number.max_soc_eco_default'') | float(0) }}'
     action: input_number.set_value
   mode: single
-- id: '1741125922921'
-  alias: Turn on CCTV monitor if Door Bell Visitor or Motion
+- alias: Turn on CCTV monitor if Door Bell Visitor or Motion
   description: ''
   triggers:
   - type: turned_on
@@ -928,20 +927,23 @@
     entity_id: switch.cctv_monitor
     state: 'off'
   actions:
-  - type: turn_on
-    device_id: e089e21f12d388d802c0e4178bd386fc
-    entity_id: 99400218b452ec07c16b3ce86b18ed6a
-    domain: switch
+  - action: switch.turn_on
+    metadata: {}
+    target:
+      entity_id: switch.cctv_monitor
+    data: {}
   - delay:
       hours: 0
       minutes: 5
       seconds: 0
       milliseconds: 0
-  - type: turn_off
-    device_id: e089e21f12d388d802c0e4178bd386fc
-    entity_id: 99400218b452ec07c16b3ce86b18ed6a
-    domain: switch
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.cctv_monitor
+    data: {}
   mode: restart
+  id: '1741125922921'
 - alias: 'Energy: set flag to force peak export based on remaining PV forecast'
   description: Sets the flag to force peak export based on the PV forecast for the
     remainder of the day and notifies by email
