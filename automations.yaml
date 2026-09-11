@@ -685,7 +685,7 @@
     above: 500
     trigger: numeric_state
   - entity_id:
-    - sensor.iriss_room_today_energy
+    - sensor.iriss_room_today_s_consumption
     above: 2
     trigger: numeric_state
   conditions: []
@@ -778,14 +778,14 @@
     trigger: numeric_state
     attribute: curr
   - entity_id:
-    - sensor.water_heater_today_energy
+    - sensor.water_heater_today_s_consumption
     above: 1
     trigger: numeric_state
   conditions: []
   actions:
   - data:
       message: It's currently using {{ states('sensor.water_heater_current_consumption')
-        }} W,  So far today it's used {{states('sensor.water_heater_today_s_consumptiony')
+        }} W,  So far today it's used {{states('sensor.water_heater_today_s_consumption')
         }} kWh
       title: Check workshop hot water
     action: notify.send_message
