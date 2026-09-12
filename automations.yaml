@@ -2152,7 +2152,7 @@
 - alias: 'Schedules: Office Fan (Weekdays Temp + Time)'
   description: 'Controls the office fan Mon–Fri based on temperature and schedule,
     and outside those hours when motion is detected with temp still above threshold
-    (stays on for 5 min after motion clears). Respects overrides: `override_off` disables
+    (stays on for 2 min after motion clears). Respects overrides: `override_off` disables
     auto-control, `override_on` forces fan ON.'
   triggers:
   - entity_id: binary_sensor.min_temp_fans_office_exceeded
@@ -2165,7 +2165,7 @@
   - entity_id: binary_sensor.motion_office_occupancy
     trigger: state
     to: 'off'
-    for: 00:05:00
+    for: 00:02:00
   conditions: []
   actions:
   - choose:
@@ -2205,7 +2205,7 @@
       - condition: template
         value_template: '{{ is_state(''binary_sensor.motion_office_occupancy'', ''on'')
           or (as_timestamp(now()) - as_timestamp(states.binary_sensor.motion_office_occupancy.last_changed)
-          < 300) }}'
+          < 120) }}'
       sequence:
       - target:
           entity_id: switch.switch_office_light
