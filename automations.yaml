@@ -2827,3 +2827,56 @@
     action: light.turn_off
   mode: single
   id: c694d857-cd48-413b-b04c-9b27dc698cf7
+- id: d0e45d10-e1ad-4a82-aaa4-15969200914b
+  alias: 'Sensors: Weekly battery report'
+  description: '#1035 — weekly email listing sensor battery levels (Zigbee temp/motion,
+    Tasmota bridge, Wiser RoomStat), flagging any below input_number.sensor_battery_low_threshold
+    or not reporting. Excludes the robot vacuum.'
+  mode: single
+  triggers:
+  - trigger: time
+    at: 09:00:00
+    weekday:
+    - sun
+  conditions: []
+  actions:
+  - variables:
+      threshold: '{{ states(''input_number.sensor_battery_low_threshold'') | int(25)
+        }}'
+      report: "{%- set ns = namespace(rows=[], low=[], missing=[]) -%}\n{%- for s
+        in states.sensor\n     | selectattr('entity_id', 'match', '^sensor\\..*_battery$')\n
+        \    | rejectattr('entity_id', 'eq', 'sensor.s7_max_ultra_battery') -%}\n
+        \ {%- set name = s.name | replace(' Battery', '') | trim -%}\n  {%- if s.state
+        | is_number -%}\n    {%- set ns.rows = ns.rows + [(s.state | int, name)] -%}\n
+        \   {%- if s.state | int < threshold -%}{%- set ns.low = ns.low + [name ~
+        ' (' ~ s.state ~ '%)'] -%}{%- endif -%}\n  {%- else -%}\n    {%- set ns.missing
+        = ns.missing + [name ~ ' (' ~ s.state ~ ')'] -%}\n  {%- endif -%}\n{%- endfor
+        -%}\n{{ {'rows': ns.rows | sort(attribute=0), 'low': ns.low, 'missing': ns.missing}
+        }}"
+  - action: notify.send_message
+    target:
+      entity_id: notify.marcus_email_marcus_howarth_eu
+    data:
+      title: 'Sensor batteries: {{ (report.low | count) ~ '' low'' if report.low else
+        ''all OK'' }}{{ '', '' ~ (report.missing | count) ~ '' not reporting'' if
+        report.missing else '''' }}'
+      message: '{%- if report.low or report.missing %}ACTION NEEDED
+
+        {% for l in report.low %}- LOW: {{ l }}
+
+        {% endfor %}{% for m in report.missing %}- NOT REPORTING: {{ m }}
+
+        {% endfor %}
+
+        {% else %}All sensor batteries at or above {{ threshold }}%.
+
+
+        {% endif -%}
+
+        All sensors (lowest first):
+
+        {% for r in report.rows %}{{ ''%3d'' | format(r[0]) }}%  {{ r[1] }}
+
+        {% endfor %}
+
+        Threshold: {{ threshold }}% (input_number.sensor_battery_low_threshold)'
