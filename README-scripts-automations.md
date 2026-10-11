@@ -20,7 +20,14 @@ The point of documenting this was to highlight a couple of script ideas I use.
 ---
 ### Free Electricity Day Today
 
-**Description:** as "Free Electricity Day Tomorrow" but without the wait until 8:30. There might be scope to add force discharge before the free session starts.
+**Description:** as "Free Electricity Day Tomorrow" but without the wait until 8:30, and Force Discharge until the session starts.
+
+Both Free Electricity scripts are the manual fallback. The free electricity start/end helpers now hold a date and time; the armed automation **Energy: Free electricity slot (armed)** (see [Energy](README-energy-automations.md)) runs a planned slot without needing either script.
+
+---
+### Energy: apply tariff for the current time
+
+**Description:** Sets the four utility meter tariff selects (grid consumption + feed in, house + workshop) to eco / day / peak from the Octopus Flux time helpers. While an armed free electricity slot is running, the workshop grid consumption meter goes to `free` instead. Called by **Energy: Octopus Flux Tariffs** and the free electricity slot automation.
 
 ---
 ### Bedtime

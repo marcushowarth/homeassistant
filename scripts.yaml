@@ -68,8 +68,10 @@ set_min_soc_to_10:
   - data:
       enable_force_charge: true
       enable_charge_from_grid: true
-      start: '{{ states(''input_datetime.free_electricity_start'') }}'
-      end: '{{ states(''input_datetime.free_electricity_end'') }}'
+      start: '{{ as_datetime(states(''input_datetime.free_electricity_start'')).strftime(''%H:%M:%S'')
+        }}'
+      end: '{{ as_datetime(states(''input_datetime.free_electricity_end'')).strftime(''%H:%M:%S'')
+        }}'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
     action: foxess_modbus.update_charge_period
@@ -170,8 +172,10 @@ set_min_soc_to_10:
   - data:
       enable_force_charge: true
       enable_charge_from_grid: true
-      start: '{{ states(''input_datetime.free_electricity_start'') }}'
-      end: '{{ states(''input_datetime.free_electricity_end'') }}'
+      start: '{{ as_datetime(states(''input_datetime.free_electricity_start'')).strftime(''%H:%M:%S'')
+        }}'
+      end: '{{ as_datetime(states(''input_datetime.free_electricity_end'')).strftime(''%H:%M:%S'')
+        }}'
       inverter: 1185fbf7ef097c175604da2d3bb46177
       charge_period: '2'
     action: foxess_modbus.update_charge_period
@@ -592,3 +596,60 @@ restart_amazon_firestick_extension:
       entity_id: switch.amazon_firestick_tv
   alias: Restart Amazon Firestick Extension
   description: ''
+energy_apply_current_tariff:
+  alias: 'Energy: apply tariff for the current time'
+  description: 'Sets the utility meter tariff selects (grid consumption + feed in,
+    house + workshop) to eco/day/peak from the Octopus Flux time helpers. While an
+    armed free electricity slot is running, the workshop grid consumption meter is
+    set to ''free'' instead (#801). Called by ''Energy: Octopus Flux Tariffs'' and
+    the free electricity slot automation.'
+  icon: mdi:cash-clock
+  mode: queued
+  max: 5
+  sequence:
+  - variables:
+      tariff: '{%- set t = now().strftime(''%H:%M:%S'') -%}
+
+        {%- set es = states(''input_datetime.off_peak_energy_start'') -%}
+
+        {%- set ee = states(''input_datetime.off_peak_energy_end'') -%}
+
+        {%- set ps = states(''input_datetime.peak_energy_start'') -%}
+
+        {%- set pe = states(''input_datetime.peak_energy_end'') -%}
+
+        {%- set in_eco = (es <= t and t < ee) if es <= ee else (t >= es or t < ee)
+        -%}
+
+        {%- set in_peak = (ps <= t and t < pe) if ps <= pe else (t >= ps or t < pe)
+        -%}
+
+        {{ ''eco'' if in_eco else (''peak'' if in_peak else ''day'') }}'
+      free_now: '{%- set s = state_attr(''input_datetime.free_electricity_start'',
+        ''timestamp'') | float(0) -%}
+
+        {%- set e = state_attr(''input_datetime.free_electricity_end'', ''timestamp'')
+        | float(0) -%}
+
+        {%- set n = now().timestamp() -%}
+
+        {{ is_state(''input_boolean.free_electricity_armed'', ''on'') and s <= n and
+        n < e }}'
+  - action: select.select_option
+    target:
+      entity_id: select.grid_consumption_workshop
+    data:
+      option: '{{ ''free'' if free_now else tariff }}'
+  - action: select.select_option
+    target:
+      entity_id:
+      - select.grid_consumption_house
+      - select.feed_in_house
+      - select.feed_in_workshop
+    data:
+      option: '{{ tariff }}'
+  - action: logbook.log
+    data:
+      name: Tariff
+      message: 'Applied tariff {{ tariff }}{{ '' (workshop grid consumption: free)''
+        if free_now else '''' }}'

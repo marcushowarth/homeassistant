@@ -1,44 +1,21 @@
 - id: '1704106743392'
   alias: 'Energy: Octopus Flux Tariffs'
-  description: Sets the tariff
-  trigger:
-  - platform: time
+  description: 'Sets the tariff at each Flux boundary via script.energy_apply_current_tariff
+    (which also keeps ''free'' during an armed free electricity slot, #801)'
+  triggers:
+  - trigger: time
     at: input_datetime.off_peak_energy_start
-    variables:
-      tariff: eco
-  - platform: time
+  - trigger: time
     at: input_datetime.off_peak_energy_end
-    variables:
-      tariff: day
-  - platform: time
+  - trigger: time
     at: input_datetime.peak_energy_start
-    variables:
-      tariff: peak
-  - platform: time
+  - trigger: time
     at: input_datetime.peak_energy_end
-    variables:
-      tariff: day
-  action:
-  - service: select.select_option
-    target:
-      entity_id: select.grid_consumption_house
-    data:
-      option: '{{ tariff }}'
-  - service: select.select_option
-    target:
-      entity_id: select.grid_consumption_workshop
-    data:
-      option: '{{ tariff }}'
-  - service: select.select_option
-    target:
-      entity_id: select.feed_in_house
-    data:
-      option: '{{ tariff }}'
-  - service: select.select_option
-    target:
-      entity_id: select.feed_in_workshop
-    data:
-      option: '{{ tariff }}'
+  - trigger: homeassistant
+    event: start
+  conditions: []
+  actions:
+  - action: script.energy_apply_current_tariff
   mode: single
 - id: '1704185991516'
   alias: 'Energy: Battery Max SoC setting'
@@ -2880,3 +2857,240 @@
         {% endfor %}
 
         Threshold: {{ threshold }}% (input_number.sensor_battery_low_threshold)'
+- alias: 'Energy: Free electricity slot (armed)'
+  description: 'Runs an armed free electricity slot set on the Battery & Tariffs →
+    FREE ELECTRICITY tab (#801). Night before: cap Max SoC ECO at the pre-slot target.
+    Before the slot: Force Discharge down to the target (lead time from SoC, 13.75
+    kWh usable, ~3 kW discharge, +30 min), then hold in Feed-in First. Slot: grid
+    charge to 100%, workshop grid tariff → free. End: restore Self Use / charge period
+    / Max SoC, disarm, re-apply the tariff.'
+  triggers:
+  - trigger: time
+    at: '22:30:00'
+    id: night_before
+  - trigger: template
+    value_template: '{%- set s = state_attr(''input_datetime.free_electricity_start'',
+      ''timestamp'') | float(0) -%}
+
+      {%- set soc = states(''sensor.workshop_battery_soc'') | float(0) -%}
+
+      {%- set target = states(''input_number.free_electricity_pre_soc'') | float(0)
+      -%}
+
+      {%- set hours = ([soc - target, 0] | max) / 100 * 13.75 / 3.0 + 0.5 -%}
+
+      {{ s > 0 and now().timestamp() >= s - hours * 3600 and now().timestamp() < s
+      }}'
+    id: pre_discharge
+  - trigger: state
+    entity_id: input_boolean.free_electricity_armed
+    to: 'on'
+    id: pre_discharge
+  - trigger: numeric_state
+    entity_id: sensor.workshop_battery_soc
+    below: input_number.free_electricity_pre_soc
+    id: target_reached
+  - trigger: time
+    at: input_datetime.free_electricity_start
+    id: slot_start
+  - trigger: time
+    at: input_datetime.free_electricity_end
+    id: slot_end
+  conditions:
+  - condition: state
+    entity_id: input_boolean.free_electricity_armed
+    state: 'on'
+  actions:
+  - variables:
+      s_ts: '{{ state_attr(''input_datetime.free_electricity_start'', ''timestamp'')
+        | float(0) }}'
+      start_hms: '{{ as_datetime(states(''input_datetime.free_electricity_start'')).strftime(''%H:%M:%S'')
+        }}'
+      end_hms: '{{ as_datetime(states(''input_datetime.free_electricity_end'')).strftime(''%H:%M:%S'')
+        }}'
+      slot_text: '{{ as_datetime(states(''input_datetime.free_electricity_start'')).strftime(''%a
+        %-d %b %H:%M'') }}-{{ as_datetime(states(''input_datetime.free_electricity_end'')).strftime(''%H:%M'')
+        }}'
+      soc: '{{ states(''sensor.workshop_battery_soc'') | float(0) }}'
+      target: '{{ states(''input_number.free_electricity_pre_soc'') | float(0) }}'
+      offset: '{{ states(''input_number.free_electricity_pre_soc_offset'') | float(0)
+        }}'
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: night_before
+      - condition: template
+        value_template: '{{ (s_ts | timestamp_custom(''%Y-%m-%d'')) == (now() + timedelta(days=1)).strftime(''%Y-%m-%d'')
+          }}'
+      sequence:
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.max_soc_eco
+        data:
+          value: '{{ target }}'
+      - action: notify.send_message
+        target:
+          entity_id: notify.marcus_email_marcus_howarth_eu
+        data:
+          title: 'Free Electricity tomorrow: {{ slot_text }}'
+          message: Max SoC ECO capped at {{ target | int }}% for the overnight charge
+            (was {{ states('input_number.max_soc_eco') | int }}% after the PV forecast).
+            Battery now {{ soc | int }}%.
+    - conditions:
+      - condition: trigger
+        id: pre_discharge
+      - condition: template
+        value_template: '{%- set hours = ([soc - target, 0] | max) / 100 * 13.75 /
+          3.0 + 0.5 -%}
+
+          {{ s_ts > 0 and now().timestamp() >= s_ts - hours * 3600 and now().timestamp()
+          < s_ts }}'
+      - condition: template
+        value_template: '{{ soc > target + offset }}'
+      - condition: template
+        value_template: '{{ states(''select.workshop_work_mode'') != ''Force Discharge''
+          }}'
+      sequence:
+      - action: foxess_modbus.update_charge_period
+        data:
+          enable_force_charge: true
+          enable_charge_from_grid: true
+          start: '{{ start_hms }}'
+          end: '{{ end_hms }}'
+          inverter: 1185fbf7ef097c175604da2d3bb46177
+          charge_period: '2'
+      - action: select.select_option
+        target:
+          entity_id: select.workshop_work_mode
+        data:
+          option: Force Discharge
+      - action: notify.send_message
+        target:
+          entity_id: notify.marcus_email_marcus_howarth_eu
+        data:
+          title: 'Free Electricity: discharging before {{ slot_text }}'
+          message: Force Discharge from {{ soc | int }}% down to {{ target | int }}%,
+            then holding in Feed-in First until the slot.
+    - conditions:
+      - condition: trigger
+        id: target_reached
+      - condition: template
+        value_template: '{{ states(''select.workshop_work_mode'') == ''Force Discharge''
+          and s_ts > 0 and now().timestamp() < s_ts }}'
+      sequence:
+      - action: select.select_option
+        target:
+          entity_id: select.workshop_work_mode
+        data:
+          option: Feed-in First
+      - action: logbook.log
+        data:
+          name: Free Electricity
+          message: Pre-slot target {{ target | int }}% reached, holding in Feed-in
+            First
+    - conditions:
+      - condition: trigger
+        id: slot_start
+      sequence:
+      - action: foxess_modbus.update_charge_period
+        data:
+          enable_force_charge: true
+          enable_charge_from_grid: true
+          start: '{{ start_hms }}'
+          end: '{{ end_hms }}'
+          inverter: 1185fbf7ef097c175604da2d3bb46177
+          charge_period: '2'
+      - action: number.set_value
+        target:
+          entity_id: number.workshop_max_soc
+        data:
+          value: 100
+      - action: select.select_option
+        target:
+          entity_id: select.workshop_work_mode
+        data:
+          option: Self Use
+      - action: script.energy_apply_current_tariff
+      - action: ifttt.trigger
+        data:
+          event: HA_trigger_sheet
+          value1: Free Electricity Log
+          value2: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+          value3: Grid Consumption so far today = {{ states('sensor.workshop_grid_consumption_energy_today')
+            }} KWh
+      - action: notify.send_message
+        target:
+          entity_id: notify.marcus_email_marcus_howarth_eu
+        data:
+          title: Free Electricity START
+          message: 'Starting with: {{ states(''sensor.workshop_battery_soc'') }}%
+            battery, Grid Consumption so far today = {{ states(''sensor.workshop_grid_consumption_energy_today'')
+            }} kWh. Workshop grid tariff: {{ states(''select.grid_consumption_workshop'')
+            }}.'
+    - conditions:
+      - condition: trigger
+        id: slot_end
+      sequence:
+      - action: select.select_option
+        target:
+          entity_id: select.workshop_work_mode
+        data:
+          option: Self Use
+      - action: foxess_modbus.update_charge_period
+        data:
+          enable_force_charge: true
+          enable_charge_from_grid: true
+          start: '15:00:00'
+          end: '15:55:00'
+          inverter: 1185fbf7ef097c175604da2d3bb46177
+          charge_period: '2'
+      - delay:
+          seconds: 10
+      - action: foxess_modbus.update_charge_period
+        data:
+          enable_force_charge: false
+          enable_charge_from_grid: true
+          start: '15:00:00'
+          end: '15:55:00'
+          inverter: 1185fbf7ef097c175604da2d3bb46177
+          charge_period: '2'
+      - action: number.set_value
+        target:
+          entity_id: number.workshop_max_soc
+        data:
+          value: '{%- set t = now().strftime(''%H:%M:%S'') -%}
+
+            {%- set ps = states(''input_datetime.peak_energy_start'') -%}
+
+            {%- set pe = states(''input_datetime.peak_energy_end'') -%}
+
+            {{ states(''input_number.max_soc_peak'') if (ps <= t and t < pe) else
+            states(''input_number.max_soc_day'') }}'
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.free_electricity_armed
+      - action: script.energy_apply_current_tariff
+      - action: ifttt.trigger
+        data:
+          event: HA_trigger_sheet
+          value1: Free Electricity Log
+          value2: 'Ending with: {{ states(''sensor.workshop_battery_soc'') }}% battery'
+          value3: Grid Consumption now = {{ states('sensor.workshop_grid_consumption_energy_today')
+            }} KWh
+      - action: notify.send_message
+        target:
+          entity_id: notify.marcus_email_marcus_howarth_eu
+        data:
+          title: Free Electricity END
+          message: 'Ending with: {{ states(''sensor.workshop_battery_soc'') }}% battery,
+            Grid Consumption now = {{ states(''sensor.workshop_grid_consumption_energy_today'')
+            }} kWh. Free kWh (workshop meter): {{ states(''sensor.grid_consumption_workshop_free'')
+            }}. Slot disarmed, tariff back to {{ states(''select.grid_consumption_workshop'')
+            }}.
+
+
+            If ''Grid Consumption Workshop free'' isn''t in the Energy dashboard yet,
+            add it now at a fixed £0.'
+  mode: queued
+  max: 10
+  id: 0259eac2-47b8-493e-8bf5-2d96f0e16e3f

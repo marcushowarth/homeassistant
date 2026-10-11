@@ -7,12 +7,28 @@ The point of documenting this was to highlight what I have working with [FOXESS 
 * Anticipate a charge required before the Peak Tariff to avoid excessive charging
 * Ability to set a period of **Force Discharge** during peak tariff if away or excess PV
 * Battery: Charge Reduction - [courtesy of Dave Foster](https://foxesscommunity.com/viewtopic.php?t=946)
+* Plan a [free electricity session](https://octopus.energy/free-electricity/) ahead of time: arm a dated slot and the battery is emptied beforehand, grid-charged during it, and the hour costed as `free`
 
 ### Energy: Octopus Flux Tariffs
 
 **Description:** Sets the tariff
 
 Used in the energy dashboard to display the current costs and usage information.
+
+* Triggers at each Flux boundary (and on HA start) and calls the script **Energy: apply tariff for the current time** (see [Scripts](README-scripts-automations.md)), which works out eco / day / peak from the Flux time helpers and sets all four tariff selects.
+* The workshop grid consumption utility meter has a fourth tariff, `free`. The script keeps it on `free` while an armed free electricity slot is running, so a Flux boundary inside a slot doesn't undo it.
+
+---
+### Energy: Free electricity slot (armed)
+
+**Description:** Runs a free electricity slot set ahead of time on the Battery & Tariffs dashboard → **FREE ELECTRICITY** tab (start/end date+time, Armed toggle, pre-slot SoC target and offset). Does nothing unless Armed is on.
+
+* **22:30 the night before** (after the 22:15 PV forecast automation): caps Max SoC ECO at the pre-slot target so the overnight charge doesn't fill the battery.
+* **Before the slot:** Force Discharge down to the target. Lead time = (SoC − target) × 13.75 kWh ÷ 3 kW + 30 min. Only starts if SoC is above target + offset. Force Discharge rather than Self Use, as Self Use still charges from PV regardless of Max SoC.
+* **Target reached:** Feed-in First until the slot.
+* **Slot start:** grid charge period set to the slot, Max SoC 100%, Self Use, workshop grid tariff → `free`, start logged/emailed.
+* **Slot end:** Self Use, charge period reset, Max SoC back to day/peak, disarms, re-applies the tariff, end logged/emailed.
+* Known gaps: a slot in 14:00–16:00 clashes with the pre-peak charge period 2 automation; a slot in 16:00–19:00 overlaps the peak export work-mode polling; disarming mid-slot skips the end restore.
 
 ---
 ### Energy: Battery Max SoC setting
