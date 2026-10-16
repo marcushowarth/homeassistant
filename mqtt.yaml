@@ -5,7 +5,7 @@ sensor:
     unit_of_measurement: "°C"
     device_class: temperature
     state_class: measurement
-    value_template: "{{ value_json['ZbReceived']['0x5FCD'].Temperature }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5FCD'] | default({})).Temperature | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -15,7 +15,7 @@ sensor:
     unit_of_measurement: "%"
     device_class: humidity
     state_class: measurement
-    value_template: "{{ value_json['ZbReceived']['0x5FCD'].Humidity }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5FCD'] | default({})).Humidity | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -25,7 +25,7 @@ sensor:
     unit_of_measurement: "%"
     device_class: battery
     state_class: measurement
-    value_template: "{{ value_json['ZbReceived']['0x5FCD'].BatteryPercentage }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5FCD'] | default({})).BatteryPercentage | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -33,7 +33,7 @@ sensor:
   - name: "Outside Temp LQI"
     state_topic: "tele/zbbridge/SENSOR"
     unit_of_measurement: "LQI"
-    value_template: "{{ value_json['ZbReceived']['0x5FCD'].LinkQuality }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5FCD'] | default({})).LinkQuality | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -44,7 +44,7 @@ sensor:
     unit_of_measurement: "°C"
     device_class: temperature
     state_class: measurement
-    value_template: "{{ value_json['ZbReceived']['0x5928'].Temperature }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5928'] | default({})).Temperature | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -54,7 +54,7 @@ sensor:
     unit_of_measurement: "%"
     device_class: humidity
     state_class: measurement
-    value_template: "{{ value_json['ZbReceived']['0x5928'].Humidity }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5928'] | default({})).Humidity | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -64,7 +64,7 @@ sensor:
     unit_of_measurement: "%"
     device_class: battery
     state_class: measurement
-    value_template: "{{ value_json['ZbReceived']['0x5928'].BatteryPercentage }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5928'] | default({})).BatteryPercentage | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
@@ -72,7 +72,7 @@ sensor:
   - name: "Workshop Temp LQI"
     state_topic: "tele/zbbridge/SENSOR"
     unit_of_measurement: "LQI"
-    value_template: "{{ value_json['ZbReceived']['0x5928'].LinkQuality }}"
+    value_template: "{{ ((value_json.ZbReceived | default({}))['0x5928'] | default({})).LinkQuality | default('') }}"
     availability_topic: "tele/zbbridge/LWT"
     payload_available: "Online"
     payload_not_available: "Offline"
