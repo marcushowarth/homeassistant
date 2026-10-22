@@ -42,6 +42,9 @@ It includes:
 - 🏡 **Home Assistant** – Main home automation platform
 - 📡 **Mosquitto** – MQTT broker
 - 🧠 **Zigbee2MQTT** – Zigbee network manager and bridge
+- 🗄️ **MariaDB** – Home Assistant's recorder database
+- 🎬 **Plex** – media server
+- 🔋 **Predbat** – battery planner (sandboxed trial)
 
 ---
 
@@ -52,6 +55,11 @@ It includes:
 | Home Assistant  | Main dashboard and automations   | http://farmington:8123          |
 | Mosquitto MQTT  | MQTT broker for Zigbee and HA     | MQTT on `farmington:1883`       |
 | Zigbee2MQTT     | Zigbee device controller + UI    | http://farmington:8080          |
+| MariaDB         | Recorder database                | port `3307`                     |
+| Plex            | Media server                     | port `32400`                    |
+| Predbat         | Battery planner (read-only trial) | host network                   |
+
+The MariaDB passwords come from a git-ignored `.env` next to the compose file. Copy `.env.example` to `.env` and fill it in before `docker compose up`.
 
 ---
 

@@ -12,6 +12,22 @@ services:
       - /run/dbus:/run/dbus:ro
     depends_on:
       - mosquitto
+      - mariadb
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:11.4
+    restart: unless-stopped
+    ports:
+      - 3307:3306
+    environment:
+      - TZ=Europe/London
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=homeassistant
+      - MARIADB_USER=hass
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    volumes:
+      - /home/hauser/mariadb/data:/var/lib/mysql
 
   mosquitto:
     container_name: mosquitto
@@ -39,3 +55,36 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - mosquitto
+
+  plex:
+    container_name: plex
+    image: plexinc/pms-docker:latest
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=Europe/London
+      - PLEX_UID=1001
+      - PLEX_GID=1001
+    volumes:
+      - /home/hauser/plex/config:/config
+      - /home/hauser/plex/transcode:/transcode
+      - /mnt/nas-videos:/media/movies:ro
+      - /mnt/nas-tv:/media/tv:ro
+      - /mnt/nas-music:/media/music:ro
+      - /mnt/nas-music-byartist:/media/music-byartist:ro
+      - /mnt/nas-music-compilations:/media/music-compilations:ro
+
+  # Predbat battery planner - SANDBOXED read-only trial (kanban #1061)
+  # apps.yaml routes all controls to input_*.predbat_sandbox_* helpers, never the inverter
+  predbat:
+    container_name: predbat
+    image: nipar44/predbat_addon:latest
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TZ=Europe/London
+    volumes:
+      - /home/hauser/predbat:/config:rw
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - homeassistant
