@@ -4,6 +4,8 @@ set -e
 BACKUP_DIR="/home/hauser/backups"
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
+cd /home/hauser
+
 # Ensure all files to be backed up are readable by cronjob
 find mosquitto zigbee2mqtt-data -type d -exec chmod o+rx {} +
 find mosquitto zigbee2mqtt-data -type f -exec chmod o+r {} +
