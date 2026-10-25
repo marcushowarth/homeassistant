@@ -2817,7 +2817,7 @@
 - id: d0e45d10-e1ad-4a82-aaa4-15969200914b
   alias: 'Sensors: Weekly battery report'
   description: '#1035 — weekly email listing sensor battery levels (Zigbee temp/motion,
-    Tasmota bridge, Wiser RoomStat), flagging any below input_number.sensor_battery_low_threshold
+    Tasmota bridge, Cosy Pod), flagging any below input_number.sensor_battery_low_threshold
     or not reporting. Excludes the robot vacuum.'
   mode: single
   triggers:
