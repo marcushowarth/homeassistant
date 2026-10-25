@@ -2867,7 +2867,8 @@
         {% endfor %}
 
         Threshold: {{ threshold }}% (input_number.sensor_battery_low_threshold)'
-- alias: 'Energy: Free electricity slot (armed)'
+- id: 0259eac2-47b8-493e-8bf5-2d96f0e16e3f
+  alias: 'Energy: Free electricity slot (armed)'
   description: 'Runs an armed free electricity slot set on the Battery & Tariffs →
     FREE ELECTRICITY tab (#801). Night before: cap Max SoC ECO at the pre-slot target.
     Before the slot: Force Discharge down to the target (lead time from SoC, 13.75
@@ -3096,14 +3097,9 @@
             Grid Consumption now = {{ states(''sensor.workshop_grid_consumption_energy_today'')
             }} kWh. Free kWh (workshop meter): {{ states(''sensor.grid_consumption_workshop_free'')
             }}. Slot disarmed, tariff back to {{ states(''select.grid_consumption_workshop'')
-            }}.
-
-
-            If ''Grid Consumption Workshop free'' isn''t in the Energy dashboard yet,
-            add it now at a fixed £0.'
+            }}.'
   mode: queued
   max: 10
-  id: 0259eac2-47b8-493e-8bf5-2d96f0e16e3f
 - alias: 'Schedules: Office Fan (Manual change holds automation)'
   description: When switch_office_light changes to something the fan automation didn't
     send (wall switch or app), turn on office_fan_manual_hold so the automation leaves
