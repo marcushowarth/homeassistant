@@ -83,3 +83,10 @@ docker compose pull
 
 # Restart a single service
 docker compose restart zigbee2mqtt
+```
+
+## 💾 Backups and restore
+
+Nightly on the host: `backupDB.sh` (MariaDB dump, 02:00), `backupZigbee.sh` (zigbee2mqtt and Mosquitto tarballs, root's crontab, 01:00), `backupClean.sh`, then `rsyncBackupsToFREENAS.sh` and `pruneFREENASBackups.py` (retention on FREENAS). HA's own automatic backup runs weekly and covers all of `/config`.
+
+HA's backups are **encrypted**. To read one without starting HA, for example in a restore drill, `decryptHABackup.py` unpacks it in a throwaway HA container with no network, prompting for the key from the emergency kit (usage at the top of the script).
