@@ -81,6 +81,10 @@ services:
     image: nipar44/predbat_addon:latest
     restart: unless-stopped
     network_mode: host
+    # Wait for HA to answer before starting Predbat: after a reboot Docker starts
+    # every container at once (depends_on is ignored then), and Predbat doesn't
+    # retry its HA connection (#1091). Only Predbat waits; HA never waits on it.
+    entrypoint: ["sh", "-c", 'until python3 -c "import urllib.request; urllib.request.urlopen(''http://127.0.0.1:8123/manifest.json'', timeout=3)" 2>/dev/null; do echo "predbat: waiting for Home Assistant"; sleep 5; done; exec sh /addon/run.standalone.sh']
     environment:
       - TZ=Europe/London
     volumes:
