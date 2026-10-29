@@ -87,6 +87,15 @@ docker compose restart zigbee2mqtt
 
 ## 💾 Backups and restore
 
-Nightly on the host: `backupDB.sh` (MariaDB dump, 02:00), `backupZigbee.sh` (zigbee2mqtt and Mosquitto tarballs, root's crontab, 01:00), `backupClean.sh`, then `rsyncBackupsToFREENAS.sh` and `pruneFREENASBackups.py` (retention on FREENAS). HA's own automatic backup runs weekly and covers all of `/config`.
+Nightly on the host: `backupDB.sh` (MariaDB dump, 02:00, run inside the `mariadb` container so the host needs no MariaDB client; it exits with an error if the dump is under 1 MB), `backupZigbee.sh` (zigbee2mqtt and Mosquitto tarballs, root's crontab, 01:00), `backupClean.sh`, then `rsyncBackupsToFREENAS.sh` and `pruneFREENASBackups.py` (retention on FREENAS). HA's own automatic backup runs weekly and covers all of `/config`.
 
 HA's backups are **encrypted**. To read one without starting HA, for example in a restore drill, `decryptHABackup.py` unpacks it in a throwaway HA container with no network, prompting for the key from the emergency kit (usage at the top of the script).
+
+To restore a dump into a fresh MariaDB (empty `mariadb/data`; the container creates the database and `hass` user from `.env`):
+
+```bash
+docker compose up -d mariadb
+zcat homeassistant_backup_<date>.sql.gz | docker exec -i mariadb sh -c 'mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" homeassistant'
+```
+
+The full rebuild steps, as tested in the October 2026 move to new hardware, are on the private wiki page "FARMINGTON Disaster Recovery".
